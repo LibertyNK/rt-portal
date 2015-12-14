@@ -8,7 +8,7 @@ module.exports = {
   	mongo: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/ReactWebpackNode',
   	postgres: {
       uri: process.env.DATABASE_URL,
-      name: 'ReactWebpackNode',
+      name: 'LinkReactNode',
       username: process.env.PGUSER || 'root',
       password: 'password'
     }
