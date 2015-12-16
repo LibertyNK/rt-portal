@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var User = require('../../models/user');
+// var User = require('../../models/user');
+var User = require('../../models/user-sequelize');
 var secrets = require('../secrets');
 
 /*

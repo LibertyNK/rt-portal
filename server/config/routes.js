@@ -3,7 +3,8 @@
  */
 var express = require('express');
 var topics = require('../controllers/topics');
-var users = require('../controllers/users');
+// var users = require('../controllers/users');
+var users = require('../controllers/users-sequelize');
 var notes = require('../controllers/notes');
 var mongoose = require('mongoose');
 var _ = require('lodash');

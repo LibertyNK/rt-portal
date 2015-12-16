@@ -5,7 +5,8 @@
 
 var mongoose = require('mongoose');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('../../models/user');
+// var User = require('../../models/user');
+var User = require('../../models/user-sequelize');
 
 /*
  By default, LocalStrategy expects to find credentials in parameters named username and password.

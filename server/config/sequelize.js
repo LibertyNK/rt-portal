@@ -1,6 +1,7 @@
 var Sequelize = require('sequelize');
 var secrets = require('./secrets');
 var sequelize;
+
 /*
  * Refer to http://sequelize.readthedocs.org/en/latest/api/sequelize/ for the sequelize API
  * The entry point to sequelize is by importing 
