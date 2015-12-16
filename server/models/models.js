@@ -1,5 +1,5 @@
 var UserMeta = require('./User.js'),
-    connection = require('../sequelize.js')
+    connection = require('../config/sequelize.js')
 
 var User = connection.define('users', UserMeta.attributes, UserMeta.options)
 

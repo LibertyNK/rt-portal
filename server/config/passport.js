@@ -1,40 +1,49 @@
-/* Initializing passport.js */
-var User = require('../models/user-sequelize');
-var local = require('./passport/local');
-var google = require('./passport/google');
+var passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
+    bcrypt = require('bcrypt'),
+    Model = require('../models/models.js')
 
-/*
- * Expose
- */
-module.exports = function(app, passport, config) {
-  // serialize sessions
-  // passport.serializeUser(function(user, done) {
-  //   console.log(user.id + " serializing");
-  //   done(null, user.id);
-  // });
+module.exports = function(app) {
+  app.use(passport.initialize())
+  app.use(passport.session())
 
-  // passport.deserializeUser(function(id, done) {
-  //   console.log(id + " de-serializing");
-  //   // Sequelize uses a modified version of Bluebird library which doesn't use 'success' but 'then'
-  //   User.find(id).then(
-  //     function(user){ done(null, user) },
-  //     function(err){ done(err, null) }
-  //   );
-  // });
-  
-  // Use this version if findbyid is defined (i.e. Mongoose model)
-  // passport.deserializeUser(function(id, done) {
-  //     User.findById(id, function(err, user) {
-  //         done(err, user);
-  //     });
-  // });
+  passport.use(new LocalStrategy(
+    function(username, password, done) {
+      Model.User.findOne({
+        where: {
+          'username': username
+        }
+      }).then(function (user) {
+        if (user == null) {
+          return done(null, false, { message: 'Incorrect credentials.' })
+        }
+        
+        var hashedPassword = bcrypt.hashSync(password, user.salt)
+        
+        if (user.password === hashedPassword) {
+          return done(null, user)
+        }
+        
+        return done(null, false, { message: 'Incorrect credentials.' })
+      })
+    }
+  ))
 
-  // Passport-local-sequelize way of de/serializing
-  passport.serializeUser(User.serializeUser());
-  passport.deserializeUser(User.deserializeUser());
+  passport.serializeUser(function(user, done) {
+    done(null, user.id)
+  })
 
-  //use the following strategies
-  passport.use(User.createStrategy());
-  // passport.use(local);
-  passport.use(google);
-};
+  passport.deserializeUser(function(id, done) {
+    Model.User.findOne({
+      where: {
+        'id': id
+      }
+    }).then(function (user) {
+      if (user == null) {
+        done(new Error('Wrong user id.'))
+      }
+      
+      done(null, user)
+    })
+  })
+}
