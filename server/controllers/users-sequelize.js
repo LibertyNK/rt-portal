@@ -7,7 +7,6 @@ var passport = require('passport');
  */
 exports.postLogin = function(req, res, next) {
   // Do email and password validation for the server
-  console.log("Logging in? " + req);
 	passport.authenticate('local', function(err, user, info) {
     if(err) {
     	console.log("Error authenticating!");
@@ -18,12 +17,14 @@ exports.postLogin = function(req, res, next) {
       req.flash('errors', {msg: info.message});
     }
     // Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session
-    req.logIn(user, function(err) {
-    	console.log("User logging in/...");
-      if(err) return next(err);
-      req.flash('success', { msg: 'Success! You are logged in'});
-      res.end('Success');
-    });
+    else {
+	    	req.logIn(user, function(err) {
+	    	console.log("User logging in/...");
+	      if(err) return next(err);
+	      req.flash('success', { msg: 'Success! You are logged in'});
+	      res.end('Success');
+	    });
+    }
 	})(req, res, next);
 };
 
@@ -46,19 +47,15 @@ exports.postSignUp = function(req, res, next) {
     email: req.body.email,
     password: req.body.password
   });
-
-  User.findOne({email: req.body.email}, function(err, existingUser) {
-    if(existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists' });
-    }
-    user.save(function(err) {
-      if(err) return next(err);
-      req.logIn(user, function(err) {
-        if(err) return next(err);
-        console.log('Successfully created');
-        res.end('Success');
-      });
-    });
-  });
+  
+  User.find({where: {username: req.body.email}}).success(function(user) {
+  	if(!user) {
+  		User.create({email: user.body.email, password: user.body.password}).error(function(err){
+  			console.log(err);
+  		})
+  	} else {
+  		if(err) return next(err);
+  	}
+  })
 };
 
