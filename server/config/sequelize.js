@@ -1,7 +1,7 @@
-var Sequelize = require('sequelize');
-var secrets = require('./secrets');
+var Sequelize = require('sequelize')
+var secrets = require('./secrets')
+var sequelize
 
-var sequelize;
 /*
  * Refer to http://sequelize.readthedocs.org/en/latest/api/sequelize/ for the sequelize API
  * The entry point to sequelize is by importing 
@@ -31,15 +31,11 @@ if(secrets.db.postgres.uri) {
                             });
 }
 
-sequelize
-  .authenticate()
+sequelize.authenticate()
   .then(function(err) {
     console.log('Successfully connected to postgres');
   }, function (err) {
     console.log('Unable to connect to the postgres database:', err);
   });
-  
-  
-// sequelize = new Sequelize('postgres://root:password@localhost:5432/LinkReactNode')
 
 module.exports = sequelize

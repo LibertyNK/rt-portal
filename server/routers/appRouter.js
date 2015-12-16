@@ -1,5 +1,5 @@
-var passport = require('passport'),
-    signupController = require('../controllers/userController.js')
+var passport = require('passport')
+var userController = require('../controllers/userController.js')
 
 module.exports = function(express) {
   var router = express.Router()
@@ -11,8 +11,8 @@ module.exports = function(express) {
     res.redirect('/')
   }
   
-  router.get('/signup', signupController.show)
-  router.post('/signup', signupController.signup)
+  router.get('/signup', userController.show)
+  router.post('/signup', userController.signup)
 
   router.post('/login', passport.authenticate('local', {
       successRedirect: '/dashboard',
