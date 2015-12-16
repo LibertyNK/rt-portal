@@ -8,11 +8,7 @@ var attributes = {
   },
   eventname: {
     type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      is: /^[a-z0-9\_\-]+$/i,
-    }
+    allowNull: false
   },
   about: {
     type: Sequelize.TEXT,

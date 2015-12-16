@@ -10,9 +10,9 @@ var attributes = {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
-    validate: {
-      is: /^[a-z0-9\_\-]+$/i,
-    }
+    // validate: {
+    //   is: /^[a-z0-9\_\-]+$/i,
+    // }
   },
   about: {
     type: Sequelize.TEXT,

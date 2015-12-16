@@ -6,13 +6,9 @@ var attributes = {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true
   },
-  campaign_name: {
+  campaignname: {
     type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      is: /^[a-z0-9\_\-]+$/i,
-    }
+    allowNull: false
   },
   about: {
     type: Sequelize.TEXT,
@@ -28,7 +24,7 @@ var attributes = {
   },
   date_end: {
   	type: Sequelize.DATE,
-  }
+  },
   ending_message: {
     type: Sequelize.TEXT,
   },
