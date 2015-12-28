@@ -29,7 +29,7 @@ var xml2js = require('xml2js');
 var _ = require('underscore');
 var routes = require('./app/routes');
 
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 8000
 
 app.use(cookieParser())
 app.use(session({ secret: '4564f6s4fdsfdfd', resave: false, saveUninitialized: false }))
