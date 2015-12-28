@@ -22,7 +22,7 @@ class SignUpActions {
 		})
 		.done((data) => {
 			this.actions.signUpSuccess(data.message);
-			console.log('success');
+			console.log('success ' + data.message);
 		})
 		.fail((jqXhr) => {
 			this.actions.signUpFail(jqXhr.responseJSON.message);

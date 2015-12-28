@@ -30,11 +30,11 @@ class SignUp extends React.Component {
 		var password = this.state.password;
 
 		if (!username) {
-			this.refs.username.getDOMNode().focus();
+			this.refs.username.focus();
 		}
 
 		if (!password) {
-			this.refs.password.getDOMNode().focus();
+			this.refs.password.focus();
 		}
 
 		if (username && password) {

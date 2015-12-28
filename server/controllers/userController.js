@@ -5,15 +5,16 @@ var Model = require('../models/models.js')
 //   res.render('signup')
 // }
 
-module.exports.signup = function(req, res) {
+module.exports.signup = function(req, res, next) {
+
   var username = req.body.username
   var password = req.body.password
   var password2 = req.body.password2
   
-  if (!username || !password || !password2) {
-    req.flash('error', "Please, fill in all the fields.")
-    res.redirect('signup')
-  }
+  // if (!username || !password || !password2) {
+  //   req.flash('error', "Please, fill in all the fields.")
+  //   res.redirect('signup')
+  // }
   
   // if (password !== password2) {
   //   req.flash('error', "Please, enter the same password twice.")
@@ -29,11 +30,15 @@ module.exports.signup = function(req, res) {
     password: hashedPassword
   }
   
-  Model.User.create(newUser).then(function() {
-    req.flash('error', "Account successfully created! Please login with your username and password.")
-    res.redirect('/')
+  Model.User.create(newUser, function (err) {
+    if (err) return next(err);
+    // req.flash('error', "Account successfully created! Please login with your username and password.")
+    // res.redirect('/')
+    res.send({ message: "Account successfully created!" });
+ 
   }).catch(function(error) {
-    req.flash('error', "Please, choose a different username.")
-    res.redirect('/signup')
+    // req.flash('error', "Please, choose a different username.")
+    // res.redirect('/signup')
+
   })
 }
