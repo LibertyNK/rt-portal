@@ -13,6 +13,7 @@ import AllEvents from './components/AllEvents';
 import Refugee from './components/Refugee';
 import AllRefugees from './components/AllRefugees';
 import Dashboard from './components/Dashboard';
+import Profile from './components/Profile';
 import NewTeamForm from './components/NewTeamForm';
 
 export default (
@@ -29,6 +30,7 @@ export default (
 	    <Route path='/refugee' component={Refugee} />
 	    <Route path='/all_refugees' component={AllRefugees} />
 	    <Route path='/dashboard' component={Dashboard} />
+	    <Route path='/profile' component={Profile} />
 	    <Route path='/new_team' component={NewTeamForm} />
  	</Route>
 );

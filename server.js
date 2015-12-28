@@ -4,7 +4,6 @@ require('babel-register');
 var path = require('path');
 var express = require('express'),
     app = express(),
-    setupHandlebars  = require('./server/config/handlebars.js')(app),
     setupPassport = require('./server/config/passport'),
     flash = require('connect-flash'),
     appRouter = require('./server/routers/appRouter.js')(express),
