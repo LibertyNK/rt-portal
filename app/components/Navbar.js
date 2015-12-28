@@ -12,23 +12,6 @@ class Navbar extends React.Component {
 
   componentDidMount() {
     NavbarStore.listen(this.onChange);
-    NavbarActions.getCharacterCount();
-
-    let socket = io.connect();
-
-    socket.on('onlineUsers', (data) => {
-      NavbarActions.updateOnlineUsers(data);
-    });
-
-    $(document).ajaxStart(() => {
-      NavbarActions.updateAjaxAnimation('fadeIn');
-    });
-
-    $(document).ajaxComplete(() => {
-      setTimeout(() => {
-        NavbarActions.updateAjaxAnimation('fadeOut');
-      }, 750);
-    });
   }
 
   componentWillUnmount() {
@@ -37,20 +20,6 @@ class Navbar extends React.Component {
 
   onChange(state) {
     this.setState(state);
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    let searchQuery = this.state.searchQuery.trim();
-
-    if (searchQuery) {
-      NavbarActions.findTeam({
-        searchQuery: searchQuery,
-        searchForm: this.refs.searchForm,
-        history: this.props.history
-      });
-    }
   }
 
   render() {
@@ -69,13 +38,12 @@ class Navbar extends React.Component {
         </div>
         <div id='navbar' className='navbar-collapse collapse'>
           <ul className='nav navbar-nav pull-right'>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/stats'>Teams</Link></li>
             <li className='dropdown'>
-              <a href='#' className='dropdown-toggle' data-toggle='dropdown'>Events<span className='caret'></span></a>
-            </li> 
+              <a href='#' className='dropdown-toggle' data-toggle='dropdown'>Main Site<span className='caret'></span></a>
+            </li>  
             <li><Link to='/login'>Log In</Link></li>
             <li><Link to='/signup'>Sign Up</Link></li>
+            <li><Link to='/signup'>About</Link></li>
           </ul>
         </div>
       </nav>

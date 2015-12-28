@@ -25,7 +25,7 @@ class Footer extends React.Component {
   render() {
 
     return (
-      <footer className='alert alert-success'>
+      <footer className='footer'>
         <div className='container'>
           <div className='row'>
             <div className='col-sm-3'>
