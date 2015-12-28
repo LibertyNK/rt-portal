@@ -11,7 +11,7 @@ var express = require('express'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    jsonParser = bodyParser.json()
+    jsonParser = bodyParser.json();
 
 var bodyParser = require('body-parser');
 var compression = require('compression');
@@ -28,8 +28,6 @@ var swig  = require('swig');
 var xml2js = require('xml2js');
 var _ = require('underscore');
 var routes = require('./app/routes');
-
-var port = process.env.PORT || 8000
 
 app.use(cookieParser())
 app.use(session({ secret: '4564f6s4fdsfdfd', resave: false, saveUninitialized: false }))
@@ -73,28 +71,11 @@ app.use(function(req, res) {
 });
 
 // start app
-app.listen(port)
-console.log('Server started on port ' + port)
+app.set('port', process.env.PORT || 8000);
 
-module.exports.getApp = app
-
-
-
-
-// var express = require('express');
-
-
-// var app = express();
-
-// app.set('port', process.env.PORT || 8000);
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-
-
-// app.listen(app.get('port'), function() {
-//   console.log('Express server listening on port ' + app.get('port'));
-// });
+app.listen(app.get('port'), function() {
+  console.log('Express server listening on port ' + app.get('port'));
+});
 
 
 
