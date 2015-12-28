@@ -2,12 +2,25 @@
 @import '../../bower_components/toastr/toastr';
 @import (less) '../../bower_components/magnific-popup/dist/magnific-popup.css';
 
+body {
+	font-size: 16px;
+	line-height: 1.75em;
+}
 
+a:hover {
+	text-decoration: none;
+}
+.navbar, .red-btn {
+	background-color: #df5051;
+}
+.navbar-default .navbar-nav li a, .navbar-default .navbar-brand, .red-btn a  {
+    color: white;
+}
 .title, .description, .team-actions {
 	padding: 20px 100px;
 }
 .description p {
-	padding-top: 20px;
+	padding-top: 30px;
 	padding-bottom: 100px;
 }
 .team-actions {
@@ -15,8 +28,11 @@
 	color: white;
 	height: 200px;
 }
+.team-actions a {
+	color: white;
+}
 .stats, .refugees, .goals, .events, .search, .update {
-	padding: 40px;
+	padding: 40px auto 60px auto;
 	height: 300px;
 	border-bottom: 1px solid silver;
 }
@@ -28,4 +44,15 @@
 }
 .title h1 {
 	font-size: 5em;
+}
+
+h2 {
+	color: #b7d57e;
+	margin-bottom: 60px;
+}
+.red-btn a {
+	padding: 20px;
+}
+.btn {
+	margin-top: 30px;
 }
