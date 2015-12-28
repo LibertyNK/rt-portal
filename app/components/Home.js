@@ -35,6 +35,39 @@ class Home extends React.Component {
         			<p>Coffee ipsum</p>
         		</div>
         	</div>
+        	<div className='refugees'>
+        		<h2 className='text-center'>Refugees recently rescued</h2>
+        		<div className='col-sm-3'>
+	        		<h5>Hae Won</h5>
+	        		<p>Lorem ipsum</p>
+        		</div>
+        		<div className='col-sm-3'>
+	        		<h5>Hae Won</h5>
+	        		<p>Lorem ipsum</p>
+        		</div>
+        		<div className='col-sm-3'>
+	        		<h5>Hae Won</h5>
+	        		<p>Lorem ipsum</p>
+        		</div>
+        		<div className='col-sm-3'>
+	        		<h5>Hae Won</h5>
+	        		<p>Lorem ipsum</p>
+        		</div>
+        	</div>
+        	<div className='goals'>
+        		<h2 className='text-center'>Our goal this spring is to raise $300,000</h2>
+    		</div>
+    		<div className='events'>
+        		<h2 className='text-center'>Upcoming Events</h2>
+    		</div>
+    		<div className='search text-center'>
+        		<h2 className='text-center'>Find Team</h2>
+        		<p>Search form</p>
+        		<p>Map goes here</p>
+    		</div>
+    		<div className='updates'>
+        		<h2 className='text-center'>Campaign Updates</h2>
+    		</div>
         </div>
     );
   }
