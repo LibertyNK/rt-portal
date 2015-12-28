@@ -48,9 +48,9 @@ app.use(compression());
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// setupPassport(app)
+setupPassport(app)
 
-// app.use('/', appRouter)
+app.use('/', appRouter)
 
 
 app.use(function(req, res) {

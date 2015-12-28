@@ -11,8 +11,8 @@ module.exports = function(express) {
     res.redirect('/')
   }
   
-  router.get('/signup', userController.show)
-  router.post('/signup', userController.signup)
+  // router.get('/signup', userController.show)
+  // router.post('/signup', userController.signup)
 
   router.post('/login', passport.authenticate('local', {
       successRedirect: '/dashboard',
@@ -20,18 +20,18 @@ module.exports = function(express) {
       failureFlash: true 
   }))
 
-  router.get('/', function(req, res) {
-    res.render('home')
-  })
+  // router.get('/', function(req, res) {
+  //   res.render('home')
+  // })
 
   router.get('/dashboard', isAuthenticated, function(req, res) {
-    res.render('dashboard')
+    // res.render('dashboard')
   })
 
   router.get('/logout', function(req, res) {
-    req.logout()
-    res.redirect('/')
+    // req.logout()
+    // res.redirect('/')
   })
 
-  return router
+  return router;
 }
