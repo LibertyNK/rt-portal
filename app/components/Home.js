@@ -18,7 +18,7 @@ class Home extends React.Component {
         			<h3 className='text-center'><Link to='/add_team'>Start a team</Link></h3>
         		</div>
         		<div className='col-sm-6'>
-        			<h3 className='text-center'><Link to='/join_team'>Join a team</Link></h3>
+        			<h3 className='text-center'><Link to='/all_teams'>Join a team</Link></h3>
         		</div>
         	</div>
         	<div className='stats'>
@@ -26,17 +26,17 @@ class Home extends React.Component {
         		<div className='col-sm-4 text-center'>
         			<h3 className=''>$1,873,203</h3>
         			<p>Coffee ipsum</p>
-        			<button className='btn btn-large red-btn'><Link to='/donate'>You can help</Link></button>
+        			<button className='btn btn-large red-btn'><Link to='/add_team'>You can help</Link></button>
         		</div>
         		<div className='col-sm-4 text-center'>
         			<h3 className=''>489</h3>
         			<p>Coffee ipsum</p>
-        			<button className='btn btn-large red-btn'><Link to='/teams'>See these teams</Link></button>
+        			<button className='btn btn-large red-btn'><Link to='/all_teams'>See these teams</Link></button>
         		</div>
         		<div className='col-sm-4 text-center'>
         			<h3 className=''>189</h3>
         			<p>Coffee ipsum</p>
-        			<button className='btn btn-large red-btn'><Link to='/refugees'>Read their stories</Link></button>
+        			<button className='btn btn-large red-btn'><Link to='/all_refugees'>Read their stories</Link></button>
         		</div>
         	</div>
         	<div className='refugees text-center'>
@@ -44,24 +44,24 @@ class Home extends React.Component {
         		<div className='col-sm-3'>
 	        		<h5>Hae Won</h5>
 	        		<p>Lorem ipsum</p>
-	        		<button className='btn btn-md red-btn'><Link to='/refugees'>Read Story</Link></button>
+	        		<button className='btn btn-md red-btn'><Link to='/refugee'>Read Story</Link></button>
         		</div>
         		<div className='col-sm-3'>
 	        		<h5>Hae Won</h5>
 	        		<p>Lorem ipsum</p>
-	        		<button className='btn btn-md red-btn'><Link to='/refugees'>Read Story</Link></button>
+	        		<button className='btn btn-md red-btn'><Link to='/refugee'>Read Story</Link></button>
         		</div>
         		<div className='col-sm-3'>
 	        		<h5>Hae Won</h5>
 	        		<p>Lorem ipsum</p>
-	        		<button className='btn btn-md red-btn'><Link to='/refugees'>Read Story</Link></button>
+	        		<button className='btn btn-md red-btn'><Link to='/refugee'>Read Story</Link></button>
         		</div>
         		<div className='col-sm-3'>
 	        		<h5>Hae Won</h5>
 	        		<p>Lorem ipsum</p>
-	        		<button className='btn btn-md red-btn'><Link to='/refugees'>Read Story</Link></button>
+	        		<button className='btn btn-md red-btn'><Link to='/refugee'>Read Story</Link></button>
         		</div>
-        		<button className='btn btn-large red-btn'><Link to='/refugees'>See all refugees</Link></button>
+        		<button className='btn btn-large red-btn'><Link to='/all_refugees'>See all refugees</Link></button>
         	</div>
         	<div className='goals text-center'>
         		<h2>Our goal this spring is to raise $300,000</h2>
@@ -69,7 +69,7 @@ class Home extends React.Component {
     		</div>
     		<div className='events text-center'>
         		<h2>Upcoming Events</h2>
-        		<button className='btn btn-large red-btn'><Link to='/events'>See full calendar</Link></button>
+        		<button className='btn btn-large red-btn'><Link to='/all_events'>See full calendar</Link></button>
     		</div>
     		<div className='search text-center'>
         		<h2>Find Team</h2>
@@ -78,7 +78,7 @@ class Home extends React.Component {
     		</div>
     		<div className='updates text-center'>
         		<h2>Campaign Updates</h2>
-        		<button className='btn btn-large red-btn'><Link to='/events'>Do something</Link></button>
+        		<button className='btn btn-large red-btn'><Link to='/all_events'>Do something</Link></button>
     		</div>
         </div>
     );

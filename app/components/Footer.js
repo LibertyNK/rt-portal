@@ -27,19 +27,8 @@ class Footer extends React.Component {
     return (
       <footer className='footer'>
         <div className='container'>
-          <div className='row'>
-            <div className='col-sm-3'>
-              <p>Footer Links</p>
-            </div>
-            <div className='col-sm-3'>
-              <p>Footer Links</p>
-            </div>
-            <div className='col-sm-3'>
-              <p>Footer Links</p>
-            </div>
-            <div className='col-sm-3'>
-              <p>Footer Links</p>
-            </div>
+          <div className='text-center'>
+            Footer
           </div>
         </div>
       </footer>
