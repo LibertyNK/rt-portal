@@ -12,7 +12,7 @@ module.exports = function(express) {
   }
   
   // router.get('/signup', userController.show)
-  // router.post('/signup', userController.signup)
+  router.post('/signup', userController.signup)
 
   router.post('/login', passport.authenticate('local', {
       successRedirect: '/dashboard',

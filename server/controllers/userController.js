@@ -1,9 +1,9 @@
 var bcrypt = require('bcrypt')
 var Model = require('../models/models.js')
 
-module.exports.show = function(req, res) {
-  res.render('signup')
-}
+// module.exports.show = function(req, res) {
+//   res.render('signup')
+// }
 
 module.exports.signup = function(req, res) {
   var username = req.body.username
@@ -15,10 +15,10 @@ module.exports.signup = function(req, res) {
     res.redirect('signup')
   }
   
-  if (password !== password2) {
-    req.flash('error', "Please, enter the same password twice.")
-    res.redirect('signup')
-  }
+  // if (password !== password2) {
+  //   req.flash('error', "Please, enter the same password twice.")
+  //   res.redirect('signup')
+  // }
   
   var salt = bcrypt.genSaltSync(10)
   var hashedPassword = bcrypt.hashSync(password, salt)
