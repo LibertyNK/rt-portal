@@ -12,7 +12,6 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     jsonParser = bodyParser.json();
 
-var bodyParser = require('body-parser');
 var compression = require('compression');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -26,6 +25,7 @@ var Router = require('react-router');
 var swig  = require('swig');
 var xml2js = require('xml2js');
 var _ = require('underscore');
+
 var routes = require('./app/routes');
 
 app.use(cookieParser())
