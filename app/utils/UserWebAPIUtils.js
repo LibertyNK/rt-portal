@@ -25,5 +25,12 @@ module.exports = {
       type: 'POST',
       data: data
     });
+  },
+  
+  displayDashboard: function() {
+    return $.ajax({
+      url: '/dashboard',
+      type: 'GET'
+    })
   }
 };
