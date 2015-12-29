@@ -26,21 +26,23 @@ class LogIn extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 
-		var email = this.state.email;
+		var username = this.state.username;
     	var password = this.state.password;
 
-		if (!email) {
-			// LogInActions.invalidEmail();
-			this.refs.email.focus();
+    	console.log(username);
+
+		if (!username) {
+			// LogInActions.invalidUsername();
+			this.refs.username.focus();
 		}
 
 		if (!password) {
 			// LogInActions.invalidPassword();
 		}
 
-		if (email && password) {
-			// LogInActions.logIn(email, password);
-			console.log('has email and password ' + email);
+		if (username && password) {
+			LogInActions.logIn(username, password);
+			
 		}
 	}
 
@@ -52,14 +54,14 @@ class LogIn extends React.Component {
 					<h3 className='text-center'>Log In</h3>
 					<form onSubmit={this.handleSubmit.bind(this)}>
 						<div className='form-group'>
-							<label className='control-label'>Email</label>
-							<input type='text' className='form-control' ref="email" autoFocus />
+							<label className='control-label'>Username</label>
+							<input type='text' className='form-control' ref="username"  onChange={LogInActions.updateUsername} />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Password</label>
 							<input type='password' className='form-control' ref="password" onChange={LogInActions.updatePassword} />
 						</div>
-						<button type='submit' className='btn btn-lg btn-primary'>Submit</button>
+						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Submit</button></p>
 					</form>
 				</div>
 			</div>

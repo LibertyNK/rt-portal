@@ -18,7 +18,7 @@ class SignUpActions {
 		$.ajax({
 			type: 'POST',
 			url: '/signup',
-			data: { username: username, password, password }
+			data: { username: username, password : password }
 		})
 		.done((data) => {
 			this.actions.signUpSuccess(data.message);

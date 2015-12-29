@@ -59,7 +59,7 @@ class SignUp extends React.Component {
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Username</label>
-							<input type='text' className='form-control' ref="username" value={this.state.username} onChange={SignUpActions.updateUsername} />
+							<input type='text' className='form-control' ref="username"  onChange={SignUpActions.updateUsername} />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Email</label>
@@ -67,13 +67,13 @@ class SignUp extends React.Component {
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Password</label>
-							<input type='password' className='form-control' ref="password" value={this.state.password} onChange={SignUpActions.updatePassword}/>
+							<input type='password' className='form-control' ref="password"  onChange={SignUpActions.updatePassword}/>
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Password Confirmation</label>
 							<input type='password' className='form-control' ref="password2" />
 						</div>
-						<button type='submit' className='btn btn-lg btn-primary'>Submit</button>
+						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Submit</button></p>
 					</form>
 				</div>
 			</div>
