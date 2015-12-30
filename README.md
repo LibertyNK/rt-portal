@@ -5,6 +5,6 @@ Run `bower install`.
 
 Run `node setup.js`.
 
-Run `npm run watch` to auto recompile and restart server on port 8000.
+Run `gulp` in one Terminal window and `npm run watch` on another to auto recompile and restart server on port 8000.
 
-Run `gulp` after each change in CSS.
+
