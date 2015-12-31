@@ -46,11 +46,11 @@ class NewTeamForm extends React.Component {
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Tell us about your team</label>
-							<input type='text' className='form-control' ref="about" placeholder="About team" />
+							<textarea className='form-control' ref="about" placeholder="About team" />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>How much are you going to try to raise?</label>
-							<input type='text' className='form-control' ref="amount" placeholder="Enter amount" />
+							<input type='number' className='form-control' ref="amount" placeholder="Enter amount" />
 						</div>
 						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Submit</button></p>
 					</form>

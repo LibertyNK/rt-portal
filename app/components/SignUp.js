@@ -51,27 +51,27 @@ class SignUp extends React.Component {
 					<form onSubmit={this.handleSubmit.bind(this)}>						
 						<div className='form-group'>
 							<label className='control-label'>First Name</label>
-							<input type='text' className='form-control' ref="firstname" autoFocus />
+							<input type='text' className='form-control' ref="firstname" autoFocus required />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Last Name</label>
-							<input type='text' className='form-control' ref="lastname" />
+							<input type='text' className='form-control' ref="lastname" required />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Username</label>
-							<input type='text' className='form-control' ref="username"  onChange={SignUpActions.updateUsername} />
+							<input type='text' className='form-control' ref="username"  onChange={SignUpActions.updateUsername} required />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Email</label>
-							<input type='text' className='form-control' ref="email" />
+							<input type='text' className='form-control' ref="email" required />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Password</label>
-							<input type='password' className='form-control' ref="password"  onChange={SignUpActions.updatePassword}/>
+							<input type='password' className='form-control' ref="password"  onChange={SignUpActions.updatePassword} required />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Password Confirmation</label>
-							<input type='password' className='form-control' ref="password2" />
+							<input type='password' className='form-control' ref="password2" required />
 						</div>
 						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Submit</button></p>
 					</form>
