@@ -1,41 +1,65 @@
 import React from 'react';
 
 class NewTeamForm extends React.Component {
+	
 	render() {
 
 		return (
 			<div className='container signup'>
-				<div className='alert alert-success text-center'>
-					<p>New Teaam Form page</p>
-				</div>
 
-				<form >						
-					<div className='form-group'>
-						<label className='control-label'>First Name</label>
-						<input type='text' className='form-control' ref="firstname" autoFocus />
-					</div>
-					<div className='form-group'>
-						<label className='control-label'>Last Name</label>
-						<input type='text' className='form-control' ref="lastname" />
-					</div>
-					<div className='form-group'>
-						<label className='control-label'>Username</label>
-						<input type='text' className='form-control' ref="username"/>
-					</div>
-					<div className='form-group'>
-						<label className='control-label'>Email</label>
-						<input type='text' className='form-control' ref="email" />
-					</div>
-					<div className='form-group'>
-						<label className='control-label'>Password</label>
-						<input type='password' className='form-control' ref="password"  />
-					</div>
-					<div className='form-group'>
-						<label className='control-label'>Password Confirmation</label>
-						<input type='password' className='form-control' ref="password2" />
-					</div>
-					<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Submit</button></p>
-				</form>
+					<h4>New Team Form page</h4>
+
+					<p>This form would create a team page and a member page giving the member admin access to the Team page they created</p>
+
+				<div className='row'>
+					<form >	
+						<label className='control-label'>Team Name</label>	
+
+						<div className='form-group'>
+							<input type='text' className='form-control' ref="teamname" placeholder="Team Name" autoFocus />
+						</div>
+						<label className='control-label'>Team Address</label>	
+						<div className='form-group'>
+							<input type='text' className='form-control' ref="teamAddress" placeholder="Team Street Address"/>
+						</div>
+						<div className='form-group'>
+							<input type='text' className='form-control' ref="teamAddress_2" placeholder="Team Street Address #2"/>
+						</div>
+						<div className='form-group'>
+							<input type='text' className='form-control' ref="teamState" placeholder="State (etc: CA)"/>
+						</div>
+						<div className='form-group'>
+							<input type='text' className='form-control' ref="teamZip" placeholder="Zip (etc: 46514)"/>
+						</div>
+						<div className='form-group'>
+							<label className='control-label'>About Your Team</label>
+							<textarea type='text' className='form-control' ref="aboutTeam" ></textarea>
+						</div>
+						<label className='control-label'>About You</label>					
+						<div className='form-group'>
+
+							<input type='text' className='form-control' ref="firstname" placeholder="First Name" autoFocus />
+						</div>
+						<div className='form-group'>
+							<input type='text' className='form-control' ref="lastname" placeholder="Last Name" />
+						</div>
+						<div className='form-group'>
+							<input type='text' className='form-control' ref="username" placeholder="Username" />
+						</div>
+						<div className='form-group'>
+							<input type='text' className='form-control' ref="email" placeholder="Email" />
+						</div>
+						<div className='form-group'>
+							<input type='password' className='form-control' ref="password" placeholder="Password"  />
+						</div>
+						<div className='form-group'>
+							<input type='password' className='form-control' ref="password2" placeholder="Password Confirmation" />
+						</div>
+						
+						
+						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Create</button></p>
+					</form>
+				</div>
 			</div>
 		);
 	}
