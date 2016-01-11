@@ -48,6 +48,7 @@ class SignUp extends React.Component {
 			<div className='container signup'>
 				<div className='row'>
 					<h3 className='text-center'>Sign Up</h3>
+					<p>This form would create a member page and would then redirect them to their page when completed.</p>
 					<form onSubmit={this.handleSubmit.bind(this)}>						
 						<div className='form-group'>
 							<label className='control-label'>First Name</label>

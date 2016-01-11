@@ -9,7 +9,7 @@ class NewTeamForm extends React.Component {
 
 					<h4>New Team Form page</h4>
 
-					<p>This form would create a team page and a member page giving the member admin access to the Team page they created</p>
+					<p>This form would create a team page and a member page giving the member admin access to the Team page they created and then redirect them to their team page</p>
 
 				<div className='row'>
 					<form >	
