@@ -18,20 +18,20 @@ import NewTeamForm from './components/NewTeamForm';
 
 export default (
   	<Route component={App}>
-	    <Route path='/' component={Home} />
-	    <Route path='/add_team' component={AddTeam} />
-	    <Route path='/about' component={About} />
-	    <Route path='/login' component={LogIn} />
-	    <Route path='/signup' component={SignUp} />
-	    <Route path='/team' component={Team} />
-	    <Route path='/all_teams' component={AllTeams} />
-	    <Route path='/event' component={Event} />
-	    <Route path='/all_events' component={AllEvents} />
-	    <Route path='/refugee' component={Refugee} />
-	    <Route path='/all_refugees' component={AllRefugees} />
-	    <Route path='/dashboard' component={Dashboard} />
-	    <Route path='/profile' component={Profile} />
-	    <Route path='/new_team' component={NewTeamForm} />
+	   <Route path='/' component={Home} />
+	   <Route path='/add_team' component={AddTeam} />
+	   <Route path='/about' component={About} />
+	   <Route path='/login' component={LogIn} />
+	   <Route path='/signup' component={SignUp} />
+	   <Route path='/team' component={Team} />
+	   <Route path='/all_teams' component={AllTeams} />
+	   <Route path='/event' component={Event} />
+	   <Route path='/all_events' component={AllEvents} />
+	   <Route path='/refugee' component={Refugee} />
+	   <Route path='/all_refugees' component={AllRefugees} />
+	   <Route path='/dashboard' component={Dashboard} />
+	   <Route path='/profile' component={Profile} />
+	   <Route path='/new_team' component={NewTeamForm} />
  	</Route>
 );
 

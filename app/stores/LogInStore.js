@@ -4,12 +4,12 @@ import LogInActions from '../actions/LogInActions';
 class LogInStore {
   constructor() {
     this.bindActions(LogInActions);
-    this.email = '';
+    this.username = '';
     this.password = '';   
   }
 
-  onUpdateEmail(event) {
-  	this.email = event.target.value;
+  onUpdateUsername(event) {
+  	this.username = event.target.value;
   }
 
   onUpdatePassword(event) {

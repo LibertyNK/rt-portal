@@ -14,11 +14,11 @@ module.exports = function(express) {
   // router.get('/signup', userController.show)
   router.post('/signup', userController.signup);
 
-  // router.post('/login', passport.authenticate('local', {
-  //     successRedirect: '/dashboard',
-  //     failureRedirect: '/',
-  //     failureFlash: true 
-  // }))
+  router.post('/login', passport.authenticate('local', {
+      successRedirect: '/dashboard',
+      failureRedirect: '/',
+      failureFlash: true 
+  }))
 
   // router.get('/', function(req, res) {
   //   res.render('home')
