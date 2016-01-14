@@ -29,8 +29,8 @@ module.exports = function(express) {
   })
 
   router.get('/logout', function(req, res) {
-    // req.logout()
-    // res.redirect('/')
+    req.logout()
+    res.redirect('/')
   })
 
   return router;

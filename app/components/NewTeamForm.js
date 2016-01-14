@@ -1,6 +1,31 @@
 import React from 'react';
+import NewTeamFormActions from '../actions/NewTeamFormActions';
+import NewTeamFormStore from '../stores/NewTeamFormStore';
 
 class NewTeamForm extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = NewTeamFormStore.getState();
+		this.onChange = this.onChange.bind(this);
+	}
+
+	componentDidMount() {
+		NewTeamFormStore.listen(this.onChange);
+	}
+
+	componentWillUnmount(){
+		NewTeamFormStore.unlisten(this.onChange);
+	}
+
+	onChange(state) {
+		this.setState(state);
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+
+	}
 	
 	render() {
 
@@ -58,6 +83,7 @@ class NewTeamForm extends React.Component {
 						
 						
 						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Create</button></p>
+
 					</form>
 				</div>
 			</div>
