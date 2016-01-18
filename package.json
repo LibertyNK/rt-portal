@@ -2,7 +2,6 @@
   "name": "link-rt-portal",
   "version": "0.0.1",
   "description": "Rescue Teams Portal for Liberty in North Korea",
-  "main": "app.js",
   "author": "NLI",
   "main": "server.js",
   "scripts": {
@@ -62,6 +61,8 @@
     "gulp-uglify": "^1.4.2",
     "gulp-util": "^3.0.7",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.6.0"
+    "watchify": "^3.6.0",
+    "webpack": "^1.12.0",
+    "webpack-dev-server": "^1.12.0"
   }
 }

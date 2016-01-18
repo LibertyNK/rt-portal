@@ -1,35 +1,77 @@
 import React from 'react';
+import AddTeamActions from '../actions/AddTeamActions';
+import AddTeamStore from '../stores/AddTeamStore';
 
 class NewTeamForm extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = AddTeamStore.getState();
+		this.onChange = this.onChange.bind(this);
+	}
+
+	componentDidMount() {
+		AddTeamStore.listen(this.onChange);
+	}
+
+	componentWillUnmount() {
+		AddTeamStore.unlisten(this.onChange);
+	}
+
+	onChange(state) {
+		this.setState(state);
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+
+		// Need to register user first then use user information to asign them to team leader...?
+
+		var user = {
+							email: this.state.email.trim(),
+							password: this.state.password,
+							password_conf: this.state.password_conf,
+							first_name: this.state.first_name,
+							last_name: this.state.last_name
+		};
+
+		var team = {
+							name: this.state.name,
+							street: this.state.street,
+							address: this.state.address,
+							state: this.state.state,
+							zipcode: this.state.zipcode		
+		};
+	}
 	
 	render() {
 
 		return (
 			<div className='container signup'>
 
-					<h4>New Team Form page</h4>
+				<h4>New Team Form page</h4>
 
-					<p>This form would create a team page and a member page giving the member admin access to the Team page they created and then redirect them to their team page</p>
+				<p>This form would create a team page and a member page giving the member admin access to the Team page they created and then redirect them to their team page</p>
 
 				<div className='row'>
 					<form >	
 						<label className='control-label'>Team Name</label>	
 
 						<div className='form-group'>
-							<input type='text' className='form-control' ref="teamname" placeholder="Team Name" autoFocus />
+							<input type='text' className='form-control' ref="teamn_ame" placeholder="Team Name" autoFocus required/>
 						</div>
 						<label className='control-label'>Team Address</label>	
 						<div className='form-group'>
-							<input type='text' className='form-control' ref="teamAddress" placeholder="Team Street Address"/>
+							<input type='text' className='form-control' ref="street" placeholder="Team Street Address"/>
 						</div>
 						<div className='form-group'>
-							<input type='text' className='form-control' ref="teamAddress_2" placeholder="Team Street Address #2"/>
+							<input type='text' className='form-control' ref="address" placeholder="Team Street Address #2"/>
 						</div>
 						<div className='form-group'>
 							<input type='text' className='form-control' ref="teamState" placeholder="State (etc: CA)"/>
 						</div>
 						<div className='form-group'>
-							<input type='text' className='form-control' ref="teamZip" placeholder="Zip (etc: 46514)"/>
+							<input type='number' className='form-control' ref="teamZip" placeholder="Zip (etc: 46514)"/>
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>About Your Team</label>
@@ -38,13 +80,10 @@ class NewTeamForm extends React.Component {
 						<label className='control-label'>About You</label>					
 						<div className='form-group'>
 
-							<input type='text' className='form-control' ref="firstname" placeholder="First Name" autoFocus />
+							<input type='text' className='form-control' ref="first_name" placeholder="First Name" autoFocus />
 						</div>
 						<div className='form-group'>
-							<input type='text' className='form-control' ref="lastname" placeholder="Last Name" />
-						</div>
-						<div className='form-group'>
-							<input type='text' className='form-control' ref="username" placeholder="Username" />
+							<input type='text' className='form-control' ref="last_name" placeholder="Last Name" />
 						</div>
 						<div className='form-group'>
 							<input type='text' className='form-control' ref="email" placeholder="Email" />
@@ -53,7 +92,7 @@ class NewTeamForm extends React.Component {
 							<input type='password' className='form-control' ref="password" placeholder="Password"  />
 						</div>
 						<div className='form-group'>
-							<input type='password' className='form-control' ref="password2" placeholder="Password Confirmation" />
+							<input type='password' className='form-control' ref="password_conf" placeholder="Password Confirmation" />
 						</div>
 						
 						
