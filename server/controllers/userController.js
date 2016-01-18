@@ -30,12 +30,12 @@ module.exports.signup = function(req, res, next) {
     password: hashedPassword
   }
   
-  Model.User.create(newUser, function () {
+  Model.User.create(newUser, function (req, res) {
     // if (err) return next(err);
     // req.flash('error', "Account successfully created! Please login with your username and password.")
     // res.redirect('/')
     console.log('created!');
-    // res.send({ message: "Account successfully created!" });
+    res.send({ message: "Account successfully created!" });
  
   }).catch(function(error) {
     // req.flash('error', "Please, choose a different username.")

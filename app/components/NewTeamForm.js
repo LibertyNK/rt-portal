@@ -1,6 +1,8 @@
 import React from 'react';
+
 import AddTeamActions from '../actions/AddTeamActions';
 import AddTeamStore from '../stores/AddTeamStore';
+
 
 class NewTeamForm extends React.Component {
 
@@ -16,6 +18,10 @@ class NewTeamForm extends React.Component {
 
 	componentWillUnmount() {
 		AddTeamStore.unlisten(this.onChange);
+	}
+
+	componentWillUnmount(){
+		NewTeamFormStore.unlisten(this.onChange);
 	}
 
 	onChange(state) {
@@ -42,6 +48,7 @@ class NewTeamForm extends React.Component {
 							state: this.state.state,
 							zipcode: this.state.zipcode		
 		};
+
 	}
 	
 	render() {
@@ -97,6 +104,7 @@ class NewTeamForm extends React.Component {
 						
 						
 						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Create</button></p>
+
 					</form>
 				</div>
 			</div>
