@@ -1,45 +1,87 @@
 var bcrypt = require('bcrypt')
 var Model = require('../models/models.js')
 
-// module.exports.show = function(req, res) {
-//   res.render('signup')
-// }
+/**
+ * GET /users
+ * 
+ * Returns all users from Users table.
+ */
+module.exports.getUsers = function(req, res, next) {
+  Model.User.findAll().then(function(users) {
+    res.json(users);
+  })
+}
 
-module.exports.signup = function(req, res, next) {
+/**
+ * GET /users/:user_id
+ * 
+ * Returns user by id, if exists
+ */
+module.exports.getUser = function(req, res, next) {
+  Model.User.findById(req.params.user_id).then(
+    function(err, user) {
+      if(err) res.send(err);
+        
+    res.json(user);
+  })
+}
 
-  var username = req.body.username
-  var password = req.body.password
-  var password2 = req.body.password2
+/**
+ * POST /users
+ * 
+ * Takes form data (username, password) from /signup page and creates a new user in Users table after some simple validation. 
+ */
+ module.exports.postUsers = function(req, res, next) {
+
+  let username = req.body.username
+  let password = req.body.password
+  let password2 = req.body.password2
+  console.log("username: " + username + ", password: " + password + ", passconf: " + password2)
   
-  // if (!username || !password || !password2) {
-  //   req.flash('error', "Please, fill in all the fields.")
-  //   res.redirect('signup')
-  // }
+  if (!username || !password || !password2) {
+    // req.flash('error', "Please, fill in all the fields.")
+    // res.redirect('signup')
+    console.log("Missing info")    
+  }
   
-  // if (password !== password2) {
-  //   req.flash('error', "Please, enter the same password twice.")
-  //   res.redirect('signup')
-  // }
+  if (password !== password2) {
+    // req.flash('error', "Please, enter the same password twice.")
+    // res.redirect('signup')
+    console.log("Passwords don't match")
+  }
   
-  var salt = bcrypt.genSaltSync(10)
-  var hashedPassword = bcrypt.hashSync(password, salt)
+  let salt = bcrypt.genSaltSync(10)
+  let hashedPassword = bcrypt.hashSync(password, salt)
   
-  var newUser = {
+  let newUser = {
     username: username,
     salt: salt,
     password: hashedPassword
   }
   
   Model.User.create(newUser, function (req, res) {
-    // if (err) return next(err);
-    // req.flash('error', "Account successfully created! Please login with your username and password.")
-    // res.redirect('/')
-    console.log('created!');
-    res.send({ message: "Account successfully created!" });
- 
+    // magic happens here
+    // TODO- Isaac to look into exactly how passport.
   }).catch(function(error) {
-    // req.flash('error', "Please, choose a different username.")
-    // res.redirect('/signup')
-
+    // Catch error
   })
+}
+
+/**
+ * PUT /users/:user_id
+ * 
+ * Update specific user based on user_id
+ */
+module.exports.putUser = function(req, res, next) {
+  // TODO
+}
+
+/**
+ * DELETE /users/:user_id
+ * 
+ * Delete specific user based on user_id.
+ * NOTE: This currently only deletes from our local psql DB, NOT from LiNK Salesforce API.
+ */
+module.exports.deleteUser = function(req, res, next) {
+  // TODO
 }
