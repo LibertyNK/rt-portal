@@ -6,6 +6,7 @@ class SignUpStore {
     this.bindActions(SignUpActions);
     this.username = '';
     this.password = '';   
+    this.password_conf = '';  
   }
 
   onUpdateUsername(event) {
@@ -14,6 +15,10 @@ class SignUpStore {
 
   onUpdatePassword(event) {
   	this.password = event.target.value;
+  }
+
+  onUpdatePasswordConf(event) {
+    this.password_conf = event.target.value;
   }
 
 }

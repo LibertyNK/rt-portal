@@ -32,22 +32,23 @@ module.exports.getUser = function(req, res, next) {
  * Takes form data (username, password) from /signup page and creates a new user in Users table after some simple validation. 
  */
  module.exports.postUsers = function(req, res, next) {
-
+  
   let username = req.body.username
   let password = req.body.password
-  let password2 = req.body.password2
+  let password2 = req.body.password_conf
   console.log("username: " + username + ", password: " + password + ", passconf: " + password2)
   
   if (!username || !password || !password2) {
     // req.flash('error', "Please, fill in all the fields.")
     // res.redirect('signup')
-    console.log("Missing info")    
+    console.log("Missing info")   ; 
   }
   
   if (password !== password2) {
     // req.flash('error', "Please, enter the same password twice.")
     // res.redirect('signup')
-    console.log("Passwords don't match")
+    // console.log("Passwords don't match")
+    return res.status(404).send({ message: 'Passwords dont match!!' });
   }
   
   let salt = bcrypt.genSaltSync(10)
@@ -59,12 +60,22 @@ module.exports.getUser = function(req, res, next) {
     password: hashedPassword
   }
   
-  Model.User.create(newUser, function (req, res) {
-    // magic happens here
-    // TODO- Isaac to look into exactly how passport.
-  }).catch(function(error) {
-    // Catch error
+  // Model.User.create(newUser, function () {
+  //   // magic happens here
+  //   // TODO- Isaac to look into exactly how passport.
+  //   console.log("saving user");
+  //   res.send({ message: 'User has been added successfully!' });
+  // }).catch(function(error) {
+  //   // Catch error
+  // })
+  Model.User.create(newUser).then(function (err) {
+    if (err) {
+      console.log(err);
+    }
+    return res.send({ message: 'User has been added successfully!' });
   })
+
+
 }
 
 /**
