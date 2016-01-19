@@ -2,22 +2,20 @@
 require('babel-register');
 
 var path = require('path');
-var express = require('express'),
-    app = express(),
-    setupPassport = require('./server/config/passport'),
-    flash = require('connect-flash'),
-    appRouter = require('./server/routers/appRouter.js')(express),
-    session = require('express-session'),
-    bodyParser = require('body-parser'),
-    cookieParser = require('cookie-parser'),
-    jsonParser = bodyParser.json();
-
+var express = require('express');
+var app = express();
+var setupPassport = require('./server/config/passport');
+var flash = require('connect-flash');
+var appRouter = require('./server/routers/appRouter.js')(express);
+var session = require('express-session');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var jsonParser = bodyParser.json();
 var compression = require('compression');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var async = require('async');
 var colors = require('colors');
-var mongoose = require('mongoose');
 var request = require('request');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
@@ -50,23 +48,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 setupPassport(app)
 
+/**
+ * Main routes file, all API routes are defined in appRouter.
+ * Base URL is currently set to '/' but '/api' would also make sense.
+ */
 app.use('/', appRouter)
 
-
 app.use(function(req, res) {
-  Router.match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {
-    if (err) {
-      res.status(500).send(err.message)
-    } else if (redirectLocation) {
-      res.status(302).redirect(redirectLocation.pathname + redirectLocation.search)
-    } else if (renderProps) {
-      var html = ReactDOM.renderToString(React.createElement(Router.RoutingContext, renderProps));
-      var page = swig.renderFile('views/index.html', { html: html });
-      res.status(200).send(page);
-    } else {
-      res.status(404).send('Page Not Found')
-    }
-  });
+  Router.match(
+    { 
+      routes: routes.default, 
+      location: req.url 
+    }, 
+    function(err, redirectLocation, renderProps) {
+      if (err) {
+        res.status(500).send(err.message)
+      } else if (redirectLocation) {
+        res.status(302).redirect(redirectLocation.pathname + redirectLocation.search)
+      } else if (renderProps) {
+        var html = ReactDOM.renderToString(React.createElement(Router.RoutingContext, renderProps));
+        var page = swig.renderFile('views/index.html', { html: html });
+        res.status(200).send(page);
+      } else {
+        res.status(404).send('Page Not Found')
+      }
+    });
 });
 
 // start app

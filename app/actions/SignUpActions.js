@@ -19,7 +19,7 @@ class SignUpActions {
 	signUp(username, password) {
 		$.ajax({
 			type: 'POST',
-			url: '/signup',
+			url: '/users',
 			data: { username: username, password : password }
 		})
 		.done((data) => {

@@ -21,7 +21,7 @@ module.exports = {
 
   signUp: function(data) {
     return $.ajax({
-      url: '/signup',
+      url: '/users',
       type: 'POST',
       data: data
     });
