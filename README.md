@@ -1,4 +1,5 @@
 #rtPortal
+Rescue Team Portal - React/Alt/PostgreSQL/Sequelize
 
 ## Initial build 
 
