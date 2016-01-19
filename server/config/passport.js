@@ -14,16 +14,20 @@ module.exports = function(app) {
           'username': username
         }
       }).then(function (user) {
+        
+        // No user found with that username
         if (user === null) {
           return done(null, false, { message: 'Incorrect credentials.' });
         }
         
         var hashedPassword = bcrypt.hashSync(password, user.salt);
         
+        // Success
         if (user.password === hashedPassword) {
           return done(null, user);
         }
         
+        // Incorrect password
         return done(null, false, { message: 'Incorrect credentials.' });
       });
     }
