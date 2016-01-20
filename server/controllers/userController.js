@@ -32,32 +32,30 @@ module.exports.getUser = function(req, res, next) {
  * Takes form data (username, password) from /signup page and creates a new user in Users table after some simple validation. 
  */
  module.exports.postUsers = function(req, res, next) {
+
+  let email = req.body.email;
+  let password = req.body.password;
+  let password2 = req.body.password_conf;
   
-  let username = req.body.username
-  let password = req.body.password
-  let password2 = req.body.password_conf
-  console.log("username: " + username + ", password: " + password + ", passconf: " + password2)
-  
-  if (!username || !password || !password2) {
-    // req.flash('error', "Please, fill in all the fields.")
-    // res.redirect('signup')
-    console.log("Missing info")   ; 
+  if (!email || !password || !password2) {
+    console.log("Missing info"); 
   }
   
   if (password !== password2) {
-    // req.flash('error', "Please, enter the same password twice.")
-    // res.redirect('signup')
-    // console.log("Passwords don't match")
     return res.status(404).send({ message: 'Passwords dont match!!' });
   }
+
+  // Need to check if email is unique and send response back to front end
   
   let salt = bcrypt.genSaltSync(10)
   let hashedPassword = bcrypt.hashSync(password, salt)
   
   let newUser = {
-    username: username,
+    email: email,
     salt: salt,
-    password: hashedPassword
+    password: hashedPassword,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name
   }
   
   // Model.User.create(newUser, function () {
@@ -69,9 +67,14 @@ module.exports.getUser = function(req, res, next) {
   //   // Catch error
   // })
   Model.User.create(newUser).then(function (err) {
+
     if (err) {
-      console.log(err);
+      console.log(err); // TODO look into this 'error' object sent back from database. Probably how Sequelize works
     }
+   
+    // Look into sending back error 
+    // If use: if (err) return next(err) ---> server response with a 500 error and not return res.send below
+
     return res.send({ message: 'User has been added successfully!' });
   })
 

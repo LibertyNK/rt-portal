@@ -7,10 +7,20 @@ class SignUpStore {
     this.username = '';
     this.password = '';   
     this.password_conf = '';  
+    this.first_name = '';
+    this.last_name = '';
   }
 
-  onUpdateUsername(event) {
-  	this.username = event.target.value;
+  onUpdateFirstName(event) {
+  	this.first_name = event.target.value;
+  }
+
+  onUpdateLastName(event) {
+    this.last_name = event.target.value;
+  }
+
+  onUpdateEmail(event) {
+    this.email = event.target.value;
   }
 
   onUpdatePassword(event) {
@@ -20,6 +30,8 @@ class SignUpStore {
   onUpdatePasswordConf(event) {
     this.password_conf = event.target.value;
   }
+
+  
 
 }
 

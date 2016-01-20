@@ -26,29 +26,36 @@ class SignUp extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 
-		var username = this.state.username.trim();
-		var password = this.state.password;
-		var password_conf = this.state.password_conf;
-
 		var user = {
-								username: this.state.username.trim(),
-								password: this.state.password,
-								password_conf: this.state.password_conf
+							first_name: this.state.first_name,
+							last_name: this.state.last_name,
+							email: this.state.email.trim(),
+							password: this.state.password,
+							password_conf: this.state.password_conf
+						}
+		//Initial form validation
+
+		if (!user.first_name) {
+			this.refs.first_name.focus();
+		}
+
+		if (!user.last_name) {
+			this.refs.last_name.focus();
 		}
 		
-		if (!username) {
-			this.refs.username.focus();
+		if (!user.email) {
+			this.refs.email.focus();
 		}
 
-		if (!password) {
+		if (!user.password) {
 			this.refs.password.focus();
 		}
 
-		if (!password_conf) {
+		if (!user.password_conf) {
 			this.refs.password_conf.focus();
 		}
 
-		if (username && password) {
+		if (user.email && user.password) {
 			SignUpActions.signUp(user);
 		}
 	}
@@ -63,19 +70,15 @@ class SignUp extends React.Component {
 					<form onSubmit={this.handleSubmit.bind(this)}>						
 						<div className='form-group'>
 							<label className='control-label'>First Name</label>
-							<input type='text' className='form-control' ref="firstname" autoFocus />
+							<input type='text' className='form-control' ref="first_name" autoFocus />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Last Name</label>
-							<input type='text' className='form-control' ref="lastname" />
-						</div>
-						<div className='form-group'>
-							<label className='control-label'>Username</label>
-							<input type='text' className='form-control' ref="username"  onChange={SignUpActions.updateUsername}  />
+							<input type='text' className='form-control' ref="last_name" />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Email</label>
-							<input type='text' className='form-control' ref="email" />
+							<input type='text' className='form-control' ref="email" onChange={SignUpActions.updateEmail} />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Password</label>

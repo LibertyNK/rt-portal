@@ -11,7 +11,9 @@ class SignUpActions {
 			'updatePassword',
 			'signUpSuccess',
 			'signUpFail',
-			'updateUsername',
+			'updateFirstName',
+			'updateLastName',
+			'updateEmail',
 			'updatePassword',
 			'updatePasswordConf'
 		);
