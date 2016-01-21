@@ -26,19 +26,19 @@ class SignUp extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 
-		var username = this.state.username.trim();
+		var email = this.state.email.trim();
 		var password = this.state.password;
 
-		if (!username) {
-			this.refs.username.focus();
+		if (!email) {
+			this.refs.email.focus();
 		}
 
 		if (!password) {
 			this.refs.password.focus();
 		}
 
-		if (username && password) {
-			SignUpActions.signUp(username, password);
+		if (email && password) {
+			SignUpActions.signUp(email, password);
 		}
 	}
 
@@ -59,12 +59,8 @@ class SignUp extends React.Component {
 							<input type='text' className='form-control' ref="lastname" required />
 						</div>
 						<div className='form-group'>
-							<label className='control-label'>Username</label>
-							<input type='text' className='form-control' ref="username"  onChange={SignUpActions.updateUsername} required />
-						</div>
-						<div className='form-group'>
 							<label className='control-label'>Email</label>
-							<input type='text' className='form-control' ref="email" required />
+							<input type='text' className='form-control' ref="email" onChange={SignUpActions.updateEmail} required />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Password</label>

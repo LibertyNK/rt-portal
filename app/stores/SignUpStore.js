@@ -4,12 +4,12 @@ import SignUpActions from '../actions/SignUpActions';
 class SignUpStore {
   constructor() {
     this.bindActions(SignUpActions);
-    this.username = '';
+    this.email = '';
     this.password = '';   
   }
 
-  onUpdateUsername(event) {
-  	this.username = event.target.value;
+  onUpdateEmail(event) {
+  	this.email = event.target.value;
   }
 
   onUpdatePassword(event) {

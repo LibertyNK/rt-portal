@@ -9,16 +9,15 @@ class SignUpActions {
 			'updatePassword',
 			'signUpSuccess',
 			'signUpFail',
-			'updateUsername',
 			'updatePassword'
 		);
 	}
 
-	signUp(username, password) {
+	signUp(email, password) {
 		$.ajax({
 			type: 'POST',
 			url: '/users',
-			data: { username: username, password : password }
+			data: { email: email, password : password }
 		})
 		.done((data) => {
 			this.actions.signUpSuccess(data.message);
