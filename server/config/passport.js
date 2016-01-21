@@ -8,14 +8,14 @@ module.exports = function(app) {
   app.use(passport.session());
 
   passport.use(new LocalStrategy(
-    function(username, password, done) {
+    function(email, password, done) {
       Model.User.findOne({
         where: {
-          'username': username
+          'email': email
         }
       }).then(function (user) {
         
-        // No user found with that username
+        // No user found with that email
         if (user === null) {
           return done(null, false, { message: 'Incorrect credentials.' });
         }

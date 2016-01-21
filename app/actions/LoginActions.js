@@ -5,18 +5,18 @@ class LogInActions {
 
 	constructor() {
 		this.generateActions(
-			'updateUsername',
+			'updateEmail',
 			'updatePassword',
 			'logInSuccess',
 			'logInFail'
 		);
 	}
 
-	logIn(username, password) {
+	logIn(email, password) {
 		$.ajax({
 			type: 'POST',
 			url: '/login',
-			data: { username: username, password : password}
+			data: { email: email, password : password}
 		})
 		.done((data) => {
 			this.actions.logInSuccess(data.message);
@@ -24,7 +24,7 @@ class LogInActions {
 		})
 		.fail((jqXhr) => {
 			this.actions.logInFail(jqXhr.responseJSON.message);
-			console.log('success ' + jqXhr.responseJSON.message);
+			console.log('failed ' + jqXhr.responseJSON.message);
 		});
 	}
 }
