@@ -11,22 +11,17 @@ class LogInActions {
 			'logInFail'
 		);
 	}
-
-	logIn(email, password) {
-		$.ajax({
-			type: 'POST',
-			url: '/login',
-			data: { email : email, password : password}
-		})
+	logIn(userdata) {
+		ApiUtils.login(userdata)
 		.done((data) => {
-			this.actions.logInSuccess(data.message);
-			console.log('success ' + data.message);
+			this.actions.signUpSuccess(data.message);
+			console.log('Message from server: ' + data.message);
 		})
 		.fail((jqXhr) => {
-			this.actions.logInFail(jqXhr.responseJSON.message);
-			console.log('failed ' + jqXhr.responseJSON.message);
+			this.actions.signUpFail(jqXhr.responseJSON.message);
 		});
 	}
+
 }
 
 export default alt.createActions(LogInActions);

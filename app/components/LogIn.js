@@ -26,23 +26,22 @@ class LogIn extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 
-		var email = this.state.email;
-    	var password = this.state.password;
+		var user = {
+			email: this.state.email.trim(),
+			password: this.state.password,
+		}
+	
 
-    	console.log(email);
-
-		if (!email) {
-			// LogInActions.invalidUsername();
+		if (!user.email) {
 			this.refs.email.focus();
 		}
 
-		if (!password) {
-			// LogInActions.invalidPassword();
+		if (!user.password) {
+			this.refs.password.focus();
 		}
 
-		if (email && password) {
-			LogInActions.logIn(email, password);
-			
+		if (user.email && user.password) {
+			LogInActions.logIn(user);
 		}
 	}
 
