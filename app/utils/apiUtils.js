@@ -4,11 +4,11 @@ module.exports = {
 
 	// All API calls for users
 
-	login: function(data) {
+	login: function(email, password) {
 		return $.ajax({
 			url: '/login',
 			type: 'POST',
-			data: data
+			data: { username: email, password : password}
 		});
 	},
 
