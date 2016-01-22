@@ -36,7 +36,7 @@ var Model = require('../models/models.js')
   let email = req.body.email;
   let password = req.body.password;
   let password2 = req.body.password_conf;
-
+  
   if (!email || !password || !password2) {
     console.log("Missing info"); 
   }
