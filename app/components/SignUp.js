@@ -27,12 +27,12 @@ class SignUp extends React.Component {
 		event.preventDefault();
 
 		var user = {
-							first_name: this.state.first_name,
-							last_name: this.state.last_name,
-							email: this.state.email.trim(),
-							password: this.state.password,
-							password_conf: this.state.password_conf
-						}
+			first_name: this.state.first_name,
+			last_name: this.state.last_name,
+			email: this.state.email.trim(),
+			password: this.state.password,
+			password_conf: this.state.password_conf
+		}
 		//Initial form validation
 
 		if (!user.first_name) {

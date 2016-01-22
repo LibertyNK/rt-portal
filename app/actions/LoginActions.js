@@ -14,7 +14,6 @@ class LogInActions {
 	}
 
 	logIn(email, password) {
-		console.log("made it to actions");
 		ApiUtils.login(email, password)
 		.done((data) => {
 			this.actions.logInSuccess(data.message);
@@ -25,6 +24,7 @@ class LogInActions {
 		});
 		
 	}
+
 }
 
 export default alt.createActions(LogInActions);
