@@ -51,10 +51,6 @@ class NewTeamForm extends React.Component {
 
 	}
 	
-
-
-
-	   
 	render() {
 
 		return (
