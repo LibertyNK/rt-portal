@@ -29,16 +29,16 @@ module.exports.getUser = function(req, res, next) {
 /**
  * POST /users
  * 
- * Takes form data (email, password) from /signup page and creates a new user in Users table after some simple validation. 
+ * Takes form data (username, password) from /signup page and creates a new user in Users table after some simple validation. 
  */
  module.exports.postUsers = function(req, res, next) {
 
-  let email = req.body.email
+  let username = req.body.username
   let password = req.body.password
   let password2 = req.body.password2
-  console.log("email: " + email + ", password: " + password + ", passconf: " + password2)
+  console.log("username: " + username + ", password: " + password + ", passconf: " + password2)
   
-  if (!email || !password || !password2) {
+  if (!username || !password || !password2) {
     // req.flash('error', "Please, fill in all the fields.")
     // res.redirect('signup')
     console.log("Missing info")    
@@ -54,7 +54,7 @@ module.exports.getUser = function(req, res, next) {
   let hashedPassword = bcrypt.hashSync(password, salt)
   
   let newUser = {
-    email: email,
+    username: username,
     salt: salt,
     password: hashedPassword
   }

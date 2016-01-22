@@ -16,7 +16,7 @@ class LogInActions {
 		$.ajax({
 			type: 'POST',
 			url: '/login',
-			data: { email: email, password : password}
+			data: { email : email, password : password}
 		})
 		.done((data) => {
 			this.actions.logInSuccess(data.message);
