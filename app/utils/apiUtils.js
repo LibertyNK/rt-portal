@@ -8,7 +8,7 @@ module.exports = {
 		return $.ajax({
 			url: '/login',
 			type: 'POST',
-			data: { username: email, password : password}
+			data: { email: email, password : password}
 		});
 	},
 

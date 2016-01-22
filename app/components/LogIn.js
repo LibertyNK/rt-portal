@@ -45,8 +45,6 @@ class LogIn extends React.Component {
 			
 		}
 	}
-	
-
 
 	render() {
 
