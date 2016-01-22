@@ -1,7 +1,11 @@
 #rtPortal
+Rescue Team Portal - React/Alt/PostgreSQL/Sequelize
+
+## Initial build 
+
 Run `npm install`.
 
-Run `bower install`. 
+Run `bower install`.
 
 Run `node setup.js`.
 

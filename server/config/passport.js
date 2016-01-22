@@ -8,10 +8,10 @@ module.exports = function(app) {
   app.use(passport.session());
 
   passport.use(new LocalStrategy(
-    function(username, password, done) {
+    function(email, password, done) {
       Model.User.findOne({
         where: {
-          'username': username
+          'email': email
         }
       }).then(function (user) {
         

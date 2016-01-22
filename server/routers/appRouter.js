@@ -21,7 +21,8 @@ module.exports = function(express) {
   }
   
   // Endpoint handlers for /users
-  router.route('/users')
+  router.route('/users', function () {
+  })
     .post(userController.postUsers) // register user
     .get(userController.getUsers);
   

@@ -26,19 +26,37 @@ class SignUp extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 
-		var email = this.state.email.trim();
-		var password = this.state.password;
+		var user = {
+							first_name: this.state.first_name,
+							last_name: this.state.last_name,
+							email: this.state.email.trim(),
+							password: this.state.password,
+							password_conf: this.state.password_conf
+						}
+		//Initial form validation
 
-		if (!email) {
+		if (!user.first_name) {
+			this.refs.first_name.focus();
+		}
+
+		if (!user.last_name) {
+			this.refs.last_name.focus();
+		}
+		
+		if (!user.email) {
 			this.refs.email.focus();
 		}
 
-		if (!password) {
+		if (!user.password) {
 			this.refs.password.focus();
 		}
 
-		if (email && password) {
-			SignUpActions.signUp(email, password);
+		if (!user.password_conf) {
+			this.refs.password_conf.focus();
+		}
+
+		if (user.email && user.password) {
+			SignUpActions.signUp(user);
 		}
 	}
 
@@ -52,23 +70,23 @@ class SignUp extends React.Component {
 					<form onSubmit={this.handleSubmit.bind(this)}>						
 						<div className='form-group'>
 							<label className='control-label'>First Name</label>
-							<input type='text' className='form-control' ref="firstname" autoFocus required />
+							<input type='text' className='form-control' ref="first_name" autoFocus />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Last Name</label>
-							<input type='text' className='form-control' ref="lastname" required />
+							<input type='text' className='form-control' ref="last_name" />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Email</label>
-							<input type='text' className='form-control' ref="email" onChange={SignUpActions.updateEmail} required />
+							<input type='text' className='form-control' ref="email" onChange={SignUpActions.updateEmail} />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Password</label>
-							<input type='password' className='form-control' ref="password"  onChange={SignUpActions.updatePassword} required />
+							<input type='password' className='form-control' ref="password"  onChange={SignUpActions.updatePassword} />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Password Confirmation</label>
-							<input type='password' className='form-control' ref="password2" required />
+							<input type='password' className='form-control' ref="password_conf"  onChange={SignUpActions.updatePasswordConf}/>
 						</div>
 						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Submit</button></p>
 					</form>

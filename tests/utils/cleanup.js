@@ -3,7 +3,8 @@ var Model = require('../../server/models/models.js')
 module.exports = function(callback) {
   // recreate User table
   Model.User.sync({ force: true }).then(function() {
-    // create email with email: user@user.com and 
+    // create user with 
+    // email: user@user.com
     // password: user
     Model.User.create({
       email: 'user@user.com',
