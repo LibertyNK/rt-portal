@@ -31,7 +31,6 @@ class LogIn extends React.Component {
 			password: this.state.password,
 		}
 	
-
 		if (!user.email) {
 			this.refs.email.focus();
 		}
@@ -41,7 +40,9 @@ class LogIn extends React.Component {
 		}
 
 		if (user.email && user.password) {
+			console.log("made it to Handle Submit");
 			LogInActions.logIn(user);
+			console.log("made it to after Handle Submit");
 		}
 	}
 

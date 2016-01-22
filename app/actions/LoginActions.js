@@ -1,4 +1,5 @@
 import alt from '../alt';
+import ApiUtils from '../utils/apiUtils';
 
 
 class LogInActions {
@@ -12,13 +13,14 @@ class LogInActions {
 		);
 	}
 	logIn(userdata) {
+		console.log("made it to Actions");
 		ApiUtils.login(userdata)
 		.done((data) => {
-			this.actions.signUpSuccess(data.message);
+			this.actions.logInSuccess(data.message);
 			console.log('Message from server: ' + data.message);
 		})
 		.fail((jqXhr) => {
-			this.actions.signUpFail(jqXhr.responseJSON.message);
+			this.actions.logInFail(jqXhr.responseJSON.message);
 		});
 	}
 
