@@ -26,23 +26,20 @@ class LogIn extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 
-		var user = {
-			email: this.state.email.trim(),
-			password: this.state.password,
-		}
-	
-		if (!user.email) {
+		var email = this.state.email;
+    	var password = this.state.password;
+
+		if (!email) {
+			// LogInActions.invalidemail();
 			this.refs.email.focus();
 		}
 
-		if (!user.password) {
+		if (!password) {
 			this.refs.password.focus();
 		}
 
-		if (user.email && user.password) {
-			console.log("made it to Handle Submit");
-			LogInActions.logIn(user);
-			console.log("made it to after Handle Submit");
+		if (email && password) {
+			LogInActions.logIn(email, password);
 		}
 	}
 

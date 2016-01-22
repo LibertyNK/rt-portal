@@ -12,9 +12,9 @@ class LogInActions {
 			'logInFail'
 		);
 	}
-	logIn(userdata) {
-		console.log("made it to Actions");
-		ApiUtils.login(userdata)
+
+	logIn(email, password) {
+		ApiUtils.login(email, password)
 		.done((data) => {
 			this.actions.logInSuccess(data.message);
 			console.log('Message from server: ' + data.message);
@@ -22,6 +22,7 @@ class LogInActions {
 		.fail((jqXhr) => {
 			this.actions.logInFail(jqXhr.responseJSON.message);
 		});
+		
 	}
 
 }
