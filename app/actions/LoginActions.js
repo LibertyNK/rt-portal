@@ -1,32 +1,30 @@
 import alt from '../alt';
+import ApiUtils from '../utils/apiUtils';
 
 
 class LogInActions {
 
 	constructor() {
 		this.generateActions(
-			'updateUsername',
+			'updateEmail',
 			'updatePassword',
 			'logInSuccess',
 			'logInFail'
 		);
 	}
 
-	logIn(username, password) {
-		$.ajax({
-			type: 'POST',
-			url: '/login',
-			data: { username: username, password : password}
-		})
+	logIn(email, password) {
+		ApiUtils.login(email, password)
 		.done((data) => {
 			this.actions.logInSuccess(data.message);
-			console.log('success ' + data.message);
+			console.log('Message from server: ' + data.message);
 		})
 		.fail((jqXhr) => {
 			this.actions.logInFail(jqXhr.responseJSON.message);
-			console.log('success ' + jqXhr.responseJSON.message);
 		});
+		
 	}
+
 }
 
 export default alt.createActions(LogInActions);

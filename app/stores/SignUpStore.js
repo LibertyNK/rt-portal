@@ -4,17 +4,34 @@ import SignUpActions from '../actions/SignUpActions';
 class SignUpStore {
   constructor() {
     this.bindActions(SignUpActions);
-    this.username = '';
+    this.email = '';
     this.password = '';   
+    this.password_conf = '';  
+    this.first_name = '';
+    this.last_name = '';
   }
 
-  onUpdateUsername(event) {
-  	this.username = event.target.value;
+  onUpdateFirstName(event) {
+  	this.first_name = event.target.value;
+  }
+
+  onUpdateLastName(event) {
+    this.last_name = event.target.value;
+  }
+
+  onUpdateEmail(event) {
+    this.email = event.target.value;
   }
 
   onUpdatePassword(event) {
   	this.password = event.target.value;
   }
+
+  onUpdatePasswordConf(event) {
+    this.password_conf = event.target.value;
+  }
+
+  
 
 }
 

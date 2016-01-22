@@ -1,28 +1,27 @@
 import alt from '../alt';
+import ApiUtils from '../utils/apiUtils';
+
 
 
 class SignUpActions {
 
 	constructor() {
 		this.generateActions(
-			'updateEmail',
-			'updatePassword',
 			'signUpSuccess',
 			'signUpFail',
-			'updateUsername',
-			'updatePassword'
+			'updateFirstName',
+			'updateLastName',
+			'updateEmail',
+			'updatePassword',
+			'updatePasswordConf'
 		);
 	}
 
-	signUp(username, password) {
-		$.ajax({
-			type: 'POST',
-			url: '/users',
-			data: { username: username, password : password }
-		})
+	signUp(userdata) {
+		ApiUtils.signUp(userdata)
 		.done((data) => {
 			this.actions.signUpSuccess(data.message);
-			console.log('success ' + data.message);
+			console.log('Message from server: ' + data.message);
 		})
 		.fail((jqXhr) => {
 			this.actions.signUpFail(jqXhr.responseJSON.message);
