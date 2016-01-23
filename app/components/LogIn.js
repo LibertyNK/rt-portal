@@ -51,7 +51,7 @@ class LogIn extends React.Component {
 		return (
 			<div className='container login'>
 				<div className='row'>
-					<h3 className='text-center'>Log In</h3>
+					<h3 className='text-center'>Log In Form</h3>
 					<form onSubmit={this.handleSubmit.bind(this)}>
 						<div className='form-group'>
 							<label className='control-label'>Username</label>
