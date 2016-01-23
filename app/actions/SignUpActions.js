@@ -7,8 +7,6 @@ class SignUpActions {
 
 	constructor() {
 		this.generateActions(
-			'updateEmail',
-			'updatePassword',
 			'signUpSuccess',
 			'signUpFail',
 			'updateFirstName',

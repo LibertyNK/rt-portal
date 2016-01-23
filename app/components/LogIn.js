@@ -26,23 +26,20 @@ class LogIn extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 
-		var username = this.state.username;
+		var email = this.state.email;
     	var password = this.state.password;
 
-    	console.log(username);
-
-		if (!username) {
-			// LogInActions.invalidUsername();
-			this.refs.username.focus();
+		if (!email) {
+			// LogInActions.invalidemail();
+			this.refs.email.focus();
 		}
 
 		if (!password) {
-			// LogInActions.invalidPassword();
+			this.refs.password.focus();
 		}
 
-		if (username && password) {
-			LogInActions.logIn(username, password);
-			
+		if (email && password) {
+			LogInActions.logIn(email, password);
 		}
 	}
 
@@ -54,8 +51,8 @@ class LogIn extends React.Component {
 					<h3 className='text-center'>Log In Form</h3>
 					<form onSubmit={this.handleSubmit.bind(this)}>
 						<div className='form-group'>
-							<label className='control-label'>Username</label>
-							<input type='text' className='form-control' ref="username"  onChange={LogInActions.updateUsername} />
+							<label className='control-label'>Email</label>
+							<input type='text' className='form-control' ref="email"  onChange={LogInActions.updateEmail} />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Password</label>

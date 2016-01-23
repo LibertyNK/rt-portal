@@ -27,12 +27,12 @@ class SignUp extends React.Component {
 		event.preventDefault();
 
 		var user = {
-							first_name: this.state.first_name,
-							last_name: this.state.last_name,
-							email: this.state.email.trim(),
-							password: this.state.password,
-							password_conf: this.state.password_conf
-						}
+			first_name: this.state.first_name,
+			last_name: this.state.last_name,
+			email: this.state.email.trim(),
+			password: this.state.password,
+			password_conf: this.state.password_conf
+		}
 		//Initial form validation
 
 		if (!user.first_name) {
@@ -70,11 +70,11 @@ class SignUp extends React.Component {
 					<form onSubmit={this.handleSubmit.bind(this)}>						
 						<div className='form-group'>
 							<label className='control-label'>First Name</label>
-							<input type='text' className='form-control' ref="first_name" autoFocus />
+							<input type='text' className='form-control' ref="first_name" onChange={SignUpActions.updateFirstName} autoFocus />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Last Name</label>
-							<input type='text' className='form-control' ref="last_name" />
+							<input type='text' className='form-control' ref="last_name" onChange={SignUpActions.updateLastName} />
 						</div>
 						<div className='form-group'>
 							<label className='control-label'>Email</label>
