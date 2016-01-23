@@ -25,6 +25,7 @@ class SignUpActions {
 		})
 		.fail((jqXhr) => {
 			this.actions.signUpFail(jqXhr.responseJSON.message);
+			console.log('Message from server: ' + jqXhr.responseJSON.message);
 		});
 	}
 }

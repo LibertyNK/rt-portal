@@ -58,30 +58,13 @@ var Model = require('../models/models.js')
     last_name: req.body.last_name
   }
 
-  // Model.User.create(newUser, function () {
-  //   // magic happens here
-  //   // TODO- Isaac to look into exactly how passport.
-  //   console.log("saving user");
-  //   res.send({ message: 'User has been added successfully!' });
-  // }).catch(function(error) {
-  //   // Catch error
-  // })
 
-Model.User.create(newUser).then(function (user) {
-
-  if (user) {
-      console.log(user); // TODO look into this 'error' object sent back from database. Probably how Sequelize works
-    }
-
-    // Look into sending back error 
-    // If use: if (err) return next(err) ---> server response with a 500 error and not return res.send below
-
-    return res.send({ message: 'User has been added successfully!', user });
-  }).catch(function (err) {
-     console.log(err);
+Model.User.create(newUser).then(user => {
+    res.json({user, message: 'success'});
+  }).catch(err => {
+    // console.log(err);
+    res.json({ message: err.errors[0].message });
   })
-
-
 }
 
 /**
