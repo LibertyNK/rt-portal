@@ -15,6 +15,7 @@ import AllRefugees from './components/AllRefugees';
 import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
 import NewTeamForm from './components/NewTeamForm';
+import JoinTeam from './components/JoinTeam';
 
 export default (
   	<Route component={App}>
@@ -32,6 +33,7 @@ export default (
 	   <Route path='/dashboard' component={Dashboard} />
 	   <Route path='/profile' component={Profile} />
 	   <Route path='/new_team' component={NewTeamForm} />
+	   <Route path='/join_team' component={JoinTeam} />
  	</Route>
 );
 
