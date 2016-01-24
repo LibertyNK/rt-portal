@@ -23,7 +23,7 @@ class AllTeams extends React.Component {
 
 
 	render() {
-		console.log(localStorage.getItem('user'));
+
 		return (
 			<div className='alert alert-success text-center'>
 				<p>All Teams page</p>

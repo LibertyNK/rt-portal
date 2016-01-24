@@ -44,8 +44,6 @@ var Model = require('../models/models.js')
   if (password !== password2) {
     return res.status(404).send({ message: 'Passwords dont match!!' });
   }
-
-  // Need to check if email is unique and send response back to front end
   
   let salt = bcrypt.genSaltSync(10)
   let hashedPassword = bcrypt.hashSync(password, salt)
@@ -60,11 +58,11 @@ var Model = require('../models/models.js')
 
 
 Model.User.create(newUser).then(user => {
-  console.log(user.dataValues.email);
+ 
     res.json({user, message: 'success'});
   }).catch(err => {
-    // console.log(err);
-    res.json({ message: err.errors[0].message });
+    console.log(err.errors[0].message);
+    res.json({ message: err.errors[0].message }); // Need to send http status back to client together with error messages
   })
 }
 

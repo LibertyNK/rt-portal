@@ -13,20 +13,33 @@ class SignUpActions {
 			'updateLastName',
 			'updateEmail',
 			'updatePassword',
-			'updatePasswordConf'
+			'updatePasswordConf',
+			'invalidEmail',
+			'invalidFirstName',
+			'invalidLastName',
+			'invalidPassword',
+			'invalidPasswordConf',
+			'unmatchPasswords',
+			'displayErrorMessage'
 		);
 	}
 
 	signUp(userdata) {
 		ApiUtils.signUp(userdata)
 		.done((data) => {
-			this.actions.signUpSuccess(data);
-			console.log('Message from server: ' + data.user);
+			if(data.message == 'success') {
+				console.log('Message from server: ' + data.message);
+				this.actions.signUpSuccess(data);
+				this.actions.displayErrorMessage(data.message);
+			} else {
+				this.actions.signUpFail(data);
+				this.actions.displayErrorMessage(data.message);
+			}
 
 		})
 		.fail((jqXhr) => {
 			this.actions.signUpFail(jqXhr.responseJSON.message);
-			console.log('Message from server: ' + jqXhr.responseJSON.message);
+			console.log('Error Message from server: ' + jqXhr.responseJSON.message);
 		});
 	}
 }
