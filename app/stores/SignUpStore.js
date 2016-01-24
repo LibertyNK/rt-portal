@@ -95,7 +95,7 @@ class SignUpStore {
     // TODO: find way to set user info after signup/login to local storage or the next state
 
     //redirect to All Teams Page or User Dashboard
-    // window.location.href = '/all_teams';
+    window.location.href = '/new_team';
  
   }
 
