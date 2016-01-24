@@ -18,6 +18,7 @@ class SignUpActions {
 			'invalidFirstName',
 			'invalidLastName',
 			'invalidPassword',
+			'invalidPasswordLength',
 			'invalidPasswordConf',
 			'unmatchPasswords',
 			'displayErrorMessage'

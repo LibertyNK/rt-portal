@@ -17,6 +17,7 @@ class SignUpStore {
                         last_name: '',
                         email: '',
                         password: '',
+                        password_length: '',
                         password_conf:'',
                         matching_passwords:''
                      };
@@ -25,6 +26,7 @@ class SignUpStore {
                               last_name: '',
                               email: '',
                               password: '',
+                              password_length: '',
                               password_conf:'',
                               matching_passwords:''
                            };
@@ -66,6 +68,11 @@ class SignUpStore {
   onInvalidPassword() {
     this.validationState.password = 'has-error';
     this.helpBlock.password = "Password can't be blank!";
+  }
+
+   onInvalidPasswordLength() {
+    this.validationState.password_length = 'has-error';
+    this.helpBlock.password_length = "Password needs to have at least 6 characters!";
   }
 
   onUpdatePasswordConf(event) {

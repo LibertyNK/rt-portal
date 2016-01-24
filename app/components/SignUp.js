@@ -56,6 +56,11 @@ class SignUp extends React.Component {
 			SignUpActions.invalidPassword();
 		}
 
+		if (user.password.length < 6) {
+			this.refs.password.focus();
+			SignUpActions.invalidPasswordLength();
+		}
+
 		if (!user.password_conf) {
 			this.refs.password_conf.focus();
 			SignUpActions.invalidPasswordConf();
@@ -96,9 +101,10 @@ class SignUp extends React.Component {
 							<span className='help-block'> {this.state.helpBlock.email}</span>
 							<input type='text' className='form-control' ref="email" onChange={SignUpActions.updateEmail} />
 						</div>
-						<div className={'form-group ' + this.state.validationState.password + ' '  + this.state.validationState.matching_passwords}>
+						<div className={'form-group ' + this.state.validationState.password + ' ' + this.state.validationState.password_length + ' '  + this.state.validationState.matching_passwords}>
 							<label className='control-label'>Password</label>
 							<span className='help-block'> {this.state.helpBlock.password}</span>
+							<span className='help-block'> {this.state.helpBlock.password_length}</span>
 							<span className='help-block'> {this.state.helpBlock.matching_passwords}</span>
 							<input type='password' className='form-control' ref="password"  onChange={SignUpActions.updatePassword} />
 						</div>
