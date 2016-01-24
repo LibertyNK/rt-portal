@@ -60,6 +60,7 @@ var Model = require('../models/models.js')
 
 
 Model.User.create(newUser).then(user => {
+  console.log(user.dataValues.email);
     res.json({user, message: 'success'});
   }).catch(err => {
     // console.log(err);

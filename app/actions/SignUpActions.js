@@ -20,8 +20,9 @@ class SignUpActions {
 	signUp(userdata) {
 		ApiUtils.signUp(userdata)
 		.done((data) => {
-			this.actions.signUpSuccess(data.message);
-			console.log('Message from server: ' + data.message);
+			this.actions.signUpSuccess(data);
+			console.log('Message from server: ' + data.user);
+
 		})
 		.fail((jqXhr) => {
 			this.actions.signUpFail(jqXhr.responseJSON.message);

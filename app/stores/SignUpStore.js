@@ -4,6 +4,7 @@ import SignUpActions from '../actions/SignUpActions';
 class SignUpStore {
   constructor() {
     this.bindActions(SignUpActions);
+    this.user = {};
     this.email = '';
     this.password = '';   
     this.password_conf = '';  
@@ -31,6 +32,16 @@ class SignUpStore {
     this.password_conf = event.target.value;
   }
 
+  onSignUpSuccess(data) {
+    console.log("user is " + data.user.user);
+
+    // TODO: find way to set user info after signup/login to local storage or the next state
+    localStorage.user = data.user;
+    console.log(localStorage.user.user);
+
+    //redirect to All Teams Page or User Dashboard
+    window.location.href = '/all_teams';
+  }
   
 
 }
