@@ -42,10 +42,9 @@ var Model = require('../models/models.js')
   }
 
   if (password !== password2) {
-    return res.status(404).send({ message: 'Passwords dont match!!' });
-  }
 
-  // Need to check if email is unique and send response back to front end
+    res.status(400).json({ 'type': 'validation error', message: 'Passwords dont match!!' });
+  }
   
   let salt = bcrypt.genSaltSync(10)
   let hashedPassword = bcrypt.hashSync(password, salt)
@@ -58,30 +57,18 @@ var Model = require('../models/models.js')
     last_name: req.body.last_name
   }
 
-  // Model.User.create(newUser, function () {
-  //   // magic happens here
-  //   // TODO- Isaac to look into exactly how passport.
-  //   console.log("saving user");
-  //   res.send({ message: 'User has been added successfully!' });
-  // }).catch(function(error) {
-  //   // Catch error
-  // })
 
-Model.User.create(newUser).then(function (user) {
-
-  if (user) {
-      console.log(user); // TODO look into this 'error' object sent back from database. Probably how Sequelize works
-    }
-
-    // Look into sending back error 
-    // If use: if (err) return next(err) ---> server response with a 500 error and not return res.send below
-
-    return res.send({ message: 'User has been added successfully!', user });
-  }).catch(function (err) {
-     console.log(err);
+Model.User.create(newUser).then(user => {
+ 
+    res.status(200).json({user, 'type': 'success', message: 'success'});
+    
+  }).catch(err => {
+    
+    // Add sequelize error handling logic here. API Controller will parse errors from sequelize, and respond to front-end with HTTP status code, error type, and specific error message.
+    
+    res.status(400).json({ 'type': 'error', message: err.errors[0].message }); 
+    
   })
-
-
 }
 
 /**

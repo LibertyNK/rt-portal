@@ -16,6 +16,10 @@ class LogInStore {
   	this.password = event.target.value;
   }
 
+  onLogInSuccess() {
+    window.location.href = '/dashboard';
+  }
+
 }
 
 export default alt.createStore(LogInStore);
