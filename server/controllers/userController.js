@@ -42,7 +42,7 @@ var Model = require('../models/models.js')
   }
 
   if (password !== password2) {
-    console.log("Passwords don't match");
+
     res.status(400).json({ 'type': 'validation error', message: 'Passwords dont match!!' });
   }
   
@@ -60,7 +60,7 @@ var Model = require('../models/models.js')
 
 Model.User.create(newUser).then(user => {
  
-    res.status(200).json({user, message: 'success'});
+    res.status(200).json({user, 'type': 'success', message: 'success'});
     
   }).catch(err => {
     
