@@ -94,15 +94,15 @@ class SignUpStore {
     this.errorMessage = data.message;
     if (data.message == 'success') {
       this.errorMessageState = 'alert alert-success text-center';
+
+      //redirect to All Teams Page or User Dashboard
+      window.location.href = '/new_team';
+
+      // TODO: find way to set user info after signup/login to local storage or the next state
+
     } else {
       this.errorMessageState = 'alert alert-danger';
-    }
-    
-
-    // TODO: find way to set user info after signup/login to local storage or the next state
-
-    //redirect to All Teams Page or User Dashboard
-    window.location.href = '/new_team';
+    }   
  
   }
 
