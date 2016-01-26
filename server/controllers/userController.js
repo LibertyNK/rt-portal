@@ -58,11 +58,11 @@ var Model = require('../models/models.js')
 
 
 Model.User.create(newUser).then(user => {
- 
+    console.log(user);
     res.json({user, message: 'success'});
   }).catch(err => {
     console.log(err.errors[0].message);
-    res.json({ message: err.errors[0].message }); // Need to send http status back to client together with error messages
+    res.json({ message: "error", error: err.errors[0].message }); // Need to send http status back to client together with error messages
   })
 }
 

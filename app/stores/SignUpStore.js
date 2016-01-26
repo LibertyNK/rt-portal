@@ -94,9 +94,10 @@ class SignUpStore {
     this.errorMessage = data.message;
     if (data.message == 'success') {
       this.errorMessageState = 'alert alert-success text-center';
+      console.log("success");
 
       //redirect to All Teams Page or User Dashboard
-      window.location.href = '/new_team';
+      // window.location.href = '/new_team';
 
       // TODO: find way to set user info after signup/login to local storage or the next state
 
@@ -107,7 +108,7 @@ class SignUpStore {
   }
 
   onSignUpFail(errors) {
-    this.errorMessage = errors.message;
+    this.errorMessage = errors.error;
     this.errorMessageState = 'alert alert-danger';
   }
   

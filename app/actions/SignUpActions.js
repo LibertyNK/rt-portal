@@ -33,8 +33,9 @@ class SignUpActions {
 				this.actions.signUpSuccess(data);
 				this.actions.displayErrorMessage(data.message);
 			} else {
+				console.log('Message from server: ' + data.message);
 				this.actions.signUpFail(data);
-				this.actions.displayErrorMessage(data.message);
+				this.actions.displayErrorMessage(data.error);
 			}
 
 		})
