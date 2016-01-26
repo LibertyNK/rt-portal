@@ -3,7 +3,6 @@ import SignUpStore from '../stores/SignUpStore';
 import SignUpActions from '../actions/SignUpActions';
 
 
-
 class SignUp extends React.Component {
 
 	constructor(props) {

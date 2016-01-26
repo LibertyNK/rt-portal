@@ -27,22 +27,22 @@ class SignUpActions {
 
 	signUp(userdata) {
 		ApiUtils.signUp(userdata)
-		.done((data) => {
-			if(data.message == 'success') {
-				console.log('Message from server: ' + data.message);
-				this.actions.signUpSuccess(data);
-				this.actions.displayErrorMessage(data.message);
-			} else {
-				console.log('Message from server: ' + data.message);
-				this.actions.signUpFail(data);
-				this.actions.displayErrorMessage(data.error);
-			}
+			.done((data) => {
+				if(data.message == 'success') {
+					console.log('Success Message from server: ' + data.message);
+					this.actions.signUpSuccess(data);
+					this.actions.displayErrorMessage(data.message);
+				} else {
+					console.log('Error Message from server: ' + data.message);
+					this.actions.signUpFail(data);
+					this.actions.displayErrorMessage(data.error);
+				}
 
-		})
-		.fail((jqXhr) => {
-			this.actions.signUpFail(jqXhr.responseJSON.message);
-			console.log('Error Message from server: ' + jqXhr.responseJSON.message);
-		});
+			})
+			.fail((jqXhr) => {
+				this.actions.signUpFail(jqXhr.responseJSON.message);
+				console.log('Fail Message from server: ' + jqXhr.responseJSON.message);
+			});
 	}
 }
 

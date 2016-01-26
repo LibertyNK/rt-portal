@@ -99,7 +99,7 @@ class SignUpStore {
       //redirect to All Teams Page or User Dashboard
       // window.location.href = '/new_team';
 
-      // TODO: find way to set user info after signup/login to local storage or the next state
+      // TODO: find way to set user info after signup/login to local storage or the next state. Look into Mixins and Parent-Children props inheritance
 
     } else {
       this.errorMessageState = 'alert alert-danger';
