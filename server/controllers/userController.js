@@ -42,7 +42,8 @@ var Model = require('../models/models.js')
   }
 
   if (password !== password2) {
-    return res.status(404).send({ message: 'Passwords dont match!!' });
+
+    res.status(400).json({ 'type': 'validation error', message: 'Passwords dont match!!' });
   }
   
   let salt = bcrypt.genSaltSync(10)
@@ -58,11 +59,15 @@ var Model = require('../models/models.js')
 
 
 Model.User.create(newUser).then(user => {
-    console.log(user);
-    res.json({user, message: 'success'});
+ 
+    res.status(200).json({user, 'type': 'success', message: 'success'});
+    
   }).catch(err => {
-    console.log(err.errors[0].message);
-    res.json({ message: "error", error: err.errors[0].message }); // Need to send http status back to client together with error messages
+    
+    // Add sequelize error handling logic here. API Controller will parse errors from sequelize, and respond to front-end with HTTP status code, error type, and specific error message.
+    
+    res.status(400).json({ 'type': 'error', message: err.errors[0].message }); 
+    
   })
 }
 

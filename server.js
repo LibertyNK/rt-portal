@@ -72,7 +72,8 @@ app.use(function(req, res) {
       } else {
         res.status(404).send('Page Not Found')
       }
-    });
+    }
+  );
 });
 
 // start app
