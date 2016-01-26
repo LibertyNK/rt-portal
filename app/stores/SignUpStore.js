@@ -45,6 +45,9 @@ class SignUpStore {
 
   onUpdateLastName(event) {
     this.last_name = event.target.value;
+    if (this.last_name !== '') {
+      this.validationState.last_name = 'has-success';
+    }
   }
 
   onInvalidLastName() {
