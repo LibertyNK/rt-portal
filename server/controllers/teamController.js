@@ -18,10 +18,10 @@ module.exports.getTeams = function(req, res, next) {
  */
 module.exports.getTeam = function(req, res, next) {
   Model.Team.findById(req.params.team_id).then(
-    function(err, user) {
+    function(err, team) {
       if(err) res.send(err);
         
-    res.json(user);
+    res.json(team);
   })
 }
 
@@ -32,7 +32,9 @@ module.exports.getTeam = function(req, res, next) {
  */
  module.exports.postTeams = function(req, res, next) {
 
-  let teamname = req.body.teamname
+  let team_name = req.body.team_name;
+  //validate team inputs here
+  
   
   let newTeam = {
     teamname: teamname

@@ -99,8 +99,8 @@ class SignUpStore {
  
   }
 
-  onSignUpFail(errors) {
-    this.errorMessage = errors.message;
+  onSignUpFail(error) {
+    this.errorMessage = error.responseJSON.message;
     this.errorMessageState = 'alert alert-danger';
   }
   

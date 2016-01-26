@@ -32,6 +32,21 @@ module.exports = {
 			url: '/dashboard',
 			type: 'GET'
 		})
+	},
+
+	addTeam: function(team, user) {
+		return $.ajax({
+			url: '/teams',
+			type: 'POST',
+			data: {team: team, user: user}
+		});
+	},
+
+	getTeam: function(team_id) {
+		return $.ajax({
+			url: 'teams/' + team_id,
+			type: 'GET'
+		})
 	}
 
 

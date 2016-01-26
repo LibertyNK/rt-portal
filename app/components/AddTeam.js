@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import AddTeamStore from '../stores/AddTeamStore';
-import AddTeamActions from '../actions/AddTeamActions';
+
 
 class AddTeam extends React.Component {
 	render() {
