@@ -17,6 +17,7 @@ class SignUpStore {
                         last_name: '',
                         email: '',
                         password: '',
+                        password_length: '',
                         password_conf:'',
                         matching_passwords:''
                      };
@@ -25,6 +26,7 @@ class SignUpStore {
                               last_name: '',
                               email: '',
                               password: '',
+                              password_length: '',
                               password_conf:'',
                               matching_passwords:''
                            };
@@ -43,6 +45,9 @@ class SignUpStore {
 
   onUpdateLastName(event) {
     this.last_name = event.target.value;
+    if (this.last_name !== '') {
+      this.validationState.last_name = 'has-success';
+    }
   }
 
   onInvalidLastName() {
@@ -68,6 +73,11 @@ class SignUpStore {
     this.helpBlock.password = "Password can't be blank!";
   }
 
+   onInvalidPasswordLength() {
+    this.validationState.password_length = 'has-error';
+    this.helpBlock.password_length = "Password needs to have at least 6 characters!";
+  }
+
   onUpdatePasswordConf(event) {
     this.password_conf = event.target.value;
   }
@@ -87,15 +97,16 @@ class SignUpStore {
     this.errorMessage = data.message;
     if (data.message == 'success') {
       this.errorMessageState = 'alert alert-success text-center';
+      console.log("success");
+
+      //redirect to All Teams Page or User Dashboard
+      // window.location.href = '/new_team';
+
+      // TODO: find way to set user info after signup/login to local storage or the next state. Look into Mixins and Parent-Children props inheritance
+
     } else {
       this.errorMessageState = 'alert alert-danger';
-    }
-    
-
-    // TODO: find way to set user info after signup/login to local storage or the next state
-
-    //redirect to All Teams Page or User Dashboard
-    // window.location.href = '/all_teams';
+    }   
  
   }
 

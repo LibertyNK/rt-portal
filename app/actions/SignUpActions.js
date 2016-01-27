@@ -18,6 +18,7 @@ class SignUpActions {
 			'invalidFirstName',
 			'invalidLastName',
 			'invalidPassword',
+			'invalidPasswordLength',
 			'invalidPasswordConf',
 			'unmatchPasswords',
 			'displayErrorMessage'
@@ -26,22 +27,23 @@ class SignUpActions {
 
 	signUp(userdata) {
 		ApiUtils.signUp(userdata)
-		.done((data) => {
-			if(data.message == 'success') {
-				console.log('Message from server: ' + data.message);
-				this.actions.signUpSuccess(data);
-				this.actions.displayErrorMessage(data.message);
-			} else {
-				this.actions.signUpFail(data);
-				this.actions.displayErrorMessage(data.message);
-			}
-
+			.done((data) => {
+				if(data.message == 'success') {
+					console.log('Success Message from server: ' + data.message);
+					this.actions.signUpSuccess(data);
+					this.actions.displayErrorMessage(data.message);
+				} else {
+					console.log('Error Message from server: ' + data.message);
+					this.actions.signUpFail(data);
+					this.actions.displayErrorMessage(data.error);
+				}
 		})
 		.fail((jqXhr) => {
 			this.actions.signUpFail(jqXhr);
 			console.log('Error Message from server: ' + jqXhr.responseJSON.message);
 			this.actions.displayErrorMessage(jqXhr.responseJSON.message);
 		});
+		
 	}
 }
 
