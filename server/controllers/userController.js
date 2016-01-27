@@ -66,8 +66,8 @@ Model.User.create(newUser).then(user => {
     
     // Add sequelize error handling logic here. API Controller will parse errors from sequelize, and respond to front-end with HTTP status code, error type, and specific error message.
     
-    // console.log(err.errors[0].message);
-    res.status(400).json({ message: err.errors[0].message }); 
+    console.log(err);
+    res.status(400).json({ err, 'type': 'db-error', message: 'Error writing to database' }); 
     
   })
 }
