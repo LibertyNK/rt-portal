@@ -1,13 +1,15 @@
 var Model = require('../../server/models/models.js')
 
 module.exports = function(callback) {
-  // recreate User table
+  // Create user table with sample user
   Model.User.sync({ force: true }).then(function() {
     // create user with 
     // email: user@user.com
     // password: user
     Model.User.create({
       email: 'user@user.com',
+      first_name: 'User',
+      last_name: 'McUser',
       password: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O9D93HKwPKFNWBqiiuc/IoMtIurRCT36',
       salt: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O'
     }).then(callback)

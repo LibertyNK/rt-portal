@@ -28,7 +28,7 @@ module.exports = function(express) {
   // Endpoint handlers for /users/:user_id
   router.route('/users/:user_id')
     .get(userController.getUser)
-    .put(isAuthenticated, userController.putUser)
+    .put(userController.putUser)
     .delete(isAuthenticated, userController.deleteUser);
     
   // Endpoint handlers for /teams
