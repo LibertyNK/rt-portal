@@ -6,20 +6,22 @@ class AddTeamStore {
    constructor() {
     	this.bindActions(AddTeamActions);
 
-    	this.user = {};
-
     	this.team_name = '';
     	this.street = '';
     	this.address = '';
-    	this.state = '';
-    	this.zipcode = '',
+    	this.team_state = '';
+    	this.zipcode = '';
     	this.about = '';
+
+    	// TODO: Need to pass user data from current state to this. I leave it empty for now
+    	this.user = {};
+
 
     	this.helpBlock = {
     								team_name: '',
     								street: '',
     								address: '',
-    								state: '',
+    								team_state: '',
     								zipcode: '',
     								about: ''
     					     };
@@ -27,7 +29,7 @@ class AddTeamStore {
      										team_name: '',
 		    								street: '',
 		    								address: '',
-		    								state: '',
+		    								team_state: '',
 		    								zipcode: '',
 		    								about: ''
      								  };
@@ -44,6 +46,11 @@ class AddTeamStore {
    onInValidTeamName() {
    	this.validationState.team_name = 'has-error';
    	this.helpBlock.team_name = 'Team Name is required';
+   }
+
+   onInValidTeamNameLength() {
+   	this.validationState.team_name = 'has-error';
+   	this.helpBlock.team_name = 'Team Name must be between 3 and 50 characters';
    }
 
    onUpdateStreet(event) {
@@ -65,11 +72,11 @@ class AddTeamStore {
    }
 
    onUpdateState(event) {
-   	this.state= event.target.value;
+   	this.team_state= event.target.value;
    }
 
    onInValidState() {
-   	this.validationState.state = 'has-error';
+   	this.validationState.team_state = 'has-error';
    	this.helpBlock.state = 'State is required';
    }
 
@@ -89,6 +96,11 @@ class AddTeamStore {
    onInValidAbout() {
    	this.validationState.about = 'has-error';
    	this.helpBlock.about = 'Say something about the team';
+   }
+
+   onInValidAboutLength() {
+   	this.validationState.about = 'has-error';
+   	this.helpBlock.about = 'Must be between 150 and 500 characters';
    }
 
     onAddTeamSuccess(data) {

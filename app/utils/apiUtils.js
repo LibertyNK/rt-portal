@@ -35,6 +35,7 @@ module.exports = {
 	},
 
 	addTeam: function(team, user) {
+		console.log("sending team to server, team: " +  team.team_name + " user: " + user);
 		return $.ajax({
 			url: '/teams',
 			type: 'POST',

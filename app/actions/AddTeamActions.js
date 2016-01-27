@@ -13,12 +13,14 @@ class AddTeamActions {
 			'updateState',
 			'updateZipcode',
 			'invalidTeamName',
+			'invalidTeamNameLength',
 			'isUniqueTeamName',
 			'invalidAddress',
 			'invalidStreet',
 			'invalidState',
 			'invalidZipcode',
 			'invalidAbout',
+			'invalidAboutLength',
 			'dipslayErrorMessage'
 		);
 	}
