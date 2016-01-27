@@ -7,11 +7,12 @@ class AddTeamStore {
     	this.bindActions(AddTeamActions);
 
     	this.team_name = '';
-    	this.street = '';
-    	this.address = '';
+    	this.adress1 = '';
+    	this.address2 = '';
     	this.team_state = '';
     	this.zipcode = '';
     	this.about = '';
+      this.user = {};
 
     	// TODO: Need to pass user data from current state to this. I leave it empty for now
     	this.user = {};
@@ -19,16 +20,16 @@ class AddTeamStore {
 
     	this.helpBlock = {
     								team_name: '',
-    								street: '',
-    								address: '',
+    								address1: '',
+    								address2: '',
     								team_state: '',
     								zipcode: '',
     								about: ''
     					     };
      	this.validationState = {
      										team_name: '',
-		    								street: '',
-		    								address: '',
+		    								address1: '',
+		    								address2: '',
 		    								team_state: '',
 		    								zipcode: '',
 		    								about: ''
@@ -53,23 +54,23 @@ class AddTeamStore {
    	this.helpBlock.team_name = 'Team Name must be between 3 and 50 characters';
    }
 
-   onUpdateStreet(event) {
-   	this.street = event.target.value;
+   onUpdateAddress1(event) {
+   	this.address1 = event.target.value;
    }
 
-   onInValidStreet() {
-   	this.validationState.street = 'has-error';
-   	this.helpBlock.street = 'Street is required';
+   onInValidAddress1() {
+   	this.validationState.address1 = 'has-error';
+   	this.helpBlock.address1 = 'Address is required';
    }
 
-   onUpdateAddress(event) {
-   	this.address = event.target.value;
+   onUpdateAddress2(event) {
+   	this.address2 = event.target.value;
    }
 
-   onInValidAddress() {
-   	this.validationState.address = 'has-error';
-   	this.helpBlock.address = 'Address is required';
-   }
+   // onInValidAddress() {
+   // 	this.validationState.address = 'has-error';
+   // 	this.helpBlock.address = 'Address is required';
+   // }
 
    onUpdateState(event) {
    	this.team_state= event.target.value;
@@ -77,7 +78,7 @@ class AddTeamStore {
 
    onInValidState() {
    	this.validationState.team_state = 'has-error';
-   	this.helpBlock.state = 'State is required';
+   	this.helpBlock.team_state = 'State is required';
    }
 
    onUpdateZipcode(event) {
@@ -119,9 +120,10 @@ class AddTeamStore {
   	}
 
   	onAddTeamFail(error) {
-    	this.errorMessage = error.responseJSON.message;
+    	this.errorMessage = error;
     	this.errorMessageState = 'alert alert-danger';
   	}
+
 
    
 }

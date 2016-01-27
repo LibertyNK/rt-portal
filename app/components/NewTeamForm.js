@@ -34,9 +34,9 @@ class NewTeamForm extends React.Component {
 							
 		var team = {
 							team_name: this.state.team_name,
-							street: this.state.street,
-							address: this.state.address,
-							team_state: this.state.state,
+							address1: this.state.address1,
+							address2: this.state.address2,
+							team_state: this.state.team_state,
 							zipcode: this.state.zipcode,
 							about: this.state.about,
 							leader: this.state.user		
@@ -56,14 +56,14 @@ class NewTeamForm extends React.Component {
 			AddTeamActions.invalidTeamNameLength();
 		}
 
-		if (!team.street) {
-			this.refs.street.focus();
-			AddTeamActions.invalidStreet();
+		if (!team.address1) {
+			this.refs.address1.focus();
+			AddTeamActions.invalidAddress1();
 		}
 
-		if (!team.address) {
-			this.refs.address.focus();
-			AddTeamActions.invalidAddress();
+		if (!team.address2) {
+			this.refs.address2.focus();
+			AddTeamActions.invalidAddress2();
 		}
 
 		if (!team.team_state) {
@@ -81,18 +81,20 @@ class NewTeamForm extends React.Component {
 			AddTeamActions.invalidAbout();
 		}
 
-		if (team.about.length < 150 || team.about.length > 500) {
+		if (team.about.length < 5 || team.about.length > 500) {
 			this.refs.about.focus();
 			AddTeamActions.invalidAboutLength();
 		}
 
+		console.log("Error message state now is " + this.state.errorMessageState);
+		console.log("Validation state now is " + this.state.validationState.team_name);
 
 		//TODO: Check if user already in a team or not. There should be a step before this to make sure that if user already has, display a message and show their team, or something else...?
 
-		if (this.state.validationState === '') {
-			AddTeamActions.addTeam(team, this.state.user);
+		if (team.team_name) {
+
+				AddTeamActions.addTeam(team);
 		}
-		
 
 	}
 	
@@ -118,13 +120,13 @@ class NewTeamForm extends React.Component {
 							<input type='text' className='form-control' ref="team_name" placeholder="Team Name" autoFocus onChange={AddTeamActions.updateTeamName} />
 						</div>
 						<label className='control-label'>Team Address</label>	
-						<div className={'form-group ' + this.state.validationState.street}>
-							<span className='help-block'> {this.state.helpBlock.street}</span>
-							<input type='text' className='form-control' ref="street" placeholder="Team Street Address" onChange={AddTeamActions.updateStreet}/>
+						<div className={'form-group ' + this.state.validationState.address1}>
+							<span className='help-block'> {this.state.helpBlock.address1}</span>
+							<input type='text' className='form-control' ref="address1" placeholder="Team address" onChange={AddTeamActions.updateAddress1}/>
 						</div>
-						<div className={'form-group ' + this.state.validationState.address}>
-							<span className='help-block'> {this.state.helpBlock.address}</span>
-							<input type='text' className='form-control' ref="address" placeholder="Team Street Address #2" onChange={AddTeamActions.updateAddress}/>
+						<div className={'form-group ' + this.state.validationState.address2}>
+							<span className='help-block'> {this.state.helpBlock.address2}</span>
+							<input type='text' className='form-control' ref="address2" placeholder="Team Address #2" onChange={AddTeamActions.updateAddress2}/>
 						</div>
 						<div className={'form-group ' + this.state.validationState.team_state}>
 							<span className='help-block'> {this.state.helpBlock.team_state}</span>
@@ -136,7 +138,7 @@ class NewTeamForm extends React.Component {
 						</div>
 						<div className={'form-group ' + this.state.validationState.about}>
 							<label className='control-label'>About Your Team</label>
-							<span className='help-block'> {this.state.helpBlock.aboout}</span>
+							<span className='help-block'> {this.state.helpBlock.about}</span>
 							<textarea type='text' className='form-control' ref="about" onChange={AddTeamActions.updateAbout}></textarea>
 						</div>
 												

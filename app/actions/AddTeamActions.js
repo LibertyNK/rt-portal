@@ -8,15 +8,15 @@ class AddTeamActions {
 			'addTeamSuccess',
 			'addTeamFail',
 			'updateTeamName',
-			'updateStreet',
-			'updateAddress',
+			'updateAddress1',
+			'updateAddress2',
 			'updateState',
 			'updateZipcode',
 			'invalidTeamName',
 			'invalidTeamNameLength',
 			'isUniqueTeamName',
-			'invalidAddress',
-			'invalidStreet',
+			'invalidAddress1',
+			'invalidAddress2',
 			'invalidState',
 			'invalidZipcode',
 			'invalidAbout',
@@ -25,18 +25,14 @@ class AddTeamActions {
 		);
 	}
 
-	addTeam(team, user) {
-		ApiUtils.addTeam(team, user)
+	addTeam(team) {
+		ApiUtils.addTeam(team)
 			.done((data) => {
 				if(data.type === 'success') {
-					console.log(data.message);
+					console.log("action is receiving " + data.message + " message from server");
 					this.actions.addTeamSuccess(data);
 					this.actions.dipslayErrorMessage(data.message);
-				} else {
-					console.log("fail");
-					this.actions.addTeamFail(data);
-					this.actions.dipslayErrorMessage(data.message);
-				}
+				} 
 			})
 			.fail((jqXhr) => {
 				this.actions.addTeamFail(jqXhr.responseJSON.message);

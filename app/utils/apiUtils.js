@@ -34,12 +34,12 @@ module.exports = {
 		})
 	},
 
-	addTeam: function(team, user) {
-		console.log("sending team to server, team: " +  team.team_name + " user: " + user);
+	addTeam: function(team) {
+		console.log("sending team to server, team: " +  team.team_name);
 		return $.ajax({
 			url: '/teams',
 			type: 'POST',
-			data: {team: team, user: user}
+			data: team
 		});
 	},
 

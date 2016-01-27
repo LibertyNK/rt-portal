@@ -32,18 +32,39 @@ module.exports.getTeam = function(req, res, next) {
  */
  module.exports.postTeams = function(req, res, next) {
 
-  let team_name = req.body.team_name;
+  let team_name = req.body.team_name,
+      address1 = req.body.address1,
+      address2 = req.body.address2,
+      team_state = req.body.team_state,
+      zipcode = req.body.zipcode,
+      about = req.body.about,
+      leader = req.body.user;
+
   //validate team inputs here
-  
+
   
   let newTeam = {
-    teamname: teamname
+    team_name: team_name,
+    address1: address1,
+    address2: address2,
+    team_state: team_state,
+    zipcode: zipcode,
+    about: about,
+    leader: leader
   }
   
-  Model.Team.create(newTeam, function (req, res) {
-  }).catch(function(error) {
-    // Catch error
-  })
+  console.log(newTeam);
+  
+  Model.Team.create(newTeam)
+    .then( team => {
+
+      res.status(200).json({team, 'type': 'success', message: 'success'});
+
+     }).catch(err => {
+
+      console.log(err.errors[0].message);
+      res.status(400).json({ 'type': 'error', message: err.errors[0].message }); 
+    });
 }
 
 /**

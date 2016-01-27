@@ -33,7 +33,8 @@ module.exports = function(express) {
     
   // Endpoint handlers for /teams
   router.route('/teams')
-    .post(isAuthenticated, teamController.postTeams)
+    // .post(isAuthenticated, teamController.postTeams) <--- Turn isAuthenticated off for now becasue no user info yet
+    .post(teamController.postTeams)
     .get(isAuthenticated, teamController.getTeams);
   
   // Endpoint handlers for /users/:user_id

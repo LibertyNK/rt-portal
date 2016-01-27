@@ -6,7 +6,7 @@ var attributes = {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true
   },
-  teamname: {
+  team_name: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
@@ -25,6 +25,23 @@ var attributes = {
   },
   tier_level: {
     type: Sequelize.INTEGER,
+  },
+  address1: {
+    type: Sequelize.STRING, 
+  },
+  address2: {
+    type: Sequelize.STRING, 
+  },
+  team_state: {
+    type: Sequelize.STRING, 
+  },
+  zipcode: {
+    type: Sequelize.STRING, 
+  },
+  leader: {
+    type: Sequelize.INTEGER, 
+    // references: 'users',
+    referencesKey: 'id'
   }
 }
 
