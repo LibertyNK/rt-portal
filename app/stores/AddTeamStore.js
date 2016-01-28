@@ -14,8 +14,8 @@ class AddTeamStore {
       this.country = '';
     	this.about = '';
 
-    	// TODO: Need to pass user data from current state to this. I leave it empty for now
-    	this.user = "lannify@gmail.com"; // Temporarily using fixed email to find user for now. Should change this later to user ID or something
+    	this.user = "lannify@gmail.com"; 
+      // Temporarily using fixed email to find user for now. Should change this later to user ID or something
 
 
     	this.helpBlock = {
@@ -27,6 +27,7 @@ class AddTeamStore {
                     country: '',
     								about: ''
     					     };
+
      	this.validationState = {
      										team_name: '',
 		    								address1: '',
@@ -46,24 +47,23 @@ class AddTeamStore {
    	this.team_name = event.target.value;
    }
 
-  onInValidTeamName() {
-    console.log("team name!");
-   	this.validationState.team_name = 'has-error';
-   	this.helpBlock.team_name = 'Team Name is required';
-   }
+  onInvalidTeamName() {
+    this.validationState.team_name = 'has-error';
+    this.helpBlock.team_name = "Team Name can't be blank!";
+  }
 
-  onInValidTeamNameLength() {
-   	this.validationState.team_name = 'has-error';
-   	this.helpBlock.team_name = 'Team Name must be between 3 and 50 characters';
+  onInvalidTeamNameLength() {
+    this.validationState.team_name = 'has-error';
+    this.helpBlock.team_name += ". Team Name has to be between 3 and 50 characters.";
   }
 
   onUpdateAddress1(event) {
    	this.address1 = event.target.value;
   }
 
-  onInValidAddress1() {
-   	this.validationState.address1 = 'has-error';
-   	this.helpBlock.address1 = 'Address is required';
+  onInvalidAddress1() {
+    this.validationState.address1 = 'has-error';
+    this.helpBlock.address1 = "Address can't be blank!";
   }
 
   onUpdateAddress2(event) {
@@ -79,41 +79,41 @@ class AddTeamStore {
    	this.team_state= event.target.value;
   }
 
-  onInValidState() {
-   	this.validationState.team_state = 'has-error';
-   	this.helpBlock.team_state = 'State is required';
+  onInvalidState() {
+    this.validationState.team_state = 'has-error';
+    this.helpBlock.team_state = "State can't be blank!";
   }
 
   onUpdateZipcode(event) {
    	this.zipcode = event.target.value;
   }
 
-  onInValidZipcode() {
-   	this.validationState.zipcode = 'has-error';
-   	this.helpBlock.zipcode = 'Zipcode is required';
+  onInvalidZipcode() {
+    this.validationState.zipcode = 'has-error';
+    this.helpBlock.zipcode = "Zipcode can't be blank!";
   }
 
   onUpdateCountry(event) {
     this.country = event.target.value;
   }
 
-  onInValidCountry() {
-    this.validationState.country = 'has-error';
-    this.helpBlock.country = 'Country is required';
+  onInvalidCountry() {
+    this.validationState.country= 'has-error';
+    this.helpBlock.country= "Country can't be blank!";
   }
 
   onUpdateAbout(event) {
    	this.about = event.target.value;
   }
 
-  onInValidAbout() {
-   	this.validationState.about = 'has-error';
-   	this.helpBlock.about = 'Say something about the team';
+  onInvalidAbout() {
+    this.validationState.about = 'has-error';
+    this.helpBlock.about = "Say something about your team goal";
   }
 
-  onInValidAboutLength() {
+   onInvalidAboutLength() {
    	this.validationState.about = 'has-error';
-   	this.helpBlock.about = 'Must be between 150 and 500 characters';
+   	this.helpBlock.about += '. Must be between 150 and 500 characters.';
   }
 
   onAddTeamSuccess(data) {
