@@ -38,11 +38,15 @@ var attributes = {
   zipcode: {
     type: Sequelize.STRING, 
   },
+  country: {
+    type: Sequelize.STRING, 
+  },
   leader: {
-    type: Sequelize.INTEGER, 
+    type: Sequelize.STRING, //change this later to INTEGER TYPE for User_ID
     // references: 'users',
     referencesKey: 'id'
   }
+  //TODO: set up relationship between use and team, and set referencesKey in both tables accordingly
 }
 
 var options = {

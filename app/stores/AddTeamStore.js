@@ -7,14 +7,15 @@ class AddTeamStore {
     	this.bindActions(AddTeamActions);
 
     	this.team_name = '';
-    	this.adress1 = '';
+    	this.address1 = '';
     	this.address2 = '';
     	this.team_state = '';
     	this.zipcode = '';
+      this.country = '';
     	this.about = '';
 
     	// TODO: Need to pass user data from current state to this. I leave it empty for now
-    	this.user = {};
+    	this.user = "lannify@gmail.com"; // Temporarily using fixed email to find user for now. Should change this later to user ID or something
 
 
     	this.helpBlock = {
@@ -23,6 +24,7 @@ class AddTeamStore {
     								address2: '',
     								team_state: '',
     								zipcode: '',
+                    country: '',
     								about: ''
     					     };
      	this.validationState = {
@@ -31,6 +33,7 @@ class AddTeamStore {
 		    								address2: '',
 		    								team_state: '',
 		    								zipcode: '',
+                        country: '',
 		    								about: ''
      								  };
 
@@ -44,6 +47,7 @@ class AddTeamStore {
    }
 
   onInValidTeamName() {
+    console.log("team name!");
    	this.validationState.team_name = 'has-error';
    	this.helpBlock.team_name = 'Team Name is required';
    }
@@ -87,6 +91,15 @@ class AddTeamStore {
   onInValidZipcode() {
    	this.validationState.zipcode = 'has-error';
    	this.helpBlock.zipcode = 'Zipcode is required';
+  }
+
+  onUpdateCountry(event) {
+    this.country = event.target.value;
+  }
+
+  onInValidCountry() {
+    this.validationState.country = 'has-error';
+    this.helpBlock.country = 'Country is required';
   }
 
   onUpdateAbout(event) {

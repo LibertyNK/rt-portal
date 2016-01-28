@@ -29,8 +29,6 @@ class NewTeamForm extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-
-		//var user = this.state.user;
 							
 		var team = {
 							team_name: this.state.team_name,
@@ -38,6 +36,7 @@ class NewTeamForm extends React.Component {
 							address2: this.state.address2,
 							team_state: this.state.team_state,
 							zipcode: this.state.zipcode,
+							country: this.state.country,
 							about: this.state.about,
 							leader: this.state.user		
 		};
@@ -76,6 +75,11 @@ class NewTeamForm extends React.Component {
 			AddTeamActions.invalidZipcode();
 		}
 
+		if (!team.country) {
+			this.refs.country.focus();
+			AddTeamActions.invalidCountry();
+		}
+
 		if (!team.about) {
 			this.refs.about.focus();
 			AddTeamActions.invalidAbout();
@@ -88,7 +92,7 @@ class NewTeamForm extends React.Component {
 
 		// console.log("Error message state now is " + this.state.errorMessageState);
 		// console.log("Validation state now is " + this.state.validationState.team_name);
-		console.log("about is" + this.state.about);
+
 
 		//TODO: Check if user already in a team or not. There should be a step before this to make sure that if user already has, display a message and show their team, or something else...?
 
@@ -136,6 +140,10 @@ class NewTeamForm extends React.Component {
 						<div className={'form-group ' + this.state.validationState.zipcode}>
 							<span className='help-block'> {this.state.helpBlock.zipcode}</span>
 							<input type='number' className='form-control' ref="zipcode" placeholder="Zip (etc: 46514)" onChange={AddTeamActions.updateZipcode}/>
+						</div>
+						<div className={'form-group ' + this.state.validationState.country}>
+							<span className='help-block'> {this.state.helpBlock.country}</span>
+							<input type='text' className='form-control' ref="country" placeholder="Country" onChange={AddTeamActions.updateCountry}/>
 						</div>
 						<div className={'form-group ' + this.state.validationState.about}>
 							<label className='control-label'>About Your Team</label>

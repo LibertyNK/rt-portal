@@ -12,6 +12,7 @@ class AddTeamActions {
 			'updateAddress2',
 			'updateState',
 			'updateZipcode',
+			'updateCountry',
 			'updateAbout',
 			'invalidTeamName',
 			'invalidTeamNameLength',
@@ -20,6 +21,7 @@ class AddTeamActions {
 			'invalidAddress2',
 			'invalidState',
 			'invalidZipcode',
+			'invalidCountry',
 			'invalidAbout',
 			'invalidAboutLength',
 			'dipslayErrorMessage'

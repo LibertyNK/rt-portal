@@ -1,4 +1,7 @@
-var Model = require('../models/models.js')
+var Model = require('../models/models.js');
+var userController = require('../controllers/userController.js')
+
+let User = Model.User;
 
 /**
  * GET /teams
@@ -37,8 +40,9 @@ module.exports.getTeam = function(req, res, next) {
       address2 = req.body.address2,
       team_state = req.body.team_state,
       zipcode = req.body.zipcode,
+      country = req.body.country,
       about = req.body.about,
-      leader = req.body.user;
+      leader = req.body.leader;
 
   //validate team inputs here
 
@@ -49,6 +53,7 @@ module.exports.getTeam = function(req, res, next) {
     address2: address2,
     team_state: team_state,
     zipcode: zipcode,
+    country: country,
     about: about,
     leader: leader
   }
@@ -59,6 +64,11 @@ module.exports.getTeam = function(req, res, next) {
     .then( team => {
 
       res.status(200).json({team, 'type': 'success', message: 'success'});
+
+      //Update User's Team and User's Admin Level
+      console.log("Team info from DB: " + team.uuid + ", team name: " + team.team_name);
+
+      userController.updateUserTeam(team);
 
      }).catch(err => {
 

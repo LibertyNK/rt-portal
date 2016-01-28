@@ -42,6 +42,9 @@ var attributes = {
   },
   last_login: {
     type: Sequelize.DATE,
+  },
+  team: {
+    type: Sequelize.UUID
   }
 }
 

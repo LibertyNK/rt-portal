@@ -1,6 +1,6 @@
-var passport = require('passport')
-var userController = require('../controllers/userController.js')
-var teamController = require('../controllers/teamController.js')
+var passport = require('passport');
+var userController = require('../controllers/userController.js');
+var teamController = require('../controllers/teamController.js');
 
 module.exports = function(express) {
   var router = express.Router()
