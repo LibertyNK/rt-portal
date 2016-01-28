@@ -12,7 +12,6 @@ class AddTeamStore {
     	this.team_state = '';
     	this.zipcode = '';
     	this.about = '';
-      this.user = {};
 
     	// TODO: Need to pass user data from current state to this. I leave it empty for now
     	this.user = {};
@@ -40,89 +39,87 @@ class AddTeamStore {
     	
    }
 
-   onUpdateTeamName(event) {
+  onUpdateTeamName(event) {
    	this.team_name = event.target.value;
    }
 
-   onInValidTeamName() {
+  onInValidTeamName() {
    	this.validationState.team_name = 'has-error';
    	this.helpBlock.team_name = 'Team Name is required';
    }
 
-   onInValidTeamNameLength() {
+  onInValidTeamNameLength() {
    	this.validationState.team_name = 'has-error';
    	this.helpBlock.team_name = 'Team Name must be between 3 and 50 characters';
-   }
+  }
 
-   onUpdateAddress1(event) {
+  onUpdateAddress1(event) {
    	this.address1 = event.target.value;
-   }
+  }
 
-   onInValidAddress1() {
+  onInValidAddress1() {
    	this.validationState.address1 = 'has-error';
    	this.helpBlock.address1 = 'Address is required';
-   }
+  }
 
-   onUpdateAddress2(event) {
+  onUpdateAddress2(event) {
    	this.address2 = event.target.value;
-   }
+  }
 
    // onInValidAddress() {
    // 	this.validationState.address = 'has-error';
    // 	this.helpBlock.address = 'Address is required';
    // }
 
-   onUpdateState(event) {
+  onUpdateState(event) {
    	this.team_state= event.target.value;
-   }
+  }
 
-   onInValidState() {
+  onInValidState() {
    	this.validationState.team_state = 'has-error';
    	this.helpBlock.team_state = 'State is required';
-   }
+  }
 
-   onUpdateZipcode(event) {
+  onUpdateZipcode(event) {
    	this.zipcode = event.target.value;
-   }
+  }
 
-   onInValidZipcode() {
+  onInValidZipcode() {
    	this.validationState.zipcode = 'has-error';
    	this.helpBlock.zipcode = 'Zipcode is required';
-   }
+  }
 
-   onUpdateAbout(event) {
+  onUpdateAbout(event) {
    	this.about = event.target.value;
-   }
+  }
 
-   onInValidAbout() {
+  onInValidAbout() {
    	this.validationState.about = 'has-error';
    	this.helpBlock.about = 'Say something about the team';
-   }
+  }
 
-   onInValidAboutLength() {
+  onInValidAboutLength() {
    	this.validationState.about = 'has-error';
    	this.helpBlock.about = 'Must be between 150 and 500 characters';
-   }
+  }
 
-    onAddTeamSuccess(data) {
-
+  onAddTeamSuccess(data) {
     this.errorMessage = data.message;
     if (data.message == 'success') {
       this.errorMessageState = 'alert alert-success text-center';
 
-      // TODO: redirect user to New Team page
-
+        // TODO: redirect user to New Team page
 
     } else {
-      this.errorMessageState = 'alert alert-danger';
+        this.errorMessageState = 'alert alert-danger';
     }
- 
-  	}
+   
+	}
 
-  	onAddTeamFail(error) {
-    	this.errorMessage = error;
-    	this.errorMessageState = 'alert alert-danger';
-  	}
+	onAddTeamFail(error) {
+  	this.errorMessage = error;
+  	this.errorMessageState = 'alert alert-danger';
+	}
 
 
    

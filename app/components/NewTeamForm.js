@@ -86,8 +86,9 @@ class NewTeamForm extends React.Component {
 			AddTeamActions.invalidAboutLength();
 		}
 
-		console.log("Error message state now is " + this.state.errorMessageState);
-		console.log("Validation state now is " + this.state.validationState.team_name);
+		// console.log("Error message state now is " + this.state.errorMessageState);
+		// console.log("Validation state now is " + this.state.validationState.team_name);
+		console.log("about is" + this.state.about);
 
 		//TODO: Check if user already in a team or not. There should be a step before this to make sure that if user already has, display a message and show their team, or something else...?
 
@@ -139,7 +140,7 @@ class NewTeamForm extends React.Component {
 						<div className={'form-group ' + this.state.validationState.about}>
 							<label className='control-label'>About Your Team</label>
 							<span className='help-block'> {this.state.helpBlock.about}</span>
-							<textarea type='text' className='form-control' ref="about" onChange={AddTeamActions.updateAbout}></textarea>
+							<textarea className='form-control' ref="about" onChange={AddTeamActions.updateAbout}></textarea>
 						</div>
 												
 						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Create</button></p>

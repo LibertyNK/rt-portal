@@ -12,6 +12,7 @@ class AddTeamActions {
 			'updateAddress2',
 			'updateState',
 			'updateZipcode',
+			'updateAbout',
 			'invalidTeamName',
 			'invalidTeamNameLength',
 			'isUniqueTeamName',
