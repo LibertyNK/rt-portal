@@ -116,6 +116,16 @@ module.exports.putUser = function(req, res, next) {
  * Delete specific user based on user_id.
  * NOTE: This currently only deletes from our local psql DB, NOT from LiNK Salesforce API.
  */
- module.exports.deleteUser = function(req, res, next) {
-  // TODO
+module.exports.deleteUser = function(req, res, next) {
+  
+  Model.User.destroy(
+  {
+    where: { uuid: req.params.user_id }
+  })
+  .then(uuid => {
+    res.status(201).json({uuid, 'type': 'success', message: 'successfully deleted user from RTP-DB' });
+  })
+  .catch(err => {
+    res.status(400).json({ 'type': 'error', message: err });
+  })
 }

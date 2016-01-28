@@ -29,7 +29,7 @@ module.exports = function(express) {
   router.route('/users/:user_id')
     .get(userController.getUser)
     .put(userController.putUser)
-    .delete(isAuthenticated, userController.deleteUser);
+    .delete(userController.deleteUser);
     
   // Endpoint handlers for /teams
   router.route('/teams')
