@@ -42,7 +42,11 @@ var attributes = {
   },
   last_login: {
     type: Sequelize.DATE,
+  },
+  team: {
+    type: Sequelize.UUID
   }
+  //TODO: set up relationship between use and team, and set referencesKey in both tables accordingly
 }
 
 var options = {

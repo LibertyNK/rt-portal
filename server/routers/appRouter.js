@@ -1,6 +1,6 @@
-var passport = require('passport')
-var userController = require('../controllers/userController.js')
-var teamController = require('../controllers/teamController.js')
+var passport = require('passport');
+var userController = require('../controllers/userController.js');
+var teamController = require('../controllers/teamController.js');
 
 module.exports = function(express) {
   var router = express.Router()
@@ -15,9 +15,9 @@ module.exports = function(express) {
    */
   var isAuthenticated = function (req, res, next) {
     if (req.isAuthenticated())
-      return next()
-    req.flash('error', 'You have to be logged in to access the page.')
-    res.redirect('/')
+      return next();
+
+    res.redirect('/');
   }
   
   // Endpoint handlers for /users
@@ -33,7 +33,8 @@ module.exports = function(express) {
     
   // Endpoint handlers for /teams
   router.route('/teams')
-    .post(isAuthenticated, teamController.postTeams)
+    // .post(isAuthenticated, teamController.postTeams) <--- Turn isAuthenticated off for now becasue no user info yet
+    .post(teamController.postTeams)
     .get(isAuthenticated, teamController.getTeams);
   
   // Endpoint handlers for /users/:user_id

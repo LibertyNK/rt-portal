@@ -1,6 +1,8 @@
 var bcrypt = require('bcrypt')
 var Model = require('../models/models.js')
 
+let User = Model.User;
+
 /**
  * GET /users
  * 
@@ -58,7 +60,7 @@ var Model = require('../models/models.js')
   }
 
 
-Model.User.create(newUser).then(user => {
+  Model.User.create(newUser).then(user => {
  
     res.status(200).json({user, 'type': 'success', message: 'success'});
     
@@ -66,6 +68,7 @@ Model.User.create(newUser).then(user => {
     
     // Add sequelize error handling logic here. API Controller will parse errors from sequelize, and respond to front-end with HTTP status code, error type, and specific error message.
     
+
     res.status(400).json({ 'type': 'error', message: err.errors[0].message }); 
     
   })
@@ -78,6 +81,7 @@ Model.User.create(newUser).then(user => {
  */
  module.exports.putUser = function(req, res, next) {
   // TODO
+  console.log("This is what user controller receives: " + req.body);
 }
 
 /**
@@ -89,3 +93,39 @@ Model.User.create(newUser).then(user => {
  module.exports.deleteUser = function(req, res, next) {
   // TODO
 }
+
+
+//Update User's Team and Admin Level
+module.exports.updateUserTeam = function (req, res, next) {
+  console.log("this is team info passing from teamController: " + req.team_name);
+  User.find({ where: { email: req.leader } })
+      .then(user => {
+
+        console.log("User Info got back from DB query: " + user.email);
+        console.log("Team ID got from Team controler: " + req.uuid);
+
+        User.update({
+          team: req.uuid,
+          admin_level: 2
+        },
+        {
+          where: { email: req.leader }
+        })
+          .then(user => {
+              // Send back user info in front end? 
+          })
+          .catch(err => {
+              // Send error message?
+          });
+
+      })
+      .catch(err => {
+
+        res.status(400).json({ 'type': 'error', message: err.errors[0].message }); 
+
+      });
+}
+
+
+
+
