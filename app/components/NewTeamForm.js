@@ -97,7 +97,8 @@ class NewTeamForm extends React.Component {
 		//TODO: Check if user already in a team or not. There should be a step before this to make sure that if user already has, display a message and show their team, or something else...?
 
 		if (team.team_name) {
-
+			// Need better logic here. Only call AddTeam Action if all fields are validated
+			
 				AddTeamActions.addTeam(team);
 		}
 
