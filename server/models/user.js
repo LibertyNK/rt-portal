@@ -1,19 +1,11 @@
 var Sequelize = require('sequelize')
 
 var attributes = {
-  // uuid: { // Unique universal ID, if we choose to use this, won't have duplicate IDs for user vs team vs event, etc...
-  //   type: Sequelize.UUID,
-  //   defaultValue: Sequelize.UUIDV4,
-  //   primaryKey: true
-  // },
-  // username: {
-  //   type: Sequelize.STRING,
-  //   allowNull: false,
-  //   unique: true,
-  //   validate: {
-  //     is: /^[a-z0-9\_\-]+$/i,
-  //   }
-  // },
+  uuid: { // Unique universal ID, if we choose to use this, won't have duplicate IDs for user vs team vs event, etc...
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true
+  },
   email: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -42,15 +34,13 @@ var attributes = {
   },
   last_login: {
     type: Sequelize.DATE,
-  },
-  team: {
-    type: Sequelize.UUID
   }
-  //TODO: set up relationship between use and team, and set referencesKey in both tables accordingly
+  
 }
 
 var options = {
-  freezeTableName: true
+  freezeTableName: true,
+  underscored: true
 }
 
 module.exports.attributes = attributes
