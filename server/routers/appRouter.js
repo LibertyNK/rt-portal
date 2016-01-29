@@ -37,11 +37,15 @@ module.exports = function(express) {
     .post(teamController.postTeams)
     .get(isAuthenticated, teamController.getTeams);
   
-  // Endpoint handlers for /users/:user_id
+  // Endpoint handlers for /teams/:team_id
   router.route('/teams/:team_id')
     .get(isAuthenticated, teamController.getTeam)
     .put(isAuthenticated, teamController.putTeam)
     .delete(isAuthenticated, teamController.deleteTeam);
+
+  // Endpoint handlers for /teams/:team_id/:user_id/:username
+  router.route('/teams/:team_id/:user_id/:username')
+    .get(teamController.getUsername)
   
   // router.get('/signup', userController.show)
   // router.post('/signup', userController.signup)

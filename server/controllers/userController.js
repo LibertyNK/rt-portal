@@ -19,13 +19,22 @@ let User = Model.User;
  * 
  * Returns user by id, if exists
  */
- module.exports.getUser = function(req, res, next) {
+module.exports.getUser = function(req, res, next) {
   Model.User.findById(req.params.user_id).then(
     function(err, user) {
       if(err) res.send(err);
 
       res.json(user);
     })
+}
+
+/**
+ * GET /users/:username
+ * 
+ * Returns user by username, if exists
+ */
+module.exports.getUsername = function(req, res, next) {
+  
 }
 
 /**

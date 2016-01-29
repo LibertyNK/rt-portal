@@ -95,3 +95,9 @@ module.exports.putTeam = function(req, res, next) {
 module.exports.deleteTeam = function(req, res, next) {
   // TODO
 }
+
+module.exports.getUsername = function(req, res, next) {
+  console.log(req.params);
+}
+
+
