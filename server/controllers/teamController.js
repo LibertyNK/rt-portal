@@ -2,6 +2,7 @@ var Model = require('../models/models.js');
 var userController = require('../controllers/userController.js')
 
 let User = Model.User;
+let Team = Model.Team;
 
 /**
  * GET /teams
@@ -24,18 +25,18 @@ module.exports.getTeams = function(req, res, next) {
  * 
  * Returns team by id, if exists
  */
-module.exports.getTeam = function(req, res, next) {
+// module.exports.getTeam = function(req, res, next) {
 
-  
-  Model.Team.findById(req.params.team_id)
-    .then(team => {
-      res.status(200).json({team, 'type': 'success', message: 'success'});
-    })
-    .catch(err => {
-      res.status(400).json({ 'type': 'team lookup', message: err });
-    })
+//   Model.Team.findById(req.params.team_id)
+//     .then(team => {
+//       console.log(team.team_name);
+//       res.status(200).json({team, 'type': 'success', message: 'success'});
+//     })
+//     .catch(err => {
+//       res.status(400).json({ 'type': 'team lookup', message: err });
+//     })
 
-}
+// }
 
 /**
  * POST /teams
@@ -126,12 +127,24 @@ module.exports.deleteTeam = function(req, res, next) {
     .catch(err => {
       res.status(400).json({ 'type': 'error', message: err });
     })
-  
-}
-
-module.exports.getUsername = function(req, res, next) {
-  console.log(req.params);
 }
 
 
+/**
+ * GET /teams/:team_name
+ * 
+ * Returns team by name, if exists
+ */
+module.exports.getTeamByName = function(req, res, next) {
+
+  Team.find({ where: { team_name: req.params.team_name } })
+      .then(team => {
+        console.log(team);
+        res.status(201).json({team, 'type': 'success', message: 'Successfully retrieved team'});
+      })
+      .catch(err => {
+        es.status(400).json({ 'type': 'error', message: err });
+      });
+
+}
 

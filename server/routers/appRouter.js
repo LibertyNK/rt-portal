@@ -38,14 +38,14 @@ module.exports = function(express) {
 
   
   // Endpoint handlers for /teams/:team_id
-  router.route('/teams/:team_id')
-    .get(isAuthenticated, teamController.getTeam)
-    .put(isAuthenticated, teamController.putTeam)
-    .delete(isAuthenticated, teamController.deleteTeam);
+  // router.route('/teams/:team_id')
+  //   .get(teamController.getTeam)
+  //   .put(teamController.putTeam)
+  //   .delete(teamController.deleteTeam);
 
-  // Endpoint handlers for /teams/:team_id/:user_id/:username
-  router.route('/teams/:team_id/:user_id/:username')
-    .get(teamController.getUsername)
+  // Endpoint handlers for /teams/:team_name
+  router.route('/teams/:team_name')
+    .get(teamController.getTeamByName);
   
   // router.get('/signup', userController.show)
   // router.post('/signup', userController.signup)
