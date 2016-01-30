@@ -126,7 +126,7 @@ module.exports.deleteTeam = function(req, res, next) {
     .catch(err => {
       res.status(400).json({ 'type': 'error', message: err });
     })
-  }
+  
 }
 
 module.exports.getUsername = function(req, res, next) {
