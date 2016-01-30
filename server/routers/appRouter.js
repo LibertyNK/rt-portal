@@ -28,14 +28,14 @@ module.exports = function(express) {
   // Endpoint handlers for /users/:user_id
   router.route('/users/:user_id')
     .get(userController.getUser)
-    .put(isAuthenticated, userController.putUser)
-    .delete(isAuthenticated, userController.deleteUser);
+    .put(userController.putUser)
+    .delete(userController.deleteUser);
     
   // Endpoint handlers for /teams
   router.route('/teams')
-    // .post(isAuthenticated, teamController.postTeams) <--- Turn isAuthenticated off for now becasue no user info yet
     .post(teamController.postTeams)
-    .get(isAuthenticated, teamController.getTeams);
+    .get(teamController.getTeams);
+
   
   // Endpoint handlers for /teams/:team_id
   router.route('/teams/:team_id')
