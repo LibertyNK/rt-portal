@@ -35,6 +35,7 @@ var attributes = {
   last_login: {
     type: Sequelize.DATE,
   }
+  
 }
 
 var options = {

@@ -1,6 +1,8 @@
 var bcrypt = require('bcrypt')
 var Model = require('../models/models.js')
 
+let User = Model.User;
+
 /**
  * GET /users
  * 
@@ -72,6 +74,7 @@ module.exports.postUsers = function(req, res, next) {
       
       // Default error message - send everything
       res.status(400).json({ 'type': 'error', message: err }); 
+
   })
 }
 
@@ -80,6 +83,7 @@ module.exports.postUsers = function(req, res, next) {
  * 
  * Update specific user based on user_id
  */
+
 module.exports.putUser = function(req, res, next) {
   
   // New params
@@ -108,6 +112,7 @@ module.exports.putUser = function(req, res, next) {
   .catch(err => {
     res.status(400).json({ 'type': 'error', message: err });
   })
+
 }
 
 /**
@@ -116,6 +121,7 @@ module.exports.putUser = function(req, res, next) {
  * Delete specific user based on user_id.
  * NOTE: This currently only deletes from our local psql DB, NOT from LiNK Salesforce API.
  */
+
 module.exports.deleteUser = function(req, res, next) {
   
   Model.User.destroy(
@@ -129,3 +135,39 @@ module.exports.deleteUser = function(req, res, next) {
     res.status(400).json({ 'type': 'error', message: err });
   })
 }
+
+//Update User's Team and Admin Level
+module.exports.updateUserTeam = function (req, res, next) {
+
+  // console.log("this is team info passing from teamController: " + req.team_name);
+
+  User.find({ where: { email: req.leader } })
+      .then(user => {
+
+        console.log("User Info got back from DB query: " + user.email);
+        console.log("Team ID got from Team controler: " + req.uuid);
+
+        User.update({
+          team_uuid: req.uuid,
+          admin_level: 2
+        },
+        {
+          where: { email: req.leader }
+        })
+          .then(updated_user => {
+            res.status(201).json({updated_user, 'type': 'success', message: "successfully updated user's team"});
+          })
+          .catch(error => {
+            console.log(error);
+            // res.status(400).json({ 'type': 'error', message: error });
+          });
+
+      })
+      .catch(err => {
+
+        res.status(400).json({ 'type': 'error', message: err}); 
+
+      });
+}
+
+
