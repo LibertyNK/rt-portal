@@ -134,8 +134,6 @@ class AddTeamStore {
   	this.errorMessageState = 'alert alert-danger';
 	}
 
-
-
   constructor() {
     this.bindActions(AddTeamActions);
   }

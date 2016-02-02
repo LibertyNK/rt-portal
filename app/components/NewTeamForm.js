@@ -36,28 +36,27 @@ class NewTeamForm extends React.Component {
 		// console.log("Error message state now is " + this.state.errorMessageState);
 		// console.log("Validation state now is " + this.state.validationState.team_name);
 
-
 		//TODO: Check if user already in a team or not. There should be a step before this to make sure that if user already has, display a message and show their team, or something else...?
 
 		if (team.team_name) {
 			// Need better logic here. Only call AddTeam Action if all fields are validated
-			
-				AddTeamActions.addTeam(team);
+			AddTeamActions.addTeam(team);
 		}
+
 		var user = {
-							email: this.state.email.trim(),
-							password: this.state.password,
-							password_conf: this.state.password_conf,
-							first_name: this.state.first_name,
-							last_name: this.state.last_name
+			email: this.state.email.trim(),
+			password: this.state.password,
+			password_conf: this.state.password_conf,
+			first_name: this.state.first_name,
+			last_name: this.state.last_name
 		};
 
 		var team = {
-							name: this.state.name,
-							street: this.state.street,
-							address: this.state.address,
-							state: this.state.state,
-							zipcode: this.state.zipcode		
+			name: this.state.name,
+			street: this.state.street,
+			address: this.state.address,
+			state: this.state.state,
+			zipcode: this.state.zipcode		
 		};
 
 	}
@@ -110,14 +109,23 @@ class NewTeamForm extends React.Component {
 							<input type='password' className='form-control' ref="password" placeholder="Password"  />
 						</div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+						<div className='form-group'>
+							<input type='password' className='form-control' ref="password_conf" placeholder="Password Confirmation" />
+						</div>
+>>>>>>> 2978473e11ce0f108b1f5763e37581f6d1190f34
 						<div className={'form-group ' + this.state.validationState.about}>
 							<label className='control-label'>About Your Team</label>
 							<span className='help-block'> {this.state.helpBlock.about}</span>
 							<textarea className='form-control' ref="about" onChange={AddTeamActions.updateAbout}></textarea>
+<<<<<<< HEAD
 =======
 						<div className='form-group'>
 							<input type='password' className='form-control' ref="password_conf" placeholder="Password Confirmation" />
 >>>>>>> master
+=======
+>>>>>>> 2978473e11ce0f108b1f5763e37581f6d1190f34
 						</div>
 						
 						
