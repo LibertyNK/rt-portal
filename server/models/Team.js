@@ -6,7 +6,7 @@ var attributes = {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true
   },
-  team_name: {
+  teamname: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true
@@ -22,28 +22,7 @@ var attributes = {
   },
   tier_level: {
     type: Sequelize.INTEGER,
-  },
-  address1: {
-    type: Sequelize.STRING, 
-  },
-  address2: {
-    type: Sequelize.STRING, 
-  },
-  team_state: {
-    type: Sequelize.STRING, 
-  },
-  zipcode: {
-    type: Sequelize.STRING, 
-  },
-  country: {
-    type: Sequelize.STRING, 
-  },
-  leader: {
-    type: Sequelize.STRING //change this later to INTEGER TYPE for User_ID
-    // references: 'users',
-    // referencesKey: 'id'
   }
-  //TODO: set up relationship between use and team, and set referencesKey in both tables accordingly
 }
 
 var options = {
