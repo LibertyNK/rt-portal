@@ -37,8 +37,8 @@ class AddTeamActions {
 				} 
 			})
 			.fail((jqXhr) => {
-				this.actions.addTeamFail(jqXhr.responseJSON.message);
-				console.log("Error message from server: " + jqXhr.responseJSON.message);
+				this.actions.addTeamFail(jqXhr.responseJSON.message.errors[0].message);
+				console.log("Error message from server: " + jqXhr.responseJSON.message.errors[0].message);
 			});
 	}
 }

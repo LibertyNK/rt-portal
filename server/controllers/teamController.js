@@ -25,18 +25,19 @@ module.exports.getTeams = function(req, res, next) {
  * 
  * Returns team by id, if exists
  */
-// module.exports.getTeam = function(req, res, next) {
 
-//   Model.Team.findById(req.params.team_id)
-//     .then(team => {
-//       console.log(team.team_name);
-//       res.status(200).json({team, 'type': 'success', message: 'success'});
-//     })
-//     .catch(err => {
-//       res.status(400).json({ 'type': 'team lookup', message: err });
-//     })
+module.exports.getTeam = function(req, res, next) {
+  
+  Model.Team.findById(req.params.team_id)
+    .then(team => {
+      res.status(200).json({team, 'type': 'success', message: 'success'});
+    })
+    .catch(err => {
+      res.status(400).json({ 'type': 'team lookup', message: err });
+    })
 
-// }
+}
+
 
 /**
  * POST /teams
@@ -80,8 +81,11 @@ module.exports.getTeams = function(req, res, next) {
 
      }).catch(err => {
 
-      console.log(err.errors[0].message);
-      res.status(400).json({ 'type': 'error', message: err}); 
+      // Add some more error handling for different team creation errors here.
+      
+      // Default error message - send everything
+      console.log(err);
+      res.status(400).json({ 'type': 'error', message: err }); 
     });
 }
 
@@ -92,12 +96,12 @@ module.exports.getTeams = function(req, res, next) {
  */
 module.exports.putTeam = function(req, res, next) {
   
-  let teamname = req.body.teamname
+  let team_name = req.body.team_name
   
   // Fills in blank for any blank fields from form
   Model.Team.update(
   {
-    teamname: teamname
+    team_name: team_name
   },
   {
     where: { uuid: req.params.team_id }

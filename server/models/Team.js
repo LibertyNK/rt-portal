@@ -39,8 +39,10 @@ var attributes = {
     type: Sequelize.STRING, 
   },
   leader: {
-    type: Sequelize.STRING, //change this later to INTEGER TYPE for User_ID
- 
+    type: Sequelize.STRING //change this later to INTEGER TYPE for User_ID
+    // references: 'users',
+    // referencesKey: 'id'
+
   }
   //TODO: set up relationship between use and team, and set referencesKey in both tables accordingly
 }

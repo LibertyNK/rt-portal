@@ -41,7 +41,7 @@ module.exports.getUser = function(req, res, next) {
  * 
  * Returns user by username, if exists
  */
-module.exports.getUsername = function(req, res, next) {
+module.exports.getUserbyName = function(req, res, next) {
   
 }
 
@@ -51,6 +51,8 @@ module.exports.getUsername = function(req, res, next) {
  * Takes form data (username, password) from /signup page and creates a new user in Users table after some simple validation. 
  */
 module.exports.postUsers = function(req, res, next) {
+
+  console.log("hai");
 
   let email = req.body.email;
   let password = req.body.password;
@@ -81,7 +83,7 @@ module.exports.postUsers = function(req, res, next) {
     })
     .catch(err => {
       // Add some more error handling for different user creation errors here.
-      
+      console.log(err);
       // Default error message - send everything
       res.status(400).json({ 'type': 'error', message: err }); 
 
@@ -125,41 +127,6 @@ module.exports.putUser = function(req, res, next) {
 
 }
 
-
-
-//Update User's Team and Admin Level
-module.exports.updateUserTeam = function (req, res, next) {
-  console.log("this is team info passing from teamController: " + req.team_name);
-  User.find({ where: { email: req.leader } })
-      .then(user => {
-
-        console.log("User Info got back from DB query: " + user.email);
-        console.log("Team ID got from Team controler: " + req.uuid);
-
-        User.update({
-          team: req.uuid,
-          admin_level: 2
-        },
-        {
-          where: { email: req.leader }
-        })
-          .then(user => {
-              // Send back user info in front end? 
-          })
-          .catch(err => {
-              // Send error message?
-          });
-
-      })
-      .catch(err => {
-
-        res.status(400).json({ 'type': 'error', message: err.errors[0].message }); 
-
-      });
-}
-
-
-
 /**
  * DELETE /users/:user_id
  * 
@@ -180,4 +147,40 @@ module.exports.deleteUser = function(req, res, next) {
     res.status(400).json({ 'type': 'error', message: err });
   })
 }
+
+
+//Update User's Team and Admin Level
+module.exports.updateUserTeam = function (req, res, next) {
+
+  // console.log("this is team info passing from teamController: " + req.team_name);
+
+  User.find({ where: { email: req.leader } })
+      .then(user => {
+
+        console.log("User Info got back from DB query: " + user.email);
+        console.log("Team ID got from Team controler: " + req.uuid);
+
+        User.update({
+          team_uuid: req.uuid,
+          admin_level: 2
+        },
+        {
+          where: { email: req.leader }
+        })
+          .then(updated_user => {
+            res.status(201).json({updated_user, 'type': 'success', message: "successfully updated user's team"});
+          })
+          .catch(error => {
+            console.log(error);
+            // res.status(400).json({ 'type': 'error', message: error });
+          });
+
+      })
+      .catch(err => {
+
+        res.status(400).json({ 'type': 'error', message: err}); 
+
+      });
+}
+
 
