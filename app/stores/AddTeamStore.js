@@ -134,8 +134,6 @@ class AddTeamStore {
   	this.errorMessageState = 'alert alert-danger';
 	}
 
-
-   
 }
 
 export default alt.createStore(AddTeamStore);

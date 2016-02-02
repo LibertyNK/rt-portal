@@ -6,7 +6,7 @@ class SignUpStore {
 
   constructor() {
     this.bindActions(SignUpActions);
-
+    this.user = {};
     this.email = '';
     this.password = '';   
     this.password_conf = '';  

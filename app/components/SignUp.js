@@ -70,8 +70,8 @@ class SignUp extends React.Component {
 		}
 
 		if (user.email && user.password) {
+			SignUpActions.signUp(user);
 
-					SignUpActions.signUp(user);
 		}
 	}
 
