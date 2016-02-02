@@ -90,16 +90,15 @@ class NewTeamForm extends React.Component {
 			AddTeamActions.invalidAboutLength();
 		}
 
+		// console.log("Error message state now is " + this.state.errorMessageState);
+		// console.log("Validation state now is " + this.state.validationState.team_name);
+
+
 		//TODO: Check if user already in a team or not. There should be a step before this to make sure that if user already has, display a message and show their team, or something else...?
 
-		if (this.state.helpBlock.team_name === '' 
-				&& this.state.helpBlock.address1 === '' 
-				&& this.state.helpBlock.address2 === ''
-				&& this.state.helpBlock.team_state === ''
-				&& this.state.helpBlock.zipcode === ''
-				&& this.state.helpBlock.country === '') {
+		if (team.team_name) {
 			// Need better logic here. Only call AddTeam Action if all fields are validated
-
+			
 				AddTeamActions.addTeam(team);
 		}
 
@@ -147,8 +146,8 @@ class NewTeamForm extends React.Component {
 							<span className='help-block'> {this.state.helpBlock.country}</span>
 							<input type='text' className='form-control' ref="country" placeholder="Country" onChange={AddTeamActions.updateCountry}/>
 						</div>
-						<label className='control-label'>About Your Team</label>
-						<div className={'form-group ' + this.state.validationState.about}>	
+						<div className={'form-group ' + this.state.validationState.about}>
+							<label className='control-label'>About Your Team</label>
 							<span className='help-block'> {this.state.helpBlock.about}</span>
 							<textarea className='form-control' ref="about" onChange={AddTeamActions.updateAbout}></textarea>
 						</div>
