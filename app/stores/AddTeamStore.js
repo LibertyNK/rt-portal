@@ -135,7 +135,10 @@ class AddTeamStore {
 	}
 
 
-   
+
+  constructor() {
+    this.bindActions(AddTeamActions);
+  }
 }
 
 export default alt.createStore(AddTeamStore);

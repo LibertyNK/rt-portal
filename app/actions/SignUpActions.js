@@ -37,13 +37,14 @@ class SignUpActions {
 					this.actions.signUpFail(data);
 					this.actions.displayErrorMessage(data.error);
 				}
-		})
-		.fail((jqXhr) => {
-			this.actions.signUpFail(jqXhr);
-			console.log('Error Message from server: ' + jqXhr.responseJSON.message.errors[0].message);
-			this.actions.displayErrorMessage(jqXhr.responseJSON.message);
-		});
-		
+
+
+			})
+			.fail((jqXhr) => {
+				this.actions.signUpFail(jqXhr);
+				console.log('Error Message from server: ' + jqXhr.responseJSON.message);
+				this.actions.displayErrorMessage(jqXhr.responseJSON.message);
+			});
 	}
 }
 

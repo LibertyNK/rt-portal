@@ -4,7 +4,7 @@ module.exports = function(callback) {
   // recreate Team table - this has to go before user because user references teams
   Model.Team.sync({ force: true }).then(function() {
     Model.Team.create({
-      team_name: 'Team Awesome'
+      teamname: 'Team Awesome'
     }).then(callback)
   })
   
