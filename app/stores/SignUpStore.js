@@ -6,7 +6,7 @@ class SignUpStore {
 
   constructor() {
     this.bindActions(SignUpActions);
-
+    this.user = {};
     this.email = '';
     this.password = '';   
     this.password_conf = '';  
@@ -111,7 +111,7 @@ class SignUpStore {
   }
 
   onSignUpFail(error) {
-    this.errorMessage = error.responseJSON.message;
+    this.errorMessage = error.responseJSON.message.errors[0].message;
     this.errorMessageState = 'alert alert-danger';
   }
   

@@ -4,6 +4,7 @@ var userController = require('../controllers/userController.js')
 let User = Model.User;
 let Team = Model.Team;
 
+
 /**
  * GET /teams
  * 
@@ -35,7 +36,6 @@ module.exports.getTeam = function(req, res, next) {
     .catch(err => {
       res.status(400).json({ 'type': 'team lookup', message: err });
     })
-
 }
 
 
@@ -44,32 +44,16 @@ module.exports.getTeam = function(req, res, next) {
  * 
  * Create a new team in Teams table.
  */
- module.exports.postTeams = function(req, res, next) {
+module.exports.postTeams = function(req, res, next) {
 
-  let team_name = req.body.team_name,
-      address1 = req.body.address1,
-      address2 = req.body.address2,
-      team_state = req.body.team_state,
-      zipcode = req.body.zipcode,
-      country = req.body.country,
-      about = req.body.about,
-      leader = req.body.leader;
-
-  //validate team inputs here
-
+  let team_name = req.body.team_name
   
   let newTeam = {
-    team_name: team_name,
-    address1: address1,
-    address2: address2,
-    team_state: team_state,
-    zipcode: zipcode,
-    country: country,
-    about: about,
-    leader: leader
+    team_name: team_name
   }
   
   Model.Team.create(newTeam)
+
     .then( team => {
 
       res.status(201).json({team, 'type': 'success', message: 'success'});
@@ -81,12 +65,14 @@ module.exports.getTeam = function(req, res, next) {
 
      }).catch(err => {
 
+
       // Add some more error handling for different team creation errors here.
       
       // Default error message - send everything
-      console.log(err);
       res.status(400).json({ 'type': 'error', message: err }); 
+
     });
+
 }
 
 /**
@@ -144,11 +130,17 @@ module.exports.getTeamByName = function(req, res, next) {
 
   Team.find({ where: { team_name: req.params.team_name } })
       .then(team => {
-        console.log(team);
-        res.status(201).json({team, 'type': 'success', message: 'Successfully retrieved team'});
+        console.log(team.team_name);
+        if (team && team.team_name != null) {
+          res.status(201).json({team, 'type': 'success', message: 'Successfully retrieved team'});
+        } else {
+          res.status(400).json({ 'type': 'error', message: 'No such team!' });
+        }
+        
       })
       .catch(err => {
-        es.status(400).json({ 'type': 'error', message: err });
+        console.log(err);
+        res.status(400).json({ 'type': 'error', message: err });
       });
 
 }

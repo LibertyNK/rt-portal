@@ -44,7 +44,6 @@ var attributes = {
     // referencesKey: 'id'
 
   }
-  //TODO: set up relationship between use and team, and set referencesKey in both tables accordingly
 }
 
 var options = {
