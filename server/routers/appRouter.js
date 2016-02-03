@@ -21,27 +21,26 @@ module.exports = function(express) {
   }
   
   // Endpoint handlers for /users
-  router.route('/users', function () {
-  })
+  router.route('/users')
     .post(userController.postUsers) // register user
     .get(userController.getUsers);
   
   // Endpoint handlers for /users/:user_id
   router.route('/users/:user_id')
     .get(userController.getUser)
-    .put(isAuthenticated, userController.putUser)
-    .delete(isAuthenticated, userController.deleteUser);
+    .put(userController.putUser)
+    .delete(userController.deleteUser);
     
   // Endpoint handlers for /teams
   router.route('/teams')
-    .post(isAuthenticated, teamController.postTeams)
-    .get(isAuthenticated, teamController.getTeams);
+    .post(teamController.postTeams)
+    .get(teamController.getTeams);
   
   // Endpoint handlers for /users/:user_id
   router.route('/teams/:team_id')
-    .get(isAuthenticated, teamController.getTeam)
-    .put(isAuthenticated, teamController.putTeam)
-    .delete(isAuthenticated, teamController.deleteTeam);
+    .get(teamController.getTeam)
+    .put(teamController.putTeam)
+    .delete(teamController.deleteTeam);
   
   // router.get('/signup', userController.show)
   // router.post('/signup', userController.signup)

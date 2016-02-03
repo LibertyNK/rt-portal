@@ -9,10 +9,7 @@ var attributes = {
   teamname: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
-    // validate: {
-    //   is: /^[a-z0-9\_\-]+$/i,
-    // }
+    unique: true
   },
   about: {
     type: Sequelize.TEXT,
