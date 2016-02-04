@@ -89,27 +89,7 @@ class NewTeamForm extends React.Component {
 						<div className='form-group'>
 							<input type='number' className='form-control' ref="teamZip" placeholder="Zip (etc: 46514)"/>
 						</div>
-						<div className='form-group'>
-							<label className='control-label'>About Your Team</label>
-							<textarea type='text' className='form-control' ref="aboutTeam" ></textarea>
-						</div>
-						<label className='control-label'>About You</label>					
-						<div className='form-group'>
 
-							<input type='text' className='form-control' ref="first_name" placeholder="First Name" autoFocus />
-						</div>
-						<div className='form-group'>
-							<input type='text' className='form-control' ref="last_name" placeholder="Last Name" />
-						</div>
-						<div className='form-group'>
-							<input type='text' className='form-control' ref="email" placeholder="Email" />
-						</div>
-						<div className='form-group'>
-							<input type='password' className='form-control' ref="password" placeholder="Password"  />
-						</div>
-						<div className='form-group'>
-							<input type='password' className='form-control' ref="password_conf" placeholder="Password Confirmation" />
-						</div>
 						<div className={'form-group ' + this.state.validationState.about}>
 							<label className='control-label'>About Your Team</label>
 							<span className='help-block'> {this.state.helpBlock.about}</span>

@@ -46,9 +46,13 @@ module.exports = function(express) {
   // router.post('/signup', userController.signup)
   router.post('/login', passport.authenticate('local', {
       successRedirect: '/dashboard',
-      failureRedirect: '/',
+      failureRedirect: '/login',
       failureFlash: true 
-  }))
+  }));
+
+  router.post('/signup', function (req, res, next) {
+    res.redirect('/new_team')
+  });
 
   router.get('/dashboard', isAuthenticated, function(req, res) {
     res.json({ message: 'Render dashboard here' });

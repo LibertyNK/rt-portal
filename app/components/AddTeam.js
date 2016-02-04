@@ -10,10 +10,10 @@ class AddTeam extends React.Component {
 			<div className='text-center team-options red-bg'>
 				<h2>Start A Team</h2>
 				<div className='col-sm-6'>
-					<button className='btn btn-large blue-btn'><Link to='/new_team'>Team on a school campus</Link></button>
+					<button className='btn btn-large blue-btn'><Link to='/signup'>Start a Team</Link></button>
 				</div>
 				<div className='col-sm-6'>
-					<button className='btn btn-large blue-btn'><Link to='/new_team'>General Team Stuff</Link></button>
+					<button className='btn btn-large blue-btn'><Link to='/join_team'>Join Team</Link></button>
 				</div>
 			</div>
 		);
