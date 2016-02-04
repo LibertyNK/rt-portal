@@ -82,7 +82,7 @@ class SignUp extends React.Component {
 			<div className=''>
 				<div className="row">
 					<div className='col-sm-12'>
-						<h2>Woohoo! First step is to set up YOUR personal page, on the next step, you will join a team.</h2>
+						<h2>Woohoo! First step is to set up YOUR personal page, on the next step, you will create a team.</h2>
 					</div>
 				</div>
 

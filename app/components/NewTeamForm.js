@@ -63,65 +63,59 @@ class NewTeamForm extends React.Component {
 	render() {
 
 		return (
-			<div className='container signup'>
 
-				<h4>New Team Form page</h4>
 
-				<p>This form would create a team page and a member page giving the member admin access to the Team page they created and then redirect them to their team page</p>
+		<div className="form_card">
+			<div className='text-left'>
 
+				<div className="row">
+					<div className='col-sm-12'>
+						<h2>Let us know more about your team!</h2>
+					</div>
+				</div>
+
+				<div className="row">
+					<div className='col-sm-12'>
+						<div className="banner-border-seperation"></div>
+					</div>
+				</div>
 				<div className='row'>
-					<form >	
-						<label className='control-label'>Team Name</label>	
+					<div className='col-sm-12 settings_inputs'>
+						<form >	
+							<label className='control-label'>Team Name</label>	
 
-						<div className='form-group'>
-							<input type='text' className='form-control' ref="teamn_ame" placeholder="Team Name" autoFocus required/>
-						</div>
-						<label className='control-label'>Team Address</label>	
-						<div className='form-group'>
-							<input type='text' className='form-control' ref="street" placeholder="Team Street Address"/>
-						</div>
-						<div className='form-group'>
-							<input type='text' className='form-control' ref="address" placeholder="Team Street Address #2"/>
-						</div>
-						<div className='form-group'>
-							<input type='text' className='form-control' ref="teamState" placeholder="State (etc: CA)"/>
-						</div>
-						<div className='form-group'>
-							<input type='number' className='form-control' ref="teamZip" placeholder="Zip (etc: 46514)"/>
-						</div>
-						<div className='form-group'>
-							<label className='control-label'>About Your Team</label>
-							<textarea type='text' className='form-control' ref="aboutTeam" ></textarea>
-						</div>
-						<label className='control-label'>About You</label>					
-						<div className='form-group'>
+							<div className='form-group'>
+								<input type='text' className='form-control' ref="teamn_ame" placeholder="Team Name" autoFocus required/>
+							</div>
+							<label className='control-label'>Team Address</label>	
+							<div className='form-group'>
+								<input type='text' className='form-control' ref="street" placeholder="Team Street Address"/>
+							</div>
+							<div className='form-group'>
+								<input type='text' className='form-control' ref="address" placeholder="Team Street Address #2"/>
+							</div>
+							<div className='form-group'>
+								<input type='text' className='form-control' ref="teamState" placeholder="State (etc: CA)"/>
+							</div>
+							<div className='form-group'>
+								<input type='number' className='form-control' ref="teamZip" placeholder="Zip (etc: 46514)"/>
+							</div>
 
-							<input type='text' className='form-control' ref="first_name" placeholder="First Name" autoFocus />
-						</div>
-						<div className='form-group'>
-							<input type='text' className='form-control' ref="last_name" placeholder="Last Name" />
-						</div>
-						<div className='form-group'>
-							<input type='text' className='form-control' ref="email" placeholder="Email" />
-						</div>
-						<div className='form-group'>
-							<input type='password' className='form-control' ref="password" placeholder="Password"  />
-						</div>
-						<div className='form-group'>
-							<input type='password' className='form-control' ref="password_conf" placeholder="Password Confirmation" />
-						</div>
-						<div className={'form-group ' + this.state.validationState.about}>
-							<label className='control-label'>About Your Team</label>
-							<span className='help-block'> {this.state.helpBlock.about}</span>
-							<textarea className='form-control' ref="about" onChange={AddTeamActions.updateAbout}></textarea>
-						</div>
-						
-						
-						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Create</button></p>
+							
+							<div className={'form-group ' + this.state.validationState.about}>
+								<label className='control-label'>About Your Team</label>
+								<span className='help-block'> {this.state.helpBlock.about}</span>
+								<textarea className='form-control' ref="about" onChange={AddTeamActions.updateAbout}></textarea>
+							</div>
+							
+							
+							<p className='text-center width_100'><button type='submit' className='btn btn-lg btn-success'>Create</button></p>
 
-					</form>
+						</form>
+					</div>
 				</div>
 			</div>
+		</div>
 		);
 	}
 }
