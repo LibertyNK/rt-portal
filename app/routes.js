@@ -19,6 +19,7 @@ import NewTeamForm from './components/NewTeamForm';
 export default (
   	<Route component={App}>
 	   <Route path='/' component={Home} />
+	   <Route path='/new_team' component={NewTeamForm} />
 	   <Route path='/add_team' component={AddTeam} />
 	   <Route path='/about' component={About} />
 	   <Route path='/login' component={LogIn} />
@@ -31,7 +32,7 @@ export default (
 	   <Route path='/all_refugees' component={AllRefugees} />
 	   <Route path='/dashboard' component={Dashboard} />
 	   <Route path='/profile' component={Profile} />
-	   <Route path='/new_team' component={NewTeamForm} />
+	   
  	</Route>
 );
 
