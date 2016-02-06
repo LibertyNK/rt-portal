@@ -140,7 +140,7 @@ module.exports.getTeamByName = function(req, res, next) {
       })
       .catch(err => {
         console.log(err);
-        res.status(400).json({ 'type': 'error', message: err });
+        res.status(400).json({ 'type': 'error', message: "Team Not Found" });
       });
 
 }
