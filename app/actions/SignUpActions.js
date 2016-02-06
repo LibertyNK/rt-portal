@@ -42,7 +42,7 @@ class SignUpActions {
 		})
 		.fail((jqXhr) => {
 			this.actions.signUpFail(jqXhr);
-			console.log('Error Message from server: ' + jqXhr.responseJSON.message.errors[0].message);
+			console.log('Error Message from server: ' + jqXhr.responseJSON.message.errors);
 			this.actions.displayErrorMessage(jqXhr.responseJSON.message);
 		});
 		

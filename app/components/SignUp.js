@@ -1,6 +1,7 @@
 import React from 'react';
 import SignUpStore from '../stores/SignUpStore';
 import SignUpActions from '../actions/SignUpActions';
+var _ = require('underscore');
 
 
 class SignUp extends React.Component {

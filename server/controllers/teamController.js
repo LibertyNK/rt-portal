@@ -39,10 +39,10 @@ module.exports.getTeam = function(req, res, next) {
  */
  module.exports.postTeams = function(req, res, next) {
 
-  let teamname = req.body.teamname
+  let team_name = req.body.team_name
   
   let newTeam = {
-    teamname: teamname
+    team_name: team_name
   }
   
   Model.Team.create(newTeam)
@@ -64,12 +64,12 @@ module.exports.getTeam = function(req, res, next) {
  */
 module.exports.putTeam = function(req, res, next) {
   
-  let teamname = req.body.teamname
+  let team_name = req.body.team_name
   
   // Fills in blank for any blank fields from form
   Model.Team.update(
   {
-    teamname: teamname
+    team_name: team_name
   },
   {
     where: { uuid: req.params.team_id }

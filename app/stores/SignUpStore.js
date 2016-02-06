@@ -126,7 +126,12 @@ class SignUpStore {
   }
 
   onSignUpFail(error) {
-    this.errorMessage = error.responseJSON.message.errors[0].message;
+    
+    for (var i in error.responseJSON.message.errors) {
+      this.errorMessage += error.responseJSON.message.errors[i].message + ". ";
+      console.log(this.errorMessage);
+    }
+    // this.errorMessage = error.responseJSON.message.errors[0].message;
     this.errorMessageState = 'alert alert-danger';
   }
   
