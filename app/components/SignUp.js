@@ -29,6 +29,7 @@ class SignUp extends React.Component {
 		var user = {
 			first_name: this.state.first_name,
 			last_name: this.state.last_name,
+			username: this.state.username,
 			email: this.state.email.trim(),
 			password: this.state.password,
 			password_conf: this.state.password_conf
@@ -43,6 +44,11 @@ class SignUp extends React.Component {
 		if (!user.last_name) {
 			this.refs.last_name.focus();
 			SignUpActions.invalidLastName();
+		}
+
+		if (!user.username) {
+			this.refs.username.focus();
+			SignUpActions.invalidUserame();
 		}
 		
 		if (!user.email) {
@@ -69,7 +75,7 @@ class SignUp extends React.Component {
 			SignUpActions.unmatchPasswords();
 		}
 
-		if (user.email && user.password) {
+		if (user.username && user.password) {
 			SignUpActions.signUp(user);
 
 		}
@@ -80,7 +86,7 @@ class SignUp extends React.Component {
 		return (
 			<div className='container signup'>
 				<div className='row'>
-					<h3 className='text-center'>Sign Up Form Here</h3>
+					<h3 className='text-center'>Sign Up Form</h3>
 					<p>This form would create a member page and would then redirect them to their page when completed.</p>
 					<form onSubmit={this.handleSubmit.bind(this)}>		
 						<div className={this.state.errorMessageState}> 
@@ -95,6 +101,11 @@ class SignUp extends React.Component {
 							<label className='control-label'>Last Name</label>
 							<span className='help-block'> {this.state.helpBlock.last_name}</span>
 							<input type='text' className='form-control' ref="last_name" onChange={SignUpActions.updateLastName} />
+						</div>
+						<div className={'form-group ' + this.state.validationState.username}>
+							<label className='control-label'>Username</label>
+							<span className='help-block'> {this.state.helpBlock.username}</span>
+							<input type='text' className='form-control' ref="username" onChange={SignUpActions.updateUsername} />
 						</div>
 						<div className={'form-group ' + this.state.validationState.email}>
 							<label className='control-label'>Email</label>
