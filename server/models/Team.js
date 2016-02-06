@@ -6,7 +6,7 @@ var attributes = {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true
   },
-  teamname: {
+  team_name: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true

@@ -12,9 +12,11 @@ class SignUpStore {
     this.password_conf = '';  
     this.first_name = '';
     this.last_name = '';
+    this.username = '';
     this.helpBlock = {
                         first_name: '',
                         last_name: '',
+                        username: '',
                         email: '',
                         password: '',
                         password_length: '',
@@ -24,6 +26,7 @@ class SignUpStore {
     this.validationState = {
                               first_name: '',
                               last_name: '',
+                              username: '',
                               email: '',
                               password: '',
                               password_length: '',
@@ -53,6 +56,18 @@ class SignUpStore {
   onInvalidLastName() {
     this.validationState.last_name = 'has-error';
     this.helpBlock.last_name = "Last Name can't be blank!";
+  }
+
+  onUpdateUsername(event) {
+    this.username = event.target.value;
+    if (this.username !== '') {
+      this.validationState.username = 'has-success';
+    }
+  }
+
+  onInvalidUsername() {
+    this.validationState.username = 'has-error';
+    this.helpBlock.username = "Username can't be blank!";
   }
 
   onUpdateEmail(event) {

@@ -60,7 +60,8 @@ module.exports.postUsers = function(req, res, next) {
     salt: salt,
     password: hashedPassword,
     first_name: req.body.first_name,
-    last_name: req.body.last_name
+    last_name: req.body.last_name,
+    username: req.body.username
   }
 
   Model.User.create(newUser)
