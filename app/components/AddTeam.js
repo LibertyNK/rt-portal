@@ -5,40 +5,31 @@ import AddTeamActions from '../actions/AddTeamActions';
 
 class AddTeam extends React.Component {
 	render() {
-		console.log('rendering form page');
 		return (
-						<div className='container signup'>
+		<div className="form_card">
+			<div className='text-left'>
+				<div className="row">
+					<div className='col-sm-12'>
+						<h2>Would you like to start a new team or join a current team?</h2>
+					</div>
+				</div>
 
-				<h4>Join Team</h4>
+				<div className="row">
+					<div className='col-sm-12'>
+						<div className="banner-border-seperation"></div>
+					</div>
+				</div>
 
-				<p>This form would join a user to a team from a dropdown.</p>
-
-				<div className='row'>
-					<form >	
-						<label className='control-label'>Team Name</label>	
-
-						<div className='form-group'>
-							<select class="form-control">
-								<option value="">Select a Team</option>
-								<option value="team_id">Team 1</option>
-								<option value="team_id">Team 1</option>
-								<option value="team_id">Team 2</option>
-								<option value="team_id">Team 3</option>
-								<option value="team_id">Team 4</option>
-								<option value="team_id">Team 5</option>
-							</select>
-						</div>
-
-						<div className='form-group'>
-							<textarea type='text' className='form-control' ref="aboutTeam" ></textarea>
-						</div>
-
-						
-						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Join</button></p>
-
-					</form>
+				<div className="row">
+					<div className='col-sm-12'>
+						<Link className='btn btn-large red-btn width_100 btn_color' to='/new_team'>Team on a school campus</Link>
+					</div>
+					<div className='col-sm-12'>
+						<Link className='btn btn-large red-btn width_100 btn_color' to='/new_team'>Join a team</Link>
+					</div>
 				</div>
 			</div>
+		</div>
 		);
 	}
 }
