@@ -1,4 +1,9 @@
-var Model = require('../models/models.js')
+var Model = require('../models/models.js');
+var userController = require('../controllers/userController.js')
+
+let User = Model.User;
+let Team = Model.Team;
+
 
 /**
  * GET /teams
@@ -21,6 +26,7 @@ module.exports.getTeams = function(req, res, next) {
  * 
  * Returns team by id, if exists
  */
+
 module.exports.getTeam = function(req, res, next) {
   
   Model.Team.findById(req.params.team_id)
@@ -32,29 +38,41 @@ module.exports.getTeam = function(req, res, next) {
     })
 }
 
+
 /**
  * POST /teams
  * 
  * Create a new team in Teams table.
  */
- module.exports.postTeams = function(req, res, next) {
+module.exports.postTeams = function(req, res, next) {
 
-  let teamname = req.body.teamname
+  let team_name = req.body.team_name
   
   let newTeam = {
-    teamname: teamname
+    team_name: team_name
   }
   
   Model.Team.create(newTeam)
-    .then(team => {
+
+    .then( team => {
+
       res.status(201).json({team, 'type': 'success', message: 'success'});
-    })
-    .catch(err => {
+
+      //Update User's Team and User's Admin Level
+      console.log("Team info from DB: " + team.uuid + ", team name: " + team.team_name);
+
+      userController.updateUserTeam(team);
+
+     }).catch(err => {
+
+
       // Add some more error handling for different team creation errors here.
       
       // Default error message - send everything
       res.status(400).json({ 'type': 'error', message: err }); 
-  })
+
+    });
+
 }
 
 /**
@@ -64,12 +82,12 @@ module.exports.getTeam = function(req, res, next) {
  */
 module.exports.putTeam = function(req, res, next) {
   
-  let teamname = req.body.teamname
+  let team_name = req.body.team_name
   
   // Fills in blank for any blank fields from form
   Model.Team.update(
   {
-    teamname: teamname
+    team_name: team_name
   },
   {
     where: { uuid: req.params.team_id }
@@ -89,15 +107,41 @@ module.exports.putTeam = function(req, res, next) {
  * NOTE: This currently only deletes from our local psql DB, NOT from LiNK Salesforce API.
  */
 module.exports.deleteTeam = function(req, res, next) {
-  
   Model.Team.destroy(
-  {
-    where: { uuid: req.params.team_id }
-  })
-  .then(uuid => {
-    res.status(201).json({uuid, 'type': 'success', message: 'successfully deleted team from RTP-DB' });
-  })
-  .catch(err => {
-    res.status(400).json({ 'type': 'error', message: err });
-  })
+    {
+      where: { uuid: req.params.team_id }
+    })
+    .then(uuid => {
+      res.status(201).json({uuid, 'type': 'success', message: 'successfully deleted team from RTP-DB' });
+    })
+    .catch(err => {
+      res.status(400).json({ 'type': 'error', message: err });
+    })
 }
+
+
+/**
+ * GET /teams/:team_name
+ * 
+ * Returns team by name, if exists
+ */
+ 
+module.exports.getTeamByName = function(req, res, next) {
+
+  Team.find({ where: { team_name: req.params.team_name } })
+      .then(team => {
+        console.log(team.team_name);
+        if (team && team.team_name != null) {
+          res.status(201).json({team, 'type': 'success', message: 'Successfully retrieved team'});
+        } else {
+          res.status(400).json({ 'type': 'error', message: 'No such team!' });
+        }
+        
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json({ 'type': 'error', message: "Team Not Found" });
+      });
+
+}
+
