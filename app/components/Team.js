@@ -8,6 +8,9 @@ class Team extends React.Component {
 			<div className="team_background">
 				<div className="content_box"> 
 					<div className="row buffer">
+						<div className="col-md-2 pull-right">
+							<button>Edit page</button>
+						</div>
 					</div>
 
 					<div className="">
@@ -45,8 +48,7 @@ class Team extends React.Component {
 
 										<div className="therm_progress">
 										</div>
-									</div>
-									
+									</div>	
 								</div>
 							</div>
 
@@ -57,8 +59,8 @@ class Team extends React.Component {
 								</div>
 
 								<div className="col-md-6 text-right">
-									<h2>300</h2>
-									<h4>Team Ranking</h4>
+									<h2>$300</h2>
+									<h4>Goal</h4>
 								</div>
 
 							</div>
