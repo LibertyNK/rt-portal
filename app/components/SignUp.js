@@ -1,6 +1,8 @@
 import React from 'react';
 import SignUpStore from '../stores/SignUpStore';
 import SignUpActions from '../actions/SignUpActions';
+import CurrentUserStore from '../stores/CurrentUserStore';
+
 var _ = require('underscore');
 
 
@@ -83,6 +85,10 @@ class SignUp extends React.Component {
 
 	render() {
 
+		var errors = this.state.errorMessage || [];
+
+		var single_error = errors.map(function (err, key) { return <p key={key}>{err}</p> });
+
 		return (
 			<div className='container signup'>
 				<div className='row'>
@@ -90,7 +96,7 @@ class SignUp extends React.Component {
 					<p>This form would create a member page and would then redirect them to their page when completed.</p>
 					<form onSubmit={this.handleSubmit.bind(this)}>		
 						<div className={this.state.errorMessageState}> 
-							{this.state.errorMessage}
+							{single_error}
 						</div>				
 						<div className={'form-group ' + this.state.validationState.first_name}>
 							<label className='control-label'>First Name</label>

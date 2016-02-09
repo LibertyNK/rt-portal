@@ -33,7 +33,7 @@ class SignUpStore {
                               password_conf:'',
                               matching_passwords:''
                            };
-    this.errorMessage = '';
+    this.errorMessage = [];
     this.errorMessageState = '';
   }
 
@@ -128,8 +128,8 @@ class SignUpStore {
   onSignUpFail(error) {
     
     for (var i in error.responseJSON.message.errors) {
-      this.errorMessage += error.responseJSON.message.errors[i].message + ". ";
-      console.log(this.errorMessage);
+      this.errorMessage.push(error.responseJSON.message.errors[i].message);
+      // console.log(this.errorMessage);
     }
     // this.errorMessage = error.responseJSON.message.errors[0].message;
     this.errorMessageState = 'alert alert-danger';

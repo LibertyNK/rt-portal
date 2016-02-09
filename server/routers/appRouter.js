@@ -26,10 +26,14 @@ module.exports = function(express) {
     .get(userController.getUsers);
   
   // Endpoint handlers for /users/:user_id
-  router.route('/users/:user_id')
-    .get(userController.getUser)
-    .put(userController.putUser)
-    .delete(userController.deleteUser);
+  // router.route('/users/:user_id')
+  //   .get(userController.getUser)
+  //   .put(userController.putUser)
+  //   .delete(userController.deleteUser);
+
+  // Endpoint handlers for /users/:user_id
+  router.route('/users/:username')
+    .get(userController.getUserByName)
     
   // Endpoint handlers for /teams
   router.route('/teams')
