@@ -69,15 +69,9 @@ class SignUp extends React.Component {
 			SignUpActions.unmatchPasswords();
 		}
 
-		if (this.state.helpBlock.first_name === '' 
-				&& this.state.helpBlock.last_name === '' 
-				&& this.state.helpBlock.email === ''
-				&& this.state.helpBlock.password === ''
-				&& this.state.helpBlock.password_conf === ''
-				&& this.state.helpBlock.password_length === ''
-				&& this.state.helpBlock.unmatchPasswords === '') {
+		if (user.email && user.password) {
+			SignUpActions.signUp(user);
 
-					SignUpActions.signUp(user);
 		}
 	}
 

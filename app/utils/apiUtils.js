@@ -32,22 +32,6 @@ module.exports = {
 			url: '/dashboard',
 			type: 'GET'
 		})
-	},
-
-	addTeam: function(team) {
-		console.log("sending team to server, team: " +  team.team_name);
-		return $.ajax({
-			url: '/teams',
-			type: 'POST',
-			data: team
-		});
-	},
-
-	getTeam: function(team_id) {
-		return $.ajax({
-			url: 'teams/' + team_id,
-			type: 'GET'
-		})
 	}
 
 
