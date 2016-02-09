@@ -112,12 +112,15 @@ class SignUpStore {
     this.errorMessage = data.message;
     if (data.message == 'success') {
       this.errorMessageState = 'alert alert-success text-center';
-      console.log("success");
 
       //redirect to All Teams Page or User Dashboard
       // window.location.href = '/new_team';
+      console.log(data.username);
+      localStorage.setItem('user', data.username);
+      var user = localStorage.getItem('user');
 
-      // TODO: find way to set user info after signup/login to local storage or the next state. Look into Mixins and Parent-Children props inheritance
+      console.log(localStorage.user);
+
 
     } else {
       this.errorMessageState = 'alert alert-danger';

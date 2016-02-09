@@ -69,7 +69,7 @@ module.exports.postUsers = function(req, res, next) {
 
   Model.User.create(newUser)
     .then(user => {
-      res.status(201).json({user, 'type': 'success', message: 'success'});
+      res.status(201).json({username: user.username, 'type': 'success', message: 'success'});
     })
     .catch(err => {
       // Add some more error handling for different user creation errors here.
