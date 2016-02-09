@@ -17,6 +17,8 @@ import Profile from './components/Profile';
 import NewTeamForm from './components/NewTeamForm';
 import JoinTeam from './components/JoinTeam';
 import JoinTeamForm from './components/JoinTeamForm';
+import UpdateTeamSettings from './components/UpdateTeam';
+import UpdateProfileSettings from './components/UpdateProfile';
 
 export default (
   	<Route component={App}>
@@ -36,6 +38,8 @@ export default (
 	   <Route path='/new_team' component={NewTeamForm} />
 	   <Route path='/join_team' component={JoinTeam} />
 	   <Route path='/join_team_form' component={JoinTeamForm} />
+	   <Route path='/update_team' component={UpdateTeamSettings} />
+	   <Route path='/update_profile' component={UpdateProfileSettings} />
  	</Route>
 );
 
