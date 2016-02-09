@@ -37,21 +37,12 @@ class Navbar extends React.Component {
           </Link>
         </div>
         <div id='navbar' className='navbar-collapse collapse'>
-          <ul className='nav navbar-nav pull-right'>
-            <li className='dropdown'>
-              <a href='/' className='dropdown-toggle' data-toggle='dropdown'>Main Site<span className='caret'></span></a>
-            </li> 
-            <li><Link to='/profile'>Profile</Link></li>
-            <li><Link to='/dashboard'>Dashboard</Link></li>
-            <li><Link to='/team'>Team</Link></li> 
-            <li><Link to='/all_teams'>All Teams</Link></li> 
-            <li><Link to='/event'>Event</Link></li> 
-            <li><Link to='/all_events'>All Events</Link></li>
-            <li><Link to='/refugee'>Refugee</Link></li> 
-            <li><Link to='/all_refugees'>All Refugees</Link></li>
+          <ul className='nav navbar-nav'>
+            <li><Link to='/add_team'>Start a Team</Link></li> 
+            <li><Link to='/all_teams'>Find a Teams</Link></li> 
+            <li><Link to='/refugee'>Rescued Refugees</Link></li> 
+            <li><Link to='/about'>How We Rescue</Link></li>
             <li><Link to='/login'>Log In</Link></li>
-            <li><Link to='/signup'>Sign Up</Link></li>
-            <li><Link to='/about'>About</Link></li>
           </ul>
         </div>
       </nav>

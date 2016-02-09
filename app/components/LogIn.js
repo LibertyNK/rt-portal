@@ -46,22 +46,48 @@ class LogIn extends React.Component {
 	render() {
 
 		return (
-			<div className='container login'>
-				<div className='row'>
-					<h3 className='text-center'>Log In Form</h3>
+	<div>
+		<div className="form_card">
+			<div className='text-left'>
+
+				<div className="row">
+					<div className='col-sm-12'>
+						<h2>Log In</h2>
+					</div>
+				</div>
+
+				<div className="row">
+					<div className='col-sm-12'>
+						<div className="banner-border-seperation"></div>
+					</div>
+				</div>
+				<div className='row settings_inputs'>
 					<form onSubmit={this.handleSubmit.bind(this)}>
 						<div className='form-group'>
-							<label className='control-label'>Email</label>
-							<input type='text' className='form-control' ref="email"  onChange={LogInActions.updateEmail} />
+							
+							<input type='text' className='form-control' ref="email" placeholder="Email" onChange={LogInActions.updateEmail} />
 						</div>
 						<div className='form-group'>
-							<label className='control-label'>Password</label>
-							<input type='password' className='form-control' ref="password" onChange={LogInActions.updatePassword} />
+							
+							<input type='password' className='form-control' ref="password" onChange={LogInActions.updatePassword} placeholder="Password"/>
 						</div>
 						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Submit</button></p>
 					</form>
 				</div>
 			</div>
+		</div>
+		<div className="form_card_transparant">
+			<div className='text-left'>
+
+				<div className="row">
+					<div className='col-sm-12'>
+						<h3>Stuck? <a href="#">Try resetting your password.</a></h3>
+						<h3>Not a member yet? <Link to='/add_team'>Sign up here!</Link></h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 		);
 	}
 }
