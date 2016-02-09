@@ -77,7 +77,7 @@ class SignUp extends React.Component {
 	}
 
 	render() {
-
+		console.log(this.props.signupNext);
 		return (
 		<div className="form_card">
 			<div className=''>

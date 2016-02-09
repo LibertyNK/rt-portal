@@ -23,10 +23,10 @@ class AddTeam extends React.Component {
 
 				<div className="row">
 					<div className='col-sm-12'>
-						<Link className='btn btn-large red-btn width_100 btn_color' to='/signup'>Team on a school campus</Link>
+						<Link className='btn btn-large red-btn width_100 btn_color' params={{ signupNext: "create" }} to='/signup'>Team on a school campus</Link>
 					</div>
 					<div className='col-sm-12'>
-						<Link className='btn btn-large red-btn width_100 btn_color' to='/new_team'>Join a team</Link>
+						<Link className='btn btn-large red-btn width_100 btn_color' params={{ signupNext: "join" }} to='/join_team_form'>Join a team</Link>
 					</div>
 				</div>
 			</div>

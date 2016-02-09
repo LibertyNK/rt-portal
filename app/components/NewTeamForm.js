@@ -114,7 +114,7 @@ class NewTeamForm extends React.Component {
 
 						</form>
 					</div>
->>>>>>> master
+
 				</div>
 			</div>
 		</div>

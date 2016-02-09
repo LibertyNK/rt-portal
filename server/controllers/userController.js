@@ -81,9 +81,7 @@ module.exports.postUsers = function(req, res, next) {
     })
     .catch(err => {
       // Add some more error handling for different user creation errors here.
-      console.log(err);
       // Default error message - send everything
-      console.log(err.errors[0].message);
       res.status(400).json({ 'type': 'error', message: err }); 
   })
 }
