@@ -55,7 +55,7 @@ module.exports = function(express) {
   }));
 
   router.post('/signup', function (req, res, next) {
-    res.redirect('/new_team')
+    res.redirect('/new_team');
   });
 
   router.get('/dashboard', isAuthenticated, function(req, res) {
