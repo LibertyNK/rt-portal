@@ -157,34 +157,24 @@ module.exports.updateUserTeam = function (req, res, next) {
 
   User.find({ where: { email: req.leader } })
       .then(user => {
-
-        console.log("User Info got back from DB query: " + user.email);
-        console.log("Team ID got from Team controler: " + req.uuid);
-
         User.update({
-
           team_uuid: req.uuid,
           admin_level: 2
         },
         {
           where: { email: req.leader }
         })
-
           .then(updated_user => {
             res.status(201).json({updated_user, 'type': 'success', message: "successfully updated user's team"});
           })
           .catch(error => {
             console.log(error);
             // res.status(400).json({ 'type': 'error', message: error });
-
           });
-
       })
       .catch(err => {
-
-        res.status(400).json({ 'type': 'error', message: err}); 
-
-
+        console.log(err);
+        // res.status(400).json({ 'type': 'error', message: err}); 
       });
 }
 

@@ -52,6 +52,7 @@ var attributes = {
   },
   admin_level: {
     type: Sequelize.INTEGER,
+    defaultValue: 3
   },
   last_login: {
     type: Sequelize.DATE,

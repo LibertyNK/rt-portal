@@ -96,14 +96,17 @@ constructor(props) {
 
 		//TODO: Check if user already in a team or not. There should be a step before this to make sure that if user already has, display a message and show their team, or something else...?
 
-		if (team.team_name) {
+		if (team.team_name 
+			      && this.state.helpBlock.team_name === ''
+			      && this.state.helpBlock.address1 === ''
+			      && this.state.helpBlock.address2 === ''
+			      && this.state.helpBlock.team_state === ''
+			      && this.state.helpBlock.zipcode === ''
+			      && this.state.helpBlock.about === '') {
 			// Need better logic here. Only call AddTeam Action if all fields are validated
 			
-				console.log("adding team");
 				AddTeamActions.addTeam(team);
 		}
-	
-
 	}
 	
 	render() {

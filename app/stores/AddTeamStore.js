@@ -46,22 +46,21 @@ class AddTeamStore {
    	this.team_name = event.target.value;
    }
 
-  onInValidTeamName() {
-    console.log("team name!");
+  onInvalidTeamName() {
    	this.validationState.team_name = 'has-error';
    	this.helpBlock.team_name = 'Team Name is required';
    }
 
-  onInValidTeamNameLength() {
+  onInvalidTeamNameLength() {
    	this.validationState.team_name = 'has-error';
-   	this.helpBlock.team_name = 'Team Name must be between 3 and 50 characters';
+   	this.helpBlock.team_name = 'Team name must be between 3 and 50 characters';
   }
 
   onUpdateAddress1(event) {
    	this.address1 = event.target.value;
   }
 
-  onInValidAddress1() {
+  onInvalidAddress1() {
    	this.validationState.address1 = 'has-error';
    	this.helpBlock.address1 = 'Address is required';
   }
@@ -79,7 +78,7 @@ class AddTeamStore {
    	this.team_state= event.target.value;
   }
 
-  onInValidState() {
+  onInvalidState() {
    	this.validationState.team_state = 'has-error';
    	this.helpBlock.team_state = 'State is required';
   }
@@ -88,7 +87,7 @@ class AddTeamStore {
    	this.zipcode = event.target.value;
   }
 
-  onInValidZipcode() {
+  onInvalidZipcode() {
    	this.validationState.zipcode = 'has-error';
    	this.helpBlock.zipcode = 'Zipcode is required';
   }
@@ -97,7 +96,7 @@ class AddTeamStore {
     this.country = event.target.value;
   }
 
-  onInValidCountry() {
+  onInvalidCountry() {
     this.validationState.country = 'has-error';
     this.helpBlock.country = 'Country is required';
   }
@@ -106,12 +105,12 @@ class AddTeamStore {
    	this.about = event.target.value;
   }
 
-  onInValidAbout() {
+  onInvalidAbout() {
    	this.validationState.about = 'has-error';
    	this.helpBlock.about = 'Say something about the team';
   }
 
-  onInValidAboutLength() {
+  onInvalidAboutLength() {
    	this.validationState.about = 'has-error';
    	this.helpBlock.about = 'Must be between 150 and 500 characters';
   }
