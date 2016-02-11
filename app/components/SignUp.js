@@ -51,7 +51,7 @@ class SignUp extends React.Component {
 
 		if (!user.username) {
 			this.refs.username.focus();
-			SignUpActions.invalidUserame();
+			SignUpActions.invalidUsername();
 		}
 		
 		if (!user.email) {
