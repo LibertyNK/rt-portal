@@ -12,9 +12,11 @@ class SignUpStore {
     this.password_conf = '';  
     this.first_name = '';
     this.last_name = '';
+    this.username = '';
     this.helpBlock = {
                         first_name: '',
                         last_name: '',
+                        username: '',
                         email: '',
                         password: '',
                         password_length: '',
@@ -24,13 +26,14 @@ class SignUpStore {
     this.validationState = {
                               first_name: '',
                               last_name: '',
+                              username: '',
                               email: '',
                               password: '',
                               password_length: '',
                               password_conf:'',
                               matching_passwords:''
                            };
-    this.errorMessage = '';
+    this.errorMessage = [];
     this.errorMessageState = '';
   }
 
@@ -53,6 +56,18 @@ class SignUpStore {
   onInvalidLastName() {
     this.validationState.last_name = 'has-error';
     this.helpBlock.last_name = "Last Name can't be blank!";
+  }
+
+  onUpdateUsername(event) {
+    this.username = event.target.value;
+    if (this.username !== '') {
+      this.validationState.username = 'has-success';
+    }
+  }
+
+  onInvalidUsername() {
+    this.validationState.username = 'has-error';
+    this.helpBlock.username = "Username can't be blank!";
   }
 
   onUpdateEmail(event) {
@@ -97,12 +112,15 @@ class SignUpStore {
     this.errorMessage = data.message;
     if (data.message == 'success') {
       this.errorMessageState = 'alert alert-success text-center';
-      console.log("success");
 
       //redirect to All Teams Page or User Dashboard
       // window.location.href = '/new_team';
+      console.log(data.username);
+      localStorage.setItem('user', data.username);
+      var user = localStorage.getItem('user');
 
-      // TODO: find way to set user info after signup/login to local storage or the next state. Look into Mixins and Parent-Children props inheritance
+      console.log(localStorage.user);
+
 
     } else {
       this.errorMessageState = 'alert alert-danger';
@@ -111,7 +129,11 @@ class SignUpStore {
   }
 
   onSignUpFail(error) {
-    this.errorMessage = error.responseJSON.message.errors[0].message;
+    console.log(error);
+    
+    for (var i in error.responseJSON.message.errors) {
+      this.errorMessage.push(error.responseJSON.message.errors[i].message);
+    }
     this.errorMessageState = 'alert alert-danger';
   }
   

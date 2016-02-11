@@ -1,5 +1,8 @@
-var bcrypt = require('bcrypt')
-var Model = require('../models/models.js')
+var bcrypt = require('bcrypt');
+var Model = require('../models/models.js');
+
+
+let User = Model.User;
 
 /**
  * GET /users
@@ -72,16 +75,19 @@ module.exports.postUsers = function(req, res, next) {
     salt: salt,
     password: hashedPassword,
     first_name: req.body.first_name,
-    last_name: req.body.last_name
+    last_name: req.body.last_name,
+    username: req.body.username,
+    admin_level: 2
   }
 
   Model.User.create(newUser)
     .then(user => {
-      res.status(201).json({user, 'type': 'success', message: 'success'});
+      res.status(201).json({username: user.username, 'type': 'success', message: 'success'});
     })
     .catch(err => {
       // Add some more error handling for different user creation errors here.
       // Default error message - send everything
+      console.log(err);
       res.status(400).json({ 'type': 'error', message: err }); 
   })
 }
@@ -143,6 +149,7 @@ module.exports.deleteUser = function(req, res, next) {
 }
 
 
+
 //Update User's Team and Admin Level
 module.exports.updateUserTeam = function (req, res, next) {
 
@@ -150,10 +157,6 @@ module.exports.updateUserTeam = function (req, res, next) {
 
   User.find({ where: { email: req.leader } })
       .then(user => {
-
-        console.log("User Info got back from DB query: " + user.email);
-        console.log("Team ID got from Team controler: " + req.uuid);
-
         User.update({
           team_uuid: req.uuid,
           admin_level: 2
@@ -168,14 +171,36 @@ module.exports.updateUserTeam = function (req, res, next) {
             console.log(error);
             // res.status(400).json({ 'type': 'error', message: error });
           });
-
       })
       .catch(err => {
-
-        res.status(400).json({ 'type': 'error', message: err}); 
-
+        console.log(err);
+        // res.status(400).json({ 'type': 'error', message: err}); 
       });
 }
 
 
+//Get User By Name 
+module.exports.getUserByName = function (req, res, next) {
+
+   User.find({ where: { username: req.params.username } })
+      .then(user => {
+        console.log(user.username);
+        if (user && user.username != null) {
+          res.status(201).json({  user: {
+                                          username: user.username,
+                                          user_id: user.uuid,
+                                          level: user.admin_level
+                                        }, 
+                                  'type': 'success', 
+                                  message: 'Successfully retrieved user'});
+        } else {
+          res.status(400).json({ 'type': 'error', message: 'No such user!' });
+        }
+        
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(400).json({ 'type': 'error', message: "User Not Found" });
+      });
+}
 

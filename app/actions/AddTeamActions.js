@@ -1,4 +1,5 @@
 import alt from '../alt';
+import ApiUtils from '../utils/apiUtils';
 
 class AddTeamActions {
 
@@ -25,6 +26,21 @@ class AddTeamActions {
 			'invalidAboutLength',
 			'dipslayErrorMessage'
 		);
+	}
+
+	addTeam(team) {
+		ApiUtils.addTeam(team)
+			.done((data) => {
+				if(data.type === 'success') {
+					console.log("action is receiving " + data.message + " message from server");
+					this.actions.addTeamSuccess(data);
+					this.actions.dipslayErrorMessage(data.message);
+				} 
+			})
+			.fail((jqXhr) => {
+				this.actions.addTeamFail(jqXhr.responseJSON.message);
+				console.log("Error message from server: " + jqXhr.responseJSON.message);
+			});
 	}
 }
 

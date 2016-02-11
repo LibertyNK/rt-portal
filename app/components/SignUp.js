@@ -1,6 +1,9 @@
 import React from 'react';
 import SignUpStore from '../stores/SignUpStore';
 import SignUpActions from '../actions/SignUpActions';
+import CurrentUserStore from '../stores/CurrentUserStore';
+
+var _ = require('underscore');
 
 
 class SignUp extends React.Component {
@@ -29,6 +32,7 @@ class SignUp extends React.Component {
 		var user = {
 			first_name: this.state.first_name,
 			last_name: this.state.last_name,
+			username: this.state.username,
 			email: this.state.email.trim(),
 			password: this.state.password,
 			password_conf: this.state.password_conf
@@ -43,6 +47,11 @@ class SignUp extends React.Component {
 		if (!user.last_name) {
 			this.refs.last_name.focus();
 			SignUpActions.invalidLastName();
+		}
+
+		if (!user.username) {
+			this.refs.username.focus();
+			SignUpActions.invalidUserame();
 		}
 		
 		if (!user.email) {
@@ -69,15 +78,18 @@ class SignUp extends React.Component {
 			SignUpActions.unmatchPasswords();
 		}
 
-		if (user.email && user.password) {
+		if (user.username && user.password) {
 			SignUpActions.signUp(user);
-
-
 		}
 	}
 
 	render() {
-		console.log(this.props.signupNext);
+
+		var errors = this.state.errorMessage || [];
+
+		var single_error = errors.map(function (err, key) { return <p key = {key}> {err} </p> });
+
+
 		return (
 		<div className="form_card">
 			<div className=''>
@@ -93,35 +105,36 @@ class SignUp extends React.Component {
 					</div>
 				</div>
 				<div className='row'>
+
 					<div className='col-sm-12 settings_inputs'>
 						<form onSubmit={this.handleSubmit.bind(this)}>		
 							<div className={this.state.errorMessageState}> 
-								{this.state.errorMessage}
-							</div>				
+								{single_error}
+						   </div>				
 							<div className={'form-group ' + this.state.validationState.first_name}>
 								<label className='control-label'>Your Information</label>
 								<span className='help-block'> {this.state.helpBlock.first_name}</span>
 								<input type='text' className='form-control' ref="first_name" onChange={SignUpActions.updateFirstName} placeholder="First Name" autoFocus />
 							</div>
-							<div className={'form-group ' + this.state.validationState.last_name}>
-								
+							<div className={'form-group ' + this.state.validationState.last_name}>								
 								<span className='help-block'> {this.state.helpBlock.last_name}</span>
 								<input type='text' className='form-control' ref="last_name" onChange={SignUpActions.updateLastName} placeholder="Last Name"/>
 							</div>
-							<div className={'form-group ' + this.state.validationState.email}>
-								
+							<div className={'form-group ' + this.state.validationState.username}>								
+								<span className='help-block'> {this.state.helpBlock.username}</span>
+								<input type='text' className='form-control' ref="username" onChange={SignUpActions.updateUsername} placeholder="Userame"/>
+							</div>
+							<div className={'form-group ' + this.state.validationState.email}>								
 								<span className='help-block'> {this.state.helpBlock.email}</span>
 								<input type='text' className='form-control' ref="email" onChange={SignUpActions.updateEmail}  placeholder="Email"/>
 							</div>
-							<div className={'form-group ' + this.state.validationState.password + ' ' + this.state.validationState.password_length + ' '  + this.state.validationState.matching_passwords}>
-								
+							<div className={'form-group ' + this.state.validationState.password + ' ' + this.state.validationState.password_length + ' '  + this.state.validationState.matching_passwords}>							
 								<span className='help-block'> {this.state.helpBlock.password}</span>
 								<span className='help-block'> {this.state.helpBlock.password_length}</span>
 								<span className='help-block'> {this.state.helpBlock.matching_passwords}</span>
 								<input type='password' className='form-control' ref="password"  onChange={SignUpActions.updatePassword} placeholder="Password"/>
 							</div>
-							<div className={'form-group ' + this.state.validationState.password_conf}>
-								
+							<div className={'form-group ' + this.state.validationState.password_conf}>								
 								<span className='help-block'> {this.state.helpBlock.password_conf}</span>
 								<input type='password' className='form-control' ref="password_conf"  onChange={SignUpActions.updatePasswordConf}  placeholder="Confirm Password"/>
 							</div>
