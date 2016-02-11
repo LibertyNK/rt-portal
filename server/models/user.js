@@ -9,10 +9,25 @@ var attributes = {
   email: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: {
+              msg: "Email address must be unique"
+    },
+    validate: {
+      isEmail: {
+        msg: "Email address must be valid"
+      }
+    }
+  },
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false,
     unique: true,
     validate: {
-      isEmail: true
-    }
+                len: {
+                    args: 3,
+                    msg: "Username must be at least 3 characters in length"
+                }
+            }
   },
   first_name: {
     type: Sequelize.STRING,
@@ -22,6 +37,12 @@ var attributes = {
   },
   password: {
     type: Sequelize.STRING,
+     validate: {
+                len: {
+                    args: 6,
+                    msg: "Password must be at least 6 characters in length"
+                }
+            }
   },
   salt: {
     type: Sequelize.STRING
@@ -31,6 +52,7 @@ var attributes = {
   },
   admin_level: {
     type: Sequelize.INTEGER,
+    defaultValue: 3
   },
   last_login: {
     type: Sequelize.DATE,

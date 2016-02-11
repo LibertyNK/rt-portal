@@ -11,12 +11,14 @@ class SignUpActions {
 			'signUpFail',
 			'updateFirstName',
 			'updateLastName',
+			'updateUsername',
 			'updateEmail',
 			'updatePassword',
 			'updatePasswordConf',
 			'invalidEmail',
 			'invalidFirstName',
 			'invalidLastName',
+			'invalidUsername',
 			'invalidPassword',
 			'invalidPasswordLength',
 			'invalidPasswordConf',
@@ -41,7 +43,7 @@ class SignUpActions {
 		})
 		.fail((jqXhr) => {
 			this.actions.signUpFail(jqXhr);
-			console.log('Error Message from server: ' + jqXhr.responseJSON.message.errors[0].message);
+			console.log('Error Message from server: ' + jqXhr.responseJSON.message.errors);
 			this.actions.displayErrorMessage(jqXhr.responseJSON.message);
 		});
 		

@@ -9,7 +9,15 @@ var attributes = {
   team_name: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
+    unique: {
+              msg: "Team name must be unique!"
+    },
+    validate: {
+                len: {
+                    args: [3, 50],
+                    msg: "Team Name must be between 3 and 50 characters!"
+                }
+            }
   },
   about: {
     type: Sequelize.TEXT,

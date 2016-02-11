@@ -4,7 +4,6 @@ var userController = require('../controllers/userController.js')
 let User = Model.User;
 let Team = Model.Team;
 
-
 /**
  * GET /teams
  * 
@@ -19,6 +18,7 @@ module.exports.getTeams = function(req, res, next) {
     .catch(err => {
       res.status(500).json({ 'type': 'team creation', message: err });
     })
+
 }
 
 /**
@@ -29,13 +29,14 @@ module.exports.getTeams = function(req, res, next) {
 
 module.exports.getTeam = function(req, res, next) {
   
-  Model.Team.findById(req.params.team_id)
+    Model.Team.findById(req.params.team_id)
     .then(team => {
       res.status(200).json({team, 'type': 'success', message: 'success'});
     })
     .catch(err => {
       res.status(400).json({ 'type': 'team lookup', message: err });
     })
+
 }
 
 
@@ -46,17 +47,39 @@ module.exports.getTeam = function(req, res, next) {
  */
 module.exports.postTeams = function(req, res, next) {
 
-  let team_name = req.body.team_name
+  let team_name = req.body.team_name,
+      address1 = req.body.address1,
+      address2 = req.body.address2,
+      team_state = req.body.team_state,
+      zipcode = req.body.zipcode,
+      country = req.body.country,
+      about = req.body.about,
+      leader = req.body.leader;
+
+  //validate team inputs here
+
   
   let newTeam = {
-    team_name: team_name
+    team_name: team_name,
+    address1: address1,
+    address2: address2,
+    team_state: team_state,
+    zipcode: zipcode,
+    country: country,
+    about: about,
+    leader: leader
+
   }
   
+  console.log(newTeam);
+  
   Model.Team.create(newTeam)
+
 
     .then( team => {
 
       res.status(201).json({team, 'type': 'success', message: 'success'});
+
 
       //Update User's Team and User's Admin Level
       console.log("Team info from DB: " + team.uuid + ", team name: " + team.team_name);
@@ -65,13 +88,15 @@ module.exports.postTeams = function(req, res, next) {
 
      }).catch(err => {
 
-
       // Add some more error handling for different team creation errors here.
+
+      console.log(err);
       
       // Default error message - send everything
       res.status(400).json({ 'type': 'error', message: err }); 
 
     });
+
 
 }
 
@@ -82,7 +107,9 @@ module.exports.postTeams = function(req, res, next) {
  */
 module.exports.putTeam = function(req, res, next) {
   
-  let team_name = req.body.team_name
+
+  let team_name = req.body.team_name;
+
   
   // Fills in blank for any blank fields from form
   Model.Team.update(
@@ -98,6 +125,7 @@ module.exports.putTeam = function(req, res, next) {
   .catch(err => {
     res.status(400).json({ 'type': 'error', message: err });
   })
+
 }
 
 /**
