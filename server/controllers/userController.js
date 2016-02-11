@@ -42,9 +42,6 @@ module.exports.getUser = function(req, res, next) {
  * 
  * Returns user by username, if exists
  */
-module.exports.getUserbyName = function(req, res, next) {
-  
-}
 
 /**
  * POST /users
@@ -180,7 +177,7 @@ module.exports.updateUserTeam = function (req, res, next) {
 
 
 //Get User By Name 
-module.exports.getUserByName = function (req, res, next) {
+module.exports.getUserByUsername = function (req, res, next) {
 
    User.find({ where: { username: req.params.username } })
       .then(user => {
@@ -188,11 +185,14 @@ module.exports.getUserByName = function (req, res, next) {
         if (user && user.username != null) {
           res.status(201).json({  user: {
                                           username: user.username,
+                                          first_name: user.first_name,
+                                          last_name: user.last_name,
                                           user_id: user.uuid,
                                           level: user.admin_level
                                         }, 
                                   'type': 'success', 
                                   message: 'Successfully retrieved user'});
+
         } else {
           res.status(400).json({ 'type': 'error', message: 'No such user!' });
         }

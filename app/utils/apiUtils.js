@@ -48,6 +48,13 @@ module.exports = {
 			url: 'teams/' + team_id,
 			type: 'GET'
 		})
+	},
+
+	findUser: function() {
+		return $.ajax({
+			url: 'profile/',
+			type: 'GET'
+		})
 	}
 
 

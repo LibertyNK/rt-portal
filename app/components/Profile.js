@@ -1,9 +1,14 @@
 import React from 'react';
+import ProfileActions from '../actions/ProfileActions';
+import ProfileStore from '../stores/ProfileStore';
 
 class Profile extends React.Component {
+
+
 	render() {
-		// var user = window.localStorage.getItem('user');
-		// console.log(user);
+		console.log("are you rendering?");
+
+
 		return (
 			<div className="team_background">
 				<div className="background_image" style={{backgroundImage: "url('http://www.libertyinnorthkorea.org/wp-content/uploads/2016/02/rt_team.jpg')"}}>
