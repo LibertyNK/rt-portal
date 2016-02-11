@@ -30,7 +30,7 @@ class SignUpActions {
 			.done((data) => {
 				if(data.message == 'success') {
 					console.log('Success Message from server: ' + data.message);
-					window.location.href = "/new_team";
+					window.location.href = "/signup_success";
 					this.actions.signUpSuccess(data);
 					this.actions.displayErrorMessage(data.message);
 				} else {
