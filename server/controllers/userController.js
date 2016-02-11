@@ -33,7 +33,17 @@ module.exports.getUser = function(req, res, next) {
     })
     .catch(err => {
       res.status(400).json({ 'type': 'user lookup', message: err });
+
     })
+}
+
+/**
+ * GET /users/:username
+ * 
+ * Returns user by username, if exists
+ */
+module.exports.getUserbyName = function(req, res, next) {
+  
 }
 
 /**
@@ -42,6 +52,8 @@ module.exports.getUser = function(req, res, next) {
  * Takes form data (username, password) from /signup page and creates a new user in Users table after some simple validation. 
  */
 module.exports.postUsers = function(req, res, next) {
+
+  console.log("hai");
 
   let email = req.body.email;
   let password = req.body.password;
@@ -64,7 +76,8 @@ module.exports.postUsers = function(req, res, next) {
     password: hashedPassword,
     first_name: req.body.first_name,
     last_name: req.body.last_name,
-    username: req.body.username
+    username: req.body.username,
+    admin_level: 2
   }
 
   Model.User.create(newUser)
@@ -73,9 +86,8 @@ module.exports.postUsers = function(req, res, next) {
     })
     .catch(err => {
       // Add some more error handling for different user creation errors here.
-      
       // Default error message - send everything
-      console.log(err.errors);
+      console.log(err);
       res.status(400).json({ 'type': 'error', message: err }); 
   })
 }
@@ -133,11 +145,16 @@ module.exports.deleteUser = function(req, res, next) {
   .catch(err => {
     res.status(400).json({ 'type': 'error', message: err });
   })
+
 }
 
-//Update User's user and Admin Level
-module.exports.updateUseruser = function (req, res, next) {
-  console.log("this is team info passing from teamController: " + req.team_name);
+
+
+//Update User's Team and Admin Level
+module.exports.updateUserTeam = function (req, res, next) {
+
+  // console.log("this is team info passing from teamController: " + req.team_name);
+
   User.find({ where: { email: req.leader } })
       .then(user => {
 
@@ -145,23 +162,28 @@ module.exports.updateUseruser = function (req, res, next) {
         console.log("Team ID got from Team controler: " + req.uuid);
 
         User.update({
-          team: req.uuid,
+
+          team_uuid: req.uuid,
           admin_level: 2
         },
         {
           where: { email: req.leader }
         })
-          .then(user => {
-              // Send back user info in front end? 
+
+          .then(updated_user => {
+            res.status(201).json({updated_user, 'type': 'success', message: "successfully updated user's team"});
           })
-          .catch(err => {
-              // Send error message?
+          .catch(error => {
+            console.log(error);
+            // res.status(400).json({ 'type': 'error', message: error });
+
           });
 
       })
       .catch(err => {
 
-        res.status(400).json({ 'type': 'error', message: err.errors[0].message }); 
+        res.status(400).json({ 'type': 'error', message: err}); 
+
 
       });
 }
@@ -174,7 +196,13 @@ module.exports.getUserByName = function (req, res, next) {
       .then(user => {
         console.log(user.username);
         if (user && user.username != null) {
-          res.status(201).json({username: user.username, 'type': 'success', message: 'Successfully retrieved user'});
+          res.status(201).json({  user: {
+                                          username: user.username,
+                                          user_id: user.uuid,
+                                          level: user.admin_level
+                                        }, 
+                                  'type': 'success', 
+                                  message: 'Successfully retrieved user'});
         } else {
           res.status(400).json({ 'type': 'error', message: 'No such user!' });
         }
@@ -185,3 +213,4 @@ module.exports.getUserByName = function (req, res, next) {
         res.status(400).json({ 'type': 'error', message: "User Not Found" });
       });
 }
+

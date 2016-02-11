@@ -40,19 +40,27 @@ module.exports = function(express) {
     .post(teamController.postTeams)
     .get(teamController.getTeams);
   
-  // Endpoint handlers for /users/:user_id
-  router.route('/teams/:team_id')
-    .get(teamController.getTeam)
-    .put(teamController.putTeam)
-    .delete(teamController.deleteTeam);
+  // Endpoint handlers for /teams/:team_id
+  // router.route('/teams/:team_id')
+  //   .get(teamController.getTeam)
+  //   .put(teamController.putTeam)
+  //   .delete(teamController.deleteTeam);
+
+  // Endpoint handlers for /teams/:team_name
+  router.route('/teams/:team_name')
+    .get(teamController.getTeamByName);
   
   // router.get('/signup', userController.show)
   // router.post('/signup', userController.signup)
   router.post('/login', passport.authenticate('local', {
-      successRedirect: '/dashboard',
-      failureRedirect: '/',
+      successRedirect: '/team',
+      failureRedirect: '/login',
       failureFlash: true 
-  }))
+  }));
+
+  router.post('/signup', function (req, res, next) {
+    res.redirect('/new_team');
+  });
 
   router.get('/dashboard', isAuthenticated, function(req, res) {
     res.json({ message: 'Render dashboard here' });

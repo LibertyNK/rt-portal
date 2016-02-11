@@ -26,6 +26,7 @@ module.exports.getTeams = function(req, res, next) {
  * 
  * Returns team by id, if exists
  */
+
 module.exports.getTeam = function(req, res, next) {
   
     Model.Team.findById(req.params.team_id)
@@ -38,12 +39,13 @@ module.exports.getTeam = function(req, res, next) {
 
 }
 
+
 /**
  * POST /teams
  * 
  * Create a new team in Teams table.
  */
- module.exports.postTeams = function(req, res, next) {
+module.exports.postTeams = function(req, res, next) {
 
   let team_name = req.body.team_name,
       address1 = req.body.address1,
@@ -66,14 +68,18 @@ module.exports.getTeam = function(req, res, next) {
     country: country,
     about: about,
     leader: leader
+
   }
   
   console.log(newTeam);
   
   Model.Team.create(newTeam)
+
+
     .then( team => {
 
-      res.status(200).json({team, 'type': 'success', message: 'success'});
+      res.status(201).json({team, 'type': 'success', message: 'success'});
+
 
       //Update User's Team and User's Admin Level
       console.log("Team info from DB: " + team.uuid + ", team name: " + team.team_name);
@@ -82,9 +88,16 @@ module.exports.getTeam = function(req, res, next) {
 
      }).catch(err => {
 
-      console.log(err.errors[0].message);
-      res.status(400).json({ 'type': 'error', message: err.errors[0].message }); 
+      // Add some more error handling for different team creation errors here.
+
+      console.log(err);
+      
+      // Default error message - send everything
+      res.status(400).json({ 'type': 'error', message: err }); 
+
     });
+
+
 }
 
 /**
@@ -94,7 +107,9 @@ module.exports.getTeam = function(req, res, next) {
  */
 module.exports.putTeam = function(req, res, next) {
   
+
   let team_name = req.body.team_name;
+
   
   // Fills in blank for any blank fields from form
   Model.Team.update(
@@ -132,6 +147,7 @@ module.exports.deleteTeam = function(req, res, next) {
     })
 }
 
+
 /**
  * GET /teams/:team_name
  * 
@@ -154,4 +170,6 @@ module.exports.getTeamByName = function(req, res, next) {
         console.log(err);
         res.status(400).json({ 'type': 'error', message: "Team Not Found" });
       });
+
 }
+

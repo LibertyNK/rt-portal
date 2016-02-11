@@ -70,10 +70,10 @@ class AddTeamStore {
    	this.address2 = event.target.value;
   }
 
-   // onInValidAddress() {
-   // 	this.validationState.address = 'has-error';
-   // 	this.helpBlock.address = 'Address is required';
-   // }
+   onInvalidAddress() {
+   	this.validationState.address = 'has-error';
+   	this.helpBlock.address = 'Address is required';
+   }
 
   onUpdateState(event) {
    	this.team_state= event.target.value;
@@ -117,6 +117,7 @@ class AddTeamStore {
   }
 
   onAddTeamSuccess(data) {
+
     this.errorMessage = data.message;
     if (data.message == 'success') {
       this.errorMessageState = 'alert alert-success text-center';
@@ -129,8 +130,10 @@ class AddTeamStore {
    
 	}
 
-	onAddTeamFail(error) {
-  	this.errorMessage = error;
+	onAddTeamFail(err) {
+
+    console.log(err.errors[0].message);
+  	this.errorMessage = err.errors[0].message;
   	this.errorMessageState = 'alert alert-danger';
 	}
 

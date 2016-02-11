@@ -9,7 +9,9 @@ var attributes = {
   email: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
+    unique: {
+              msg: "Email address must be unique"
+    },
     validate: {
       isEmail: {
         msg: "Email address must be valid"
