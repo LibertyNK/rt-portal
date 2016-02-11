@@ -80,6 +80,7 @@ class NewTeamForm extends React.Component {
 					</div>
 				</div>
 				<div className='row'>
+
 					<div className='col-sm-12 settings_inputs'>
 						<form >	
 							<label className='control-label'>Team Name</label>	
@@ -113,6 +114,7 @@ class NewTeamForm extends React.Component {
 
 						</form>
 					</div>
+
 				</div>
 			</div>
 		</div>
