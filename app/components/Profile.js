@@ -2,8 +2,8 @@ import React from 'react';
 
 class Profile extends React.Component {
 	render() {
-		var user = window.localStorage.getItem('user');
-		console.log(user);
+		// var user = window.localStorage.getItem('user');
+		// console.log(user);
 		return (
 			<div className="team_background">
 				<div className="background_image" style={{backgroundImage: "url('http://www.libertyinnorthkorea.org/wp-content/uploads/2016/02/rt_team.jpg')"}}>

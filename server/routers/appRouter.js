@@ -32,7 +32,7 @@ module.exports = function(express) {
   //   .delete(userController.deleteUser);
 
   // Endpoint handlers for /users/:user_id
-  router.route('/users/:username')
+  router.route('/profile/:username')
     .get(userController.getUserByName)
     
   // Endpoint handlers for /teams
