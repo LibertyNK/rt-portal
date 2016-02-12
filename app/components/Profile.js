@@ -8,6 +8,8 @@ class Profile extends React.Component {
 	render() {
 		console.log("are you rendering?");
 
+		console.log();
+
 
 		return (
 			<div className="team_background">
