@@ -50,9 +50,10 @@ module.exports = {
 		})
 	},
 
-	findUser: function() {
+	findUser: function(username) {
+		console.log("in apiutils with: " + username);
 		return $.ajax({
-			url: 'profile/',
+			url: '/profile/' + username,
 			type: 'GET'
 		})
 	}

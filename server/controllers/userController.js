@@ -178,7 +178,6 @@ module.exports.updateUserTeam = function (req, res, next) {
 
 //Get User By Name 
 module.exports.getUserByUsername = function (req, res, next) {
-
    User.find({ where: { username: req.params.username } })
       .then(user => {
         console.log(user.username);

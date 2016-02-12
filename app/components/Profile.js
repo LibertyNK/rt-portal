@@ -1,15 +1,39 @@
 import React from 'react';
+import { Link } from 'react-router'
 import ProfileActions from '../actions/ProfileActions';
 import ProfileStore from '../stores/ProfileStore';
+import ApiUtils from '../utils/apiUtils';
+
 
 class Profile extends React.Component {
+	constructor(props) {
+		super(props);
+		this._load = this._load.bind(this);
+		this.state = {first_name: '', last_name: ''};
+
+	}
+
+	componentDidMount() {
+		this._load();
+
+	}
+
+	_load() {
+		console.log("loading?");
+	 	ApiUtils.findUser(this.props.params.username)
+	 		.done((data) => {
+	 			this.setState(data.user);
+	 	})
+	 	.fail((jqXhr) => {
+
+	 		console.log('Error Message from server: ');
+	 	});
+			
+	 }
+
 
 
 	render() {
-		console.log("are you rendering?");
-
-		console.log();
-
 
 		return (
 			<div className="team_background">
@@ -27,7 +51,7 @@ class Profile extends React.Component {
 							<div className="row ">
 								<div className="col-md-4">
 
-									<h2>Nick Leonard</h2>
+									<h2>{this.state.first_name} {this.state.last_name}</h2>
 									<h4>Member of <a href="#">Team Name</a></h4>
 
 								</div>
@@ -37,7 +61,7 @@ class Profile extends React.Component {
 								</div>
 
 								<div className="col-md-4 pull-right">
-									<button>Donate to Nico</button>
+									<button>Donate to {this.state.first_name}</button>
 								</div>
 
 							</div>

@@ -33,6 +33,7 @@ module.exports = function(express) {
 
   // Endpoint handlers for /users/:user_id
   router.route('/profile/:username')
+ 
     .get(userController.getUserByUsername)
     
   // Endpoint handlers for /teams
