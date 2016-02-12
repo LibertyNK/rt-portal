@@ -4,29 +4,34 @@ var bcrypt = require('bcrypt');
 var Model = require('../models/models.js');
 
 module.exports = function(app) {
-  app.use(passport.initialize());
-  app.use(passport.session());
+  // app.use(passport.initialize());
 
   passport.use(new LocalStrategy(
     {
       usernameField: 'email'
     },
     function(email, password, done) {
+      console.log("email: " + email + " password: " + password)
+      
       Model.User.findOne({
         where: {
-          'email' : email
+          email : email
         }
-      }).then(function (user) {
+      }).then(function(user) {
         
+        console.log("Passport after user find")
+        console.log(user);
+
         // No user found with that username
         if (user === null) {
           return done(null, false, { message: 'Incorrect credentials.' });
         }
         
-        var hashedPassword = bcrypt.hashSync(password, user.salt);
+        let hashedPassword = bcrypt.hashSync(password, user.salt);
         
         // Success
         if (user.password === hashedPassword) {
+          console.log(user);
           return done(null, user);
         }
         
@@ -35,22 +40,4 @@ module.exports = function(app) {
       });
     }
   ));
-
-  passport.serializeUser(function(user, done) {
-    done(null, user.uuid);
-  });
-
-  passport.deserializeUser(function(uuid, done) {
-    Model.User.findOne({
-      where: {
-        'uuid': uuid
-      }
-    }).then(function (user) {
-      if (user === null) {
-        done(new Error('Wrong user id.'));
-      }
-      
-      done(null, user);
-    });
-  });
 };

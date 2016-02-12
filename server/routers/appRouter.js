@@ -1,9 +1,14 @@
 var passport = require('passport')
+var expressJWT = require('express-jwt');
+var jwt = require('jsonwebtoken');
 var userController = require('../controllers/userController.js')
 var teamController = require('../controllers/teamController.js')
 
 module.exports = function(express) {
   var router = express.Router()
+  
+  // .unless paths are those that don't require JWT
+  expressJWT({ secret: 'secrettoken' }).unless({ path: ['/login'] });
 
   /**
    * Checks if user is authenticated. Currently, authentication
@@ -52,11 +57,19 @@ module.exports = function(express) {
   
   // router.get('/signup', userController.show)
   // router.post('/signup', userController.signup)
-  router.post('/login', passport.authenticate('local', {
-      successRedirect: '/team',
-      failureRedirect: '/login',
-      failureFlash: true 
-  }));
+  router.post('/login', function( req, res ) {
+    passport.authenticate('local', function( err, user, info) {
+      if (err) { return next(err) }
+      if (!user) {
+        res.status(401).json({ message: 'Error looking up user.' });
+      }
+
+      //user has authenticated correctly thus we create a JWT token 
+      let token = jwt.sign({ username: user.username }, 'secrettoken');
+      res.status(200).json({ token : token });
+
+    })(req, res)
+  });
 
   router.post('/signup', function (req, res, next) {
     res.redirect('/new_team');
