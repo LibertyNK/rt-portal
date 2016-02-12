@@ -55,8 +55,6 @@ module.exports = function(express) {
   router.route('/teams/:team_name')
     .get(teamController.getTeamByName);
   
-  // router.get('/signup', userController.show)
-  // router.post('/signup', userController.signup)
   router.post('/login', function( req, res ) {
     passport.authenticate('local', function( err, user, info) {
       if (err) { return next(err) }

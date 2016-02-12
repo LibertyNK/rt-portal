@@ -20,7 +20,6 @@ module.exports = function(app) {
       }).then(function(user) {
         
         console.log("Passport after user find")
-        console.log(user);
 
         // No user found with that username
         if (user === null) {
