@@ -8,7 +8,6 @@ class Profile extends React.Component {
 		super(props);
 		this._load = this._load.bind(this);
 		this.state = {first_name: '', last_name: ''};
-
 	}
 
 	componentDidMount() {
@@ -25,10 +24,8 @@ class Profile extends React.Component {
 	 	.fail((jqXhr) => {
 
 	 		console.log('Error Message from server: ');
-	 	});
-			
-	 }
-
+	 	});	
+	}
 
 	render() {
 

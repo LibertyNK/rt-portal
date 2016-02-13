@@ -28,7 +28,7 @@ export default (
 	   <Route name="about" path='/about' component={About} />
 	   <Route name="login" path='/login' component={LogIn} />
 	   <Route name="signup" path='/signup' component={SignUp} />
-	   <Route name="team" path='/team/:team_name' component={Team} />
+	   <Route name="team" path='/:team_name' component={Team} />
 	   <Route name="all_teams" path='/all_teams' component={AllTeams} />
 	   <Route name="event" path='/event' component={Event} />
 	   <Route name="all_events" path='/all_events' component={AllEvents} />

@@ -56,7 +56,14 @@ module.exports = {
 			url: '/profile/' + username,
 			type: 'GET'
 		})
-	}
+	},
+
+	findTeam: function(team_name) {
+		return $.ajax({
+			url: '/teams/' + team_name,
+			type: 'GET'
+		})
+	},
 
 
 	// API calls for teams

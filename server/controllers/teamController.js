@@ -156,6 +156,8 @@ module.exports.deleteTeam = function(req, res, next) {
  
 module.exports.getTeamByName = function(req, res, next) {
 
+  
+
   Team.find({ where: { team_name: req.params.team_name } })
       .then(team => {
         console.log(team.team_name);
