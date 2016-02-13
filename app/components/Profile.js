@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router'
-import ProfileActions from '../actions/ProfileActions';
-import ProfileStore from '../stores/ProfileStore';
 import ApiUtils from '../utils/apiUtils';
 
 
@@ -30,7 +28,6 @@ class Profile extends React.Component {
 	 	});
 			
 	 }
-
 
 
 	render() {
