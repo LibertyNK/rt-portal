@@ -8,7 +8,7 @@ module.exports = function(express) {
   var router = express.Router()
   
   // .unless paths are those that don't require JWT
-  expressJWT({ secret: 'secrettoken' }).unless({ path: ['/login'] });
+  // expressJWT({ secret: 'secrettoken' }).unless({ path: ['/login'] });
 
   /**
    * Checks if user is authenticated. Currently, authentication
@@ -63,7 +63,7 @@ module.exports = function(express) {
       }
 
       //user has authenticated correctly thus we create a JWT token 
-      let token = jwt.sign({ username: user.username }, 'secrettoken');
+      let token = jwt.sign({ username: user.username }, 'secrettoken', { expiresIn: 86400});
       res.status(200).json({ token : token });
 
     })(req, res)
