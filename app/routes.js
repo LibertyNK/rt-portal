@@ -28,14 +28,14 @@ export default (
 	   <Route name="about" path='/about' component={About} />
 	   <Route name="login" path='/login' component={LogIn} />
 	   <Route name="signup" path='/signup' component={SignUp} />
-	   <Route name="team" path='/team' component={Team} />
+	   <Route name="team" path='/team/:team_name' component={Team} />
 	   <Route name="all_teams" path='/all_teams' component={AllTeams} />
 	   <Route name="event" path='/event' component={Event} />
 	   <Route name="all_events" path='/all_events' component={AllEvents} />
 	   <Route name="refugee" path='/refugee' component={Refugee} />
 	   <Route name="all_refugees" path='/all_refugees' component={AllRefugees} />
 	   <Route name="dashboard" path='/dashboard' component={Dashboard} />
-	   <Route name="profile" path='/profile' component={Profile} />
+	   <Route name="profile" path='/member/:username' component={Profile} />
 	   <Route name="new_team" path='/new_team' component={NewTeamForm} />
 	   <Route name="join_team" path='/join_team' component={JoinTeam} />
 	   <Route name="join_team_form" path='/join_team_form' component={JoinTeamForm} />

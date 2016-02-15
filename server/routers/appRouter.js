@@ -33,7 +33,8 @@ module.exports = function(express) {
 
   // Endpoint handlers for /users/:user_id
   router.route('/profile/:username')
-    .get(userController.getUserByName)
+ 
+    .get(userController.getUserByUsername)
     
   // Endpoint handlers for /teams
   router.route('/teams')
@@ -53,8 +54,8 @@ module.exports = function(express) {
   // router.get('/signup', userController.show)
   // router.post('/signup', userController.signup)
   router.post('/login', passport.authenticate('local', {
-      successRedirect: '/team',
-      failureRedirect: '/login',
+      successRedirect: '/dashboard',
+      failureRedirect: '/',
       failureFlash: true 
   }));
 

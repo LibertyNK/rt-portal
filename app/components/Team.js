@@ -1,6 +1,31 @@
 import React from 'react';
+import { Link } from 'react-router'
+import ApiUtils from '../utils/apiUtils';
 
 class Team extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this._load = this._load.bind(this);
+	}
+
+	componentDidMount() {
+		this._load();
+
+	}
+
+	_load() {
+		console.log(this.props.params.team_name);
+	 	ApiUtils.findTeam(this.props.params.team_name)
+	 		.done((data) => {
+	 			this.setState(data);
+	 			console.log(data);
+	 	})
+	 	.fail((jqXhr) => {
+	 		console.log('Error Message from server: ');
+	 	});	
+	}
+
 	render() {
 
 		return (
