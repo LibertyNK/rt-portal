@@ -5,7 +5,7 @@ class Home extends React.Component {
   render() {
     return (
 
-    <div>
+    <div className="pre_head_padding">
         <div className="map_background">
             <div className="container">
     	        <div className='row'>

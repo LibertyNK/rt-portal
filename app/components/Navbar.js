@@ -12,6 +12,7 @@ class Navbar extends React.Component {
 
   componentDidMount() {
     NavbarStore.listen(this.onChange);
+    $( this.refs.toggleInput.getDOMNode() ).bootstrapToggle();
   }
 
   componentWillUnmount() {
@@ -32,17 +33,27 @@ class Navbar extends React.Component {
             <span className='icon-bar'></span>
             <span className='icon-bar'></span>
           </button>
-          <Link to='/' className='navbar-brand'>
-            rtPORTAL
-          </Link>
+          <div className='navbar-brand'><Link to='/'>
+            <img src="img/link_logo.png" />
+            <h3>Rescue Campaigns</h3>
+          </Link></div>
         </div>
         <div id='navbar' className='navbar-collapse collapse'>
           <ul className='nav navbar-nav'>
-            <li><Link to='/add_team'>Start a Team</Link></li> 
-            <li><Link to='/all_teams'>Find a Teams</Link></li> 
-            <li><Link to='/refugee'>Rescued Refugees</Link></li> 
-            <li><Link to='/about'>How We Rescue</Link></li>
-            <li><Link to='/login'>Log In</Link></li>
+            <li><Link to='/login'>Log In</Link></li> 
+            <li><Link to='/signup'>Sign Up</Link></li> 
+            <li><Link to='/all_teams'>Teams</Link></li> 
+            <li><Link to='/all_members'>Members</Link></li>
+            <li><Link to='/refugee_stories'>Refugee Stories</Link></li>
+            <li className="dropdown nav-buttons">
+              <a ref="toggleInput" href="#" className="just-text" data-toggle="dropdown" data-on="On" data-off="Off" >More <b className="caret"></b></a>
+              <ul className="dropdown-menu">
+                <li><Link to='/refugee_stories'>Giving Forms</Link></li>
+                <li className="divider"></li>
+                <li><Link to='/refugee_stories'>Recurring Giving</Link></li>
+                
+              </ul>
+            </li>
           </ul>
         </div>
       </nav>
