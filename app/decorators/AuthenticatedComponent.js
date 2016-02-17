@@ -1,10 +1,13 @@
+import React from 'react';
 import LogInStore from '../stores/LogInStore';
 
 export default (ComposedComponent) => {
 	return class AuthenticatedComponent extends React.Component {
 
-		constructor() {
+		constructor(props) {
+			super(props);
 			this.state = this.getLoginState();
+	
 		}
 
 		onChange() {
@@ -20,6 +23,7 @@ export default (ComposedComponent) => {
 	    }
 
 		getLoginState() {
+			console.log(LogInStore.user);
 			return {
 				userLoggedIn: LogInStore.isLoggedIn(),
 				user: LogInStore.user,
@@ -29,14 +33,12 @@ export default (ComposedComponent) => {
 
 		render() {
 			return (
-				<ComposedComponent>
-					{...this.props}
-					user={this.state.user}
-					jwt={this.state.jwt}
-					userLoggedIn={this.state.userLoggedIn}
-				</ComposedComponent>
-
-			);
+				<ComposedComponent
+				{...this.props}
+				user={this.state.user}
+				jwt={this.state.jwt}
+				userLoggedIn={this.state.userLoggedIn} />
+				);
+			}
 		}
-	}
 };

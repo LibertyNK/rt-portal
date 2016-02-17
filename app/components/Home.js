@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
+import AuthenticatedComponent from '../decorators/AuthenticatedComponent'
 
-class Home extends React.Component {
+export default AuthenticatedComponent(class Home extends React.Component {
   render() {
     return (
         <div>
@@ -83,6 +84,4 @@ class Home extends React.Component {
         </div>
     );
   }
-}
-
-export default Home;
+});

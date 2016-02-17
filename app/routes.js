@@ -21,6 +21,7 @@ import UpdateTeamSettings from './components/UpdateTeam';
 import UpdateProfileSettings from './components/UpdateProfile';
 import SignUpSuccess from './components/SignUpSuccess';
 
+
 export default (
   	<Route component={App}>
 	   <Route name="" path='/' component={Home} />

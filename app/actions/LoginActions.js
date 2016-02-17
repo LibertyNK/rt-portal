@@ -1,6 +1,7 @@
 import alt from '../alt';
 import ApiUtils from '../utils/apiUtils';
 import { LOGIN_USER, LOGOUT_USER } from '../constants/actionTypes';
+import LogInStore from '../stores/LogInStore';
 
 
 class LogInActions {
