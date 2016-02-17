@@ -1,5 +1,6 @@
 import alt from '../alt';
 import ApiUtils from '../utils/apiUtils';
+import { LOGIN_USER, LOGOUT_USER } from '../constants/actionTypes';
 
 
 class LogInActions {
@@ -15,14 +16,17 @@ class LogInActions {
 
 	logIn(email, password) {
 		ApiUtils.login(email, password)
-		.done((data) => {
-			this.actions.logInSuccess(data.message);
-			console.log('Message from server: ' + data.message);
+		.done((response) => {
+			this.actions.logInSuccess(response);
+			console.log('Token from server: ' + response.token);
 		})
 		.fail((jqXhr) => {
 			this.actions.logInFail(jqXhr.responseJSON.message);
 		});
-		
+	}
+
+	logInUser(jwt) {
+		var savedJwt = localStorage.getItem('jwt');
 	}
 
 }
