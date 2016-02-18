@@ -23,11 +23,11 @@ export default (ComposedComponent) => {
 	    }
 
 		getLoginState() {
-			console.log(LogInStore.user);
+			console.log(LogInStore._user);
 			return {
 				userLoggedIn: LogInStore.isLoggedIn(),
-				user: LogInStore.user,
-				jwt: LogInStore.jwt
+				user: LogInStore._user,
+				jwt: LogInStore._jwt
 			};
 		}
 
