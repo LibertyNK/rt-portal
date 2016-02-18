@@ -1,5 +1,5 @@
 var alt = require('../alt');
-var UserWebAPIUtils = require('../utils/UserWebAPIUtils');
+var UserWebAPIUtils = require('../utils/ApiUtils');
 
 /*
  * Declaring UserActions using ES2015. This is equivalent to creating

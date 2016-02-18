@@ -19,6 +19,7 @@ class AuthService {
 		return logInPromise
 			.then(response => {
 				var jwt = response.id_token;
+				console.log("handle Auth " + jwt);
 				LogInActions.logInUser(jwt);
 				return true;
 			})

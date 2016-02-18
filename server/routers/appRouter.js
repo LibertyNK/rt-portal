@@ -19,10 +19,10 @@ module.exports = function(express) {
    * call.
    */
   var isAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated())
-      return next()
-    req.flash('error', 'You have to be logged in to access the page.')
-    res.redirect('/')
+    // if (req.isAuthenticated())
+    //   return next()
+    // req.flash('error', 'You have to be logged in to access the page.')
+    // res.redirect('/')
   }
 
   // Endpoint handlers for /users
@@ -63,11 +63,14 @@ module.exports = function(express) {
       if (!user) {
         res.status(401).json({ message: 'Error looking up user.' });
       }
+      else {
 
-      //user has authenticated correctly thus we create a JWT token
-      let token = jwt.sign({ username: user.username }, 'secrettoken', { expiresIn: 86400});
-      res.status(200).json({ token : token });
+        //user has authenticated correctly thus we create a JWT token
+        let token = jwt.sign({ username: user.username }, 'secrettoken', { expiresIn: 86400});
+        res.status(200).json({ token : token });
 
+      }
+   
     })(req, res)
   });
 

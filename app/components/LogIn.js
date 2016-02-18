@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import LogInStore from '../stores/LogInStore';
 import LogInActions from '../actions/LogInActions';
+import Auth from '../services/auth'
 
 
 class LogIn extends React.Component {
@@ -39,11 +40,8 @@ class LogIn extends React.Component {
 		}
 
 		if (email && password) {
-			console.log(this.state.jwt);
-			// LogInActions.logIn(email, password);
+			LogInActions.logIn(email, password);
 		}
-
-		console.log(this.state.jwt);
 	}
 
 	render() {

@@ -1,10 +1,14 @@
+import React from 'react';
 import LogInStore from '../stores/LogInStore';
 
 export default (ComposedComponent) => {
 	return class AuthenticatedComponent extends React.Component {
 
-		constructor() {
-			this.state = this.getLoginState();
+		constructor(props) {
+			super(props);
+			this.state = LogInStore.getState();
+			this.onChange = this.onChange.bind(this);
+	
 		}
 
 		onChange() {
@@ -12,31 +16,36 @@ export default (ComposedComponent) => {
 		}
 
 		componentDidMount() {
-	    	LoginStore.addChangeListener(this.onChange.bind(this));
+	    	LogInStore.listen(this.onChange);
 	    }
 
 	    componentWillUnmount() {
-	    	LoginStore.removeChangeListener(this.onChange.bind(this));
+	    	LogInStore.unlisten(this.onChange);
 	    }
 
 		getLoginState() {
 			return {
-				userLoggedIn: LogInStore.isLoggedIn(),
-				user: LogInStore.user,
+				user: LogInStore.getUser(),
 				jwt: LogInStore.jwt
 			};
 		}
 
 		render() {
+			
+			if (this.state.user !==null)
+			{
+				console.log("AuthenticatedComponent's user now is " + this.state.user.username );
+			}
+			
 			return (
-				<ComposedComponent>
+
+				<ComposedComponent
 					{...this.props}
 					user={this.state.user}
 					jwt={this.state.jwt}
-					userLoggedIn={this.state.userLoggedIn}
-				</ComposedComponent>
-
-			);
+					// userLoggedIn={this.state.userLoggedIn} 
+				/>
+				);
+			}
 		}
-	}
 };

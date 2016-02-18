@@ -1,6 +1,7 @@
 import alt from '../alt';
 import ApiUtils from '../utils/apiUtils';
 import { LOGIN_USER, LOGOUT_USER } from '../constants/actionTypes';
+import LogInStore from '../stores/LogInStore';
 
 
 class LogInActions {
@@ -15,7 +16,6 @@ class LogInActions {
 	}
 
 	logIn(email, password) {
-		console.log("sending login info");
 		ApiUtils.login(email, password)
 		.done((response) => {
 			this.actions.logInSuccess(response);
@@ -26,9 +26,9 @@ class LogInActions {
 		});
 	}
 
-	logInUser(jwt) {
-		var savedJwt = localStorage.getItem('jwt');
-	}
+	// logInUser(jwt) {
+	// 	var savedJwt = localStorage.getItem('jwt');
+	// }
 }
 
 export default alt.createActions(LogInActions);

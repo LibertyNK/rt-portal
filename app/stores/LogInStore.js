@@ -24,10 +24,14 @@ class LogInStore {
 
   onLogInSuccess(response) {
     // Response should contain a token sent from server
+
     this.jwt = response.token;
+    console.log("JWT in LogIn store " + this.jwt);
 
     // Decode JWT to get the user information and store it
     this.user = jwt_decode(this.jwt);
+    console.log("User in Login Store: " + this.user.username);
+ 
 
   }
 
