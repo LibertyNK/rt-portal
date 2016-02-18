@@ -13,4 +13,11 @@ import LogInActions from './actions/LogInActions';
 
 let history = createBrowserHistory();
 
+let jwt = localStorage.getItem('jwt');
+
+if (jwt) {
+  LoginActions.loginUser(jwt);
+}
+
+
 ReactDOM.render(<Router history={history}>{routes}</Router>, document.getElementById('app'));
