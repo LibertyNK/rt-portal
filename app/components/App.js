@@ -6,10 +6,14 @@ import LoginActions from '../actions/LoginActions';
 class App extends React.Component {
   render() {
 
-let jwt = localStorage.getItem('jwt');
-if (jwt) {
-  LoginActions.loginUser(jwt);
-}
+
+// var router = Router.create({routes});
+// RouterContainer.set(router);
+
+// let jwt = localStorage.getItem('jwt');
+// if (jwt) {
+//   LoginActions.loginUser(jwt);
+// }
 
  return (
 
