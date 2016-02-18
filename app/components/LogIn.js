@@ -39,8 +39,11 @@ class LogIn extends React.Component {
 		}
 
 		if (email && password) {
-			LogInActions.logIn(email, password);
+			console.log(this.state.jwt);
+			// LogInActions.logIn(email, password);
 		}
+
+		console.log(this.state.jwt);
 	}
 
 	render() {
