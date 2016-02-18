@@ -31,7 +31,6 @@ class LogInStore {
     // Decode JWT to get the user information and store it
     this.user = jwt_decode(this.jwt);
     console.log("User in Login Store: " + this.user.username);
- 
 
   }
 

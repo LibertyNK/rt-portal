@@ -4,6 +4,7 @@ import LogInStore from '../stores/LogInStore';
 export default (ComposedComponent) => {
 	return class AuthenticatedComponent extends React.Component {
 
+
 		constructor(props) {
 			super(props);
 			this.state = LogInStore.getState();

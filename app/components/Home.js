@@ -3,15 +3,7 @@ import {Link} from 'react-router';
 import AuthenticatedComponent from '../decorators/AuthenticatedComponent'
 
 export default AuthenticatedComponent(class Home extends React.Component {
-   
   render() {
-
-    //Geting user from Authenticated Copmponent
-
-    if (this.props.user !== null) {
-     console.log("This state's user is now " + this.props.user.username);
-    }
-
     return (
         <div>
 	        <div className='row'>
