@@ -46,7 +46,7 @@ class Navbar extends React.Component {
             <li><Link to='/all_members'>Members</Link></li>
             <li><Link to='/refugee_stories'>Refugee Stories</Link></li>
             <li className="dropdown nav-buttons">
-              <a ref="toggleInput" href="#" className="just-text" data-toggle="dropdown" data-on="On" data-off="Off" >More <b className="caret"></b></a>
+              <a href="#" className="just-text" data-toggle="dropdown">More <b className="caret"></b></a>
               <ul className="dropdown-menu">
                 <li><Link to='/refugee_stories'>Giving Forms</Link></li>
                 <li className="divider"></li>
