@@ -1,11 +1,16 @@
 import alt from '../alt';
 import LogInActions from '../actions/LogInActions';
+import {LOGIN_USER, LOGOUT_USER} from '../constants/ActionTypes';
+import jwt_decode from 'jwt_decode';
 
 class LogInStore {
   constructor() {
+    super();
     this.bindActions(LogInActions);
     this.email = '';
-    this.password = '';   
+    this.password = '';  
+    this._user = null;
+    this._jwt = null; 
   }
 
   onUpdateEmail(event) {
@@ -16,9 +21,11 @@ class LogInStore {
   	this.password = event.target.value;
   }
 
-  onLogInSuccess() {
-    window.location.href = '/dashboard';
-  }
+  // onLogInSuccess() {
+  //   window.location.href = '/dashboard';
+  // }
+
+  
 
 }
 

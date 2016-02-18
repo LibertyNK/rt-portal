@@ -18,13 +18,12 @@ class LogInActions {
 		.done((data) => {
 			this.actions.logInSuccess(data.message);
 			console.log('Message from server: ' + data.message);
+			console.log('Token from server: ' + data.token);
 		})
 		.fail((jqXhr) => {
 			this.actions.logInFail(jqXhr.responseJSON.message);
-		});
-		
+		});		
 	}
-
 }
 
 export default alt.createActions(LogInActions);
