@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {DropdownButton} from 'react-bootstrap';
 import NavbarStore from '../stores/NavbarStore';
 import NavbarActions from '../actions/NavbarActions';
 
@@ -10,9 +11,10 @@ class Navbar extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
 
+
+
   componentDidMount() {
     NavbarStore.listen(this.onChange);
-    $( this.refs.toggleInput.getDOMNode() ).bootstrapToggle();
   }
 
   componentWillUnmount() {
@@ -24,6 +26,8 @@ class Navbar extends React.Component {
   }
 
   render() {
+
+
     return (
       <nav className='navbar navbar-default navbar-static-top'>
         <div className='navbar-header'>
@@ -45,8 +49,9 @@ class Navbar extends React.Component {
             <li><Link to='/all_teams'>Teams</Link></li> 
             <li><Link to='/all_members'>Members</Link></li>
             <li><Link to='/refugee_stories'>Refugee Stories</Link></li>
+          
             <li className="dropdown nav-buttons">
-              <a href="#" className="just-text" data-toggle="dropdown">More <b className="caret"></b></a>
+              <a href="#" className="just-text dropdown-toggle" data-toggle="dropdown">More <b className="caret"></b></a>
               <ul className="dropdown-menu">
                 <li><Link to='/refugee_stories'>Giving Forms</Link></li>
                 <li className="divider"></li>

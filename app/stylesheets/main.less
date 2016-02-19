@@ -3,6 +3,7 @@
 @import '_navbar.less';
 @import '_form.less';
 @import '_team.less';
+@import '_home.less';
 @import (less) '../../bower_components/magnific-popup/dist/magnific-popup.css';
 
 body {
@@ -157,3 +158,16 @@ input[type="text"] {
     padding: 14px 0px 17px;
     text-align: left;
 }
+
+.wf-loading body {
+  /* styles to use before Typekit is loaded */
+    font-family: 'futura-pt', sans-serif;
+    visibility: hidden;
+}
+ 
+.wf-active body {
+  /* styles to use after Typekit is loaded */
+    font-family: 'futura-pt', sans-serif;
+    visibility: visible;
+}
+
