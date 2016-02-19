@@ -12,7 +12,7 @@ export default AuthenticatedComponent(class Home extends React.Component {
     else {
          console.log("AuthenticatedComponent's user now nothing");
     }
-
+ 
     return (
         <div>
 	        <div className='row'>
