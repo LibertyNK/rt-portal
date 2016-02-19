@@ -17,7 +17,7 @@ class LogInActions {
 	}
 
 	logIn(email, password) {
-		AuthService.login(email, password)
+		ApiUtils.login(email, password)
 		.done((response) => {
 			this.actions.logInSuccess(response);
 			console.log('Token from server: ' + response.token);
