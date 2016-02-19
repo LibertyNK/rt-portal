@@ -4,6 +4,15 @@ import AuthenticatedComponent from '../decorators/AuthenticatedComponent'
 
 export default AuthenticatedComponent(class Home extends React.Component {
   render() {
+
+    if (this.props.user !==null) {
+        console.log("AuthenticatedComponent's user now is " + this.props.user.username );
+    }
+
+    else {
+         console.log("AuthenticatedComponent's user now nothing");
+    }
+
     return (
         <div>
 	        <div className='row'>

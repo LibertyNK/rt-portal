@@ -2,7 +2,7 @@ import alt from '../alt';
 import ApiUtils from '../utils/apiUtils';
 import { LOGIN_USER, LOGOUT_USER } from '../constants/actionTypes';
 import LogInStore from '../stores/LogInStore';
-import RouterContainer from '../services/RouterContainer';
+import RouterContainer from '../services/RouterContainer'
 
 
 class LogInActions {
@@ -34,7 +34,7 @@ class LogInActions {
 	    // We save the JWT in localStorage to keep the user authenticated. We’ll learn more about this later.
 	    localStorage.setItem('jwt', jwt);
 	    // Send the action to all stores through the Dispatcher
-	    alt.dispatch({
+	    AppDispatcher.dispatch({
 	      actionType: LOGIN_USER,
 	      jwt: jwt
 	    });

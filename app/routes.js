@@ -20,6 +20,7 @@ import JoinTeamForm from './components/JoinTeamForm';
 import UpdateTeamSettings from './components/UpdateTeam';
 import UpdateProfileSettings from './components/UpdateProfile';
 import SignUpSuccess from './components/SignUpSuccess';
+import RouterContainer from './services/RouterContainer';
 
 
 export default (
