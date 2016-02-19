@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {DropdownButton} from 'react-bootstrap';
+import {ButtonToolbar, DropdownButton, MenuItem} from 'react-bootstrap';
 import NavbarStore from '../stores/NavbarStore';
 import NavbarActions from '../actions/NavbarActions';
 
@@ -10,8 +10,6 @@ class Navbar extends React.Component {
     this.state = NavbarStore.getState();
     this.onChange = this.onChange.bind(this);
   }
-
-
 
   componentDidMount() {
     NavbarStore.listen(this.onChange);
@@ -25,6 +23,11 @@ class Navbar extends React.Component {
     this.setState(state);
   }
 
+  onSelected(e) {
+    // doesn't need to have functionality (necessarily) ... just wired up
+}
+
+  
   render() {
 
 
@@ -49,16 +52,15 @@ class Navbar extends React.Component {
             <li><Link to='/all_teams'>Teams</Link></li> 
             <li><Link to='/all_members'>Members</Link></li>
             <li><Link to='/refugee_stories'>Refugee Stories</Link></li>
-          
-            <li className="dropdown nav-buttons">
-              <a href="#" className="just-text dropdown-toggle" data-toggle="dropdown">More <b className="caret"></b></a>
-              <ul className="dropdown-menu">
-                <li><Link to='/refugee_stories'>Giving Forms</Link></li>
-                <li className="divider"></li>
-                <li><Link to='/refugee_stories'>Recurring Giving</Link></li>
-                
-              </ul>
+            <li className="dropdown nav-buttons"><ButtonToolbar>
+                <DropdownButton title="Menu" id="dropdown-basic" onSelect={ this.OnSelected } className="just-text dropdown-toggle menu-dropdown btn-group-link">
+                  <li><Link to='/login'>Who & Why we Rescue</Link></li>
+                  <MenuItem divider />
+                  <MenuItem eventKey="4" href="/login">About LiNK</MenuItem>
+                </DropdownButton>
+              </ButtonToolbar>
             </li>
+           
           </ul>
         </div>
       </nav>
