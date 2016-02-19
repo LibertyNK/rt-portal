@@ -1,6 +1,6 @@
 import alt from '../alt';
 import ApiUtils from '../utils/apiUtils';
-import { LOGIN_USER, LOGOUT_USER } from '../constants/actionTypes';
+import { LOGIN_USER, LOGOUT_USER } from '../constants/ActionTypes';
 import LogInStore from '../stores/LogInStore';
 import RouterContainer from '../services/RouterContainer'
 
