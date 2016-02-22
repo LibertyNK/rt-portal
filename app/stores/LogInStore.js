@@ -2,15 +2,16 @@ import alt from '../alt';
 import LogInActions from '../actions/LogInActions';
 import {LOGIN_USER, LOGOUT_USER} from '../constants/ActionTypes';
 import jwt_decode from 'jwt-decode';
+import Iso from 'iso';
 
 class LogInStore {
   constructor() {
     // super();
     this.bindActions(LogInActions);
     this.email = '';
-    this.password = '';  
+    this.password = ''; 
     this.user = null;
-    this.jwt = null; 
+    this.jwt = null;
 
   }
 
@@ -22,31 +23,11 @@ class LogInStore {
   	this.password = event.target.value;
   }
 
-  onLogInSuccess(response) {
-    // Response should contain a token sent from server
-
-    this.jwt = response.token;
-    console.log("JWT in LogIn store " + this.jwt);
-
-    // Decode JWT to get the user information and store it
-    this.user = jwt_decode(this.jwt);
-    console.log("User in Login Store: " + this.user.username);
-
+  onLogInSuccess(token) {
+    this.jwt = token;
+    this.user = jwt_decode(token);
+    console.log('logged in');
   }
-
-  getUser() {
-    return this.user;
-  }
-
-  getJwt() {
-    return this.jwt;
-  }
-
-  isLoggedIn() {
-    return !!this.user;
-  }
-
-
 }
 
 export default alt.createStore(LogInStore);

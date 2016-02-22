@@ -30,6 +30,7 @@
     "express-session": "~1.11.3",
     "history": "^1.13.0",
     "immutable": "^3.7.6",
+    "iso": "^5.1.0",
     "jquery": "^2.2.0",
     "jsonwebtoken": "^5.5.4",
     "jwt-decode": "^1.5.1",

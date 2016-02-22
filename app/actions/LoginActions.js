@@ -5,6 +5,8 @@ import LogInStore from '../stores/LogInStore';
 import RouterContainer from '../services/RouterContainer'
 
 
+
+
 class LogInActions {
 
 	constructor() {
@@ -16,26 +18,31 @@ class LogInActions {
 		);
 	}
 
+
+	loginUser(jwt)  {
+
+	  	console.log('loginUser called');
+	    // Go to the Home page once the user is logged i
+	    // We save the JWT in localStorage to keep the user authenticated. We’ll learn more about this later.
+	    localStorage.setItem('jwt', jwt);
+	    this.actions.logInSuccess(jwt);
+	    // Send the action to all stores through the Dispatcher
+    }
+
 	logIn(email, password) {
 		ApiUtils.login(email, password)
 		.done((response) => {
-			this.actions.logInSuccess(response);
-			console.log('Token from server: ' + response.token);
-			var savedJwt = localStorage.getItem(response.token);
+			this.actions.logInSuccess(response.token);
+			localStorage.setItem('jwt', response.token);			
 		})
 		.fail((jqXhr) => {
 			this.actions.logInFail(jqXhr.responseJSON.message);
 		});
 	}
 
-	loginUser(jwt){
-	    // Go to the Home page once the user is logged in
-	    RouterContainer.get().transitionTo('/');
-	    // We save the JWT in localStorage to keep the user authenticated. We’ll learn more about this later.
-	    localStorage.setItem('jwt', jwt);
-
-	  }
 
 }
+
+
 
 export default alt.createActions(LogInActions);

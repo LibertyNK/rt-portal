@@ -10,7 +10,7 @@ module.exports = {
       uri: process.env.DATABASE_URL,
       name: 'linkrtportal',
       username: process.env.PGUSER || 'postgres',
-      password: ''
+      password: 'linklove'
     }
   },
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',

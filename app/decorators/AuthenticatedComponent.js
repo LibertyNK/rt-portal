@@ -7,9 +7,8 @@ export default (ComposedComponent) => {
 
 		constructor(props) {
 			super(props);
-			this.state = LogInStore.getState();
 			this.onChange = this.onChange.bind(this);
-	
+            this.state = LogInStore.getState();
 		}
 
 		onChange() {
@@ -24,27 +23,14 @@ export default (ComposedComponent) => {
 	    	LogInStore.unlisten(this.onChange);
 	    }
 
-		getLoginState() {
-			return {
-				user: LogInStore.getUser(),
-				jwt: LogInStore.jwt
-			};
-		}
-
 		render() {
 			
-			if (this.state.user !==null)
-			{
-				console.log("AuthenticatedComponent's user now is " + this.state.user.username );
-			}
-			
 			return (
-
 				<ComposedComponent
 					{...this.props}
 					user={this.state.user}
 					jwt={this.state.jwt}
-					// userLoggedIn={this.state.userLoggedIn} 
+					userLoggedIn={this.state.isLoggedIn} 
 				/>
 				);
 			}
