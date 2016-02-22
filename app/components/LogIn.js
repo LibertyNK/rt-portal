@@ -85,7 +85,7 @@ class LogIn extends React.Component {
 				<div className="row">
 					<div className='col-sm-12'>
 						<h3>Stuck? <a href="#">Try resetting your password.</a></h3>
-						<h3>Not a member yet? <Link to='/add_team'>Sign up here!</Link></h3>
+						<h3>Not a member yet? <Link to='/signup'>Sign up here!</Link></h3>
 					</div>
 				</div>
 			</div>
