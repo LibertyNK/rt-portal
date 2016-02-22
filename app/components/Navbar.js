@@ -62,6 +62,10 @@ class Navbar extends React.Component {
             </li>
            
           </ul>
+
+          <ul className='nav donate-nav'>
+            <li><Link to='/login'>Donate</Link></li> 
+          </ul>
         </div>
       </nav>
     );
