@@ -1,8 +1,25 @@
 import React from 'react';
 import {Link} from 'react-router';
+import AuthenticatedComponent from '../decorators/AuthenticatedComponent'
 
-class Home extends React.Component {
+export default AuthenticatedComponent(class Home extends React.Component {
+  
+
+
+
+
   render() {
+
+    if (this.props.user !==null) {
+        console.log("AuthenticatedComponent's user now is " + this.props.user.username );
+    }
+
+    else {
+         console.log("AuthenticatedComponent's user now nothing");
+    }
+
+    console.log(this.props);
+ 
     return (
         <div>
 	        <div className='row'>
@@ -83,6 +100,4 @@ class Home extends React.Component {
         </div>
     );
   }
-}
-
-export default Home;
+});

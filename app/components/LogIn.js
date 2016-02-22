@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import LogInStore from '../stores/LogInStore';
 import LogInActions from '../actions/LogInActions';
+import Auth from '../services/auth'
 
 
 class LogIn extends React.Component {

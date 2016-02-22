@@ -7,10 +7,10 @@ module.exports = function(callback) {
       team_name: 'Team Awesome'
     }).then(callback)
   })
-  
+
   // Create user table with sample user
   Model.User.sync({ force: true }).then(function() {
-    // create user with 
+    // create user with
     // email: user@user.com
     // password: user
     Model.User.create({
@@ -22,19 +22,19 @@ module.exports = function(callback) {
       salt: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O'
     }).then(callback)
   })
-  
+
   // recreate Event table
   Model.Event.sync({ force: true }).then(function() {
     Model.Event.create({
       eventname: 'First Event'
     }).then(callback)
   })
-  
+
   // recreate Campaign table
   Model.Campaign.sync({ force: true }).then(function() {
     Model.Campaign.create({
       campaignname: 'Do awesome shtuff'
     }).then(callback)
   })
-    
+
 }

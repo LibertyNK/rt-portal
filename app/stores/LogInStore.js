@@ -1,11 +1,18 @@
 import alt from '../alt';
 import LogInActions from '../actions/LogInActions';
+import {LOGIN_USER, LOGOUT_USER} from '../constants/ActionTypes';
+import jwt_decode from 'jwt-decode';
+import Iso from 'iso';
 
 class LogInStore {
   constructor() {
+    // super();
     this.bindActions(LogInActions);
     this.email = '';
-    this.password = '';   
+    this.password = ''; 
+    this.user = null;
+    this.jwt = null;
+
   }
 
   onUpdateEmail(event) {
@@ -16,10 +23,11 @@ class LogInStore {
   	this.password = event.target.value;
   }
 
-  onLogInSuccess() {
-    window.location.href = '/dashboard';
+  onLogInSuccess(token) {
+    this.jwt = token;
+    this.user = jwt_decode(token);
+    console.log('logged in');
   }
-
 }
 
 export default alt.createStore(LogInStore);
