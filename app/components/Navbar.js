@@ -30,6 +30,7 @@ class Navbar extends React.Component {
   
   render() {
 
+    var os = this;
 
     return (
       <nav className='navbar navbar-default navbar-static-top'>
@@ -47,6 +48,7 @@ class Navbar extends React.Component {
         </div>
         <div id='navbar' className='navbar-collapse collapse'>
           <ul className='nav navbar-nav'>
+
             <li><Link to='/login'>Log In</Link></li> 
             <li><Link to='/signup'>Sign Up</Link></li> 
             <li><Link to='/all_teams'>Teams</Link></li> 

@@ -5,12 +5,12 @@
 module.exports = {
   // Find the appropriate database to connect to, default to localhost if not found.
   db: {
-  	mongo: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/linkrtportal',
+  	// mongo: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/linkrtportal',
   	postgres: {
       uri: process.env.DATABASE_URL,
       name: 'linkrtportal',
       username: process.env.PGUSER || 'postgres',
-      password: ''
+      password: 'linklove'
     }
   },
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
