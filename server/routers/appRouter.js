@@ -36,10 +36,17 @@ module.exports = function(express) {
   //   .put(userController.putUser)
   //   .delete(userController.deleteUser);
 
-  // Endpoint handlers for /users/:user_id
-  router.route('/profile/:username')
-
-    .get(userController.getUserByUsername)
+  // Endpoint handlers for /users/:username
+  router.route('/users/:username')
+    .get(userController.getUserByUsername);
+    
+  // Endpoint handler to update team id for a user
+  router.route('/users/:username/:team_id')
+    .post(userController.updateUserTeamKey);
+    
+  // Endpoint to get all users by team_id
+  router.route('/users/team/:team_id')
+    .get(userController.getUsersByTeam);
 
   // Endpoint handlers for /teams
   router.route('/teams')
@@ -73,7 +80,6 @@ module.exports = function(express) {
    
     })(req, res)
   });
-
 
   router.post('/signup', function (req, res, next) {
     res.redirect('/new_team');
