@@ -1,9 +1,6 @@
 var Model = require('../models/models.js');
 var userController = require('../controllers/userController.js')
 
-let User = Model.User;
-let Team = Model.Team;
-
 /**
  * GET /teams
  *
@@ -29,13 +26,13 @@ module.exports.getTeams = function(req, res, next) {
 
 module.exports.getTeam = function(req, res, next) {
 
-    Model.Team.findById(req.params.team_id)
-    .then(team => {
-      res.status(200).json({team, 'type': 'success', message: 'success'});
-    })
-    .catch(err => {
-      res.status(400).json({ 'type': 'team lookup', message: err });
-    })
+  Model.Team.findById(req.params.team_id)
+  .then(team => {
+    res.status(200).json({team, 'type': 'success', message: 'success'});
+  })
+  .catch(err => {
+    res.status(400).json({ 'type': 'team lookup', message: err });
+  })
 
 }
 
@@ -75,7 +72,6 @@ module.exports.postTeams = function(req, res, next) {
 
   Model.Team.create(newTeam)
 
-
     .then( team => {
 
       res.status(201).json({team, 'type': 'success', message: 'success'});
@@ -84,7 +80,7 @@ module.exports.postTeams = function(req, res, next) {
       //Update User's Team and User's Admin Level
       console.log("Team info from DB: " + team.uuid + ", team name: " + team.team_name);
 
-      userController.updateUserTeam(team);
+      // userController.updateUserTeam(team);
 
      }).catch(err => {
 
@@ -156,9 +152,7 @@ module.exports.deleteTeam = function(req, res, next) {
 
 module.exports.getTeamByName = function(req, res, next) {
 
-
-
-  Team.find({ where: { team_name: req.params.team_name } })
+  Model.Team.find({ where: { team_name: req.params.team_name } })
       .then(team => {
         console.log(team.team_name);
         if (team && team.team_name != null) {
@@ -174,4 +168,3 @@ module.exports.getTeamByName = function(req, res, next) {
       });
 
 }
-
