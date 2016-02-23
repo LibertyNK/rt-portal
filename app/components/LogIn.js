@@ -47,7 +47,8 @@ class LogIn extends React.Component {
 	render() {
 
 		return (
-	<div>
+<div className="pre_head_padding">
+	<div className="map_background">
 		<div className="form_card">
 			<div className='text-left'>
 
@@ -72,7 +73,9 @@ class LogIn extends React.Component {
 							
 							<input type='password' className='form-control' ref="password" onChange={LogInActions.updatePassword} placeholder="Password"/>
 						</div>
-						<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Submit</button></p>
+						<p className='text-center'><button type='submit' className='btn btn-lg btn btn-large red-btn width_100 btn_color'>Submit <span className="glyphicon glyphicon-chevron-right arrow-right" aria-hidden="true"></span></button></p>
+
+				
 					</form>
 				</div>
 			</div>
@@ -83,12 +86,13 @@ class LogIn extends React.Component {
 				<div className="row">
 					<div className='col-sm-12'>
 						<h3>Stuck? <a href="#">Try resetting your password.</a></h3>
-						<h3>Not a member yet? <Link to='/add_team'>Sign up here!</Link></h3>
+						<h3>Not a member yet? <Link to='/signup'>Sign up here!</Link></h3>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 		);
 	}
 }
