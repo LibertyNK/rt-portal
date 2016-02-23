@@ -2,29 +2,18 @@ import React from 'react';
 import {Link} from 'react-router';
 import NavbarStore from '../stores/NavbarStore';
 import NavbarActions from '../actions/NavbarActions';
+import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
 
-class Navbar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = NavbarStore.getState();
-    this.onChange = this.onChange.bind(this);
-  }
-
-  componentDidMount() {
-    NavbarStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    NavbarStore.unlisten(this.onChange);
-  }
-
-  onChange(state) {
-    this.setState(state);
-  }
+export default AuthenticatedComponent(class Navbar extends React.Component {
 
   render() {
 
     var os = this;
+
+    if(this.props.user !== null) {
+      console.log("Username in Navbar is" + this.props.user.username);
+      let username = this.props.user.username;
+    }
 
     return (
       <nav className='navbar navbar-default navbar-static-top'>
@@ -38,6 +27,7 @@ class Navbar extends React.Component {
           <Link to='/' className='navbar-brand'>
             rtPORTAL
           </Link>
+          <ul><li>Helllo</li></ul>
         </div>
         <div id='navbar' className='navbar-collapse collapse'>
           <ul className='nav navbar-nav'>
@@ -52,6 +42,5 @@ class Navbar extends React.Component {
       </nav>
     );
   }
-}
+});
 
-export default Navbar;

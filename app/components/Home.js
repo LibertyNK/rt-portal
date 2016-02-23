@@ -1,13 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router';
-import AuthenticatedComponent from '../decorators/AuthenticatedComponent'
+import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
 
 export default AuthenticatedComponent(class Home extends React.Component {
   
-
-
-
-
   render() {
 
     if (this.props.user !==null) {
