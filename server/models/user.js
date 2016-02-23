@@ -56,6 +56,15 @@ var attributes = {
   },
   last_login: {
     type: Sequelize.DATE,
+  },
+  goal: {
+    type: Sequelize.INTEGER,
+  },
+  about: {
+    type: Sequelize.TEXT,
+    validate: {
+          len: [0,140]
+      }
   }
 }
 

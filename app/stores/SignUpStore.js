@@ -13,6 +13,8 @@ class SignUpStore {
     this.first_name = '';
     this.last_name = '';
     this.username = '';
+    this.goal = '';
+    this.about = '';
     this.helpBlock = {
                         first_name: '',
                         last_name: '',
@@ -21,7 +23,8 @@ class SignUpStore {
                         password: '',
                         password_length: '',
                         password_conf:'',
-                        matching_passwords:''
+                        matching_passwords:'',
+                        goal:''
                      };
     this.validationState = {
                               first_name: '',
@@ -31,7 +34,8 @@ class SignUpStore {
                               password: '',
                               password_length: '',
                               password_conf:'',
-                              matching_passwords:''
+                              matching_passwords:'',
+                              goal:''
                            };
     this.errorMessage = [];
     this.errorMessageState = '';
@@ -60,9 +64,13 @@ class SignUpStore {
 
   onUpdateUsername(event) {
     this.username = event.target.value;
-    if (this.username !== '') {
+    if (this.username.match(/\s/g)) {
+      this.validationState.username = 'has-error';
+    }
+    else if (this.username !== '') {
       this.validationState.username = 'has-success';
     }
+
   }
 
   onInvalidUsername() {
@@ -77,6 +85,15 @@ class SignUpStore {
   onInvalidEmail() {
     this.validationState.email = 'has-error';
     this.helpBlock.email = 'Please enter an email address';
+  }
+
+  onUpdateGoal(event) {
+    this.goal = event.target.value;
+  }
+
+  onInvalidGoal() {
+    this.validationState.goal = 'has-error';
+    this.helpBlock.goal = 'Please enter goal amount';
   }
 
   onUpdatePassword(event) {
@@ -105,6 +122,10 @@ class SignUpStore {
   onUnmatchPasswords() {
     this.validationState.matching_passwords = 'has-error';
     this.helpBlock.matching_passwords = "Passwords are not matching!";
+  }
+
+  onUpdateAbout(event) {
+    this.about = event.target.value;
   }
 
   onSignUpSuccess(data) {

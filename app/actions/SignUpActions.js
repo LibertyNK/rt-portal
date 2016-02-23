@@ -23,7 +23,10 @@ class SignUpActions {
 			'invalidPasswordLength',
 			'invalidPasswordConf',
 			'unmatchPasswords',
-			'displayErrorMessage'
+			'displayErrorMessage',
+			'updateAbout',
+			'updateGoal',
+			'invalidGoal'
 		);
 	}
 

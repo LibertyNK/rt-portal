@@ -66,7 +66,9 @@ module.exports.postUsers = function(req, res, next) {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     username: req.body.username,
-    admin_level: 2
+    goal: req.body.goal,
+    about: req.body.about,
+    admin_level: 3
   }
 
   Model.User.create(newUser)
