@@ -153,7 +153,6 @@ module.exports.deleteTeam = function(req, res, next) {
  *
  * Returns team by name, if exists
  */
-
 module.exports.getTeamByName = function(req, res, next) {
 
 
