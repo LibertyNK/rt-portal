@@ -34,8 +34,9 @@ class SignUpActions {
 		ApiUtils.signUp(userdata)
 			.done((data) => {
 				if(data.message == 'success') {
+					console.log(data);
 					console.log('Success Message from server: ' + data.message);
-					window.location.href = "/signup_success";
+					window.location.href = "/" + data.username;
 					this.actions.signUpSuccess(data);
 					this.actions.displayErrorMessage(data.message);
 				} else {

@@ -22,7 +22,7 @@ class Profile extends React.Component {
 	 			this.setState(data.user);
 	 	})
 	 	.fail((jqXhr) => {
-
+	 		
 	 		console.log('Error Message from server: ');
 	 	});	
 	}

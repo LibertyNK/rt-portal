@@ -64,11 +64,16 @@ class SignUpStore {
 
   onUpdateUsername(event) {
     this.username = event.target.value;
-    if (this.username.match(/\s/g)) {
-      this.validationState.username = 'has-error';
-    }
-    else if (this.username !== '') {
-      this.validationState.username = 'has-success';
+
+    if (this.username !== '') {
+
+      if (this.username.match(/\s/g)) {
+        this.validationState.username = 'has-error';
+      }
+      else {
+        this.validationState.username = 'has-success';
+      }
+      
     }
 
   }

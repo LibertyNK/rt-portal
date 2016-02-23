@@ -21,6 +21,7 @@ import UpdateTeamSettings from './components/UpdateTeam';
 import UpdateProfileSettings from './components/UpdateProfile';
 import SignUpSuccess from './components/SignUpSuccess';
 import UpdateProfile from './components/UpdateProfile';
+import ErrorPage from './components/404Page';
 
 
 export default (
@@ -45,6 +46,8 @@ export default (
 	   <Route name="update_profile" path='/update_profile' component={UpdateProfileSettings} />
 	   <Route name="signup_success" path='/signup_success' component={SignUpSuccess} />
 	   <Route name="update_profile" path='/update_profile' component={UpdateProfile} />
+	   <Route name="profile" path='/:username' component={Profile} />
+	   <Route name="404" path='/error' component={ErrorPage} />
  	</Route>
 );
 
