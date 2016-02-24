@@ -25,8 +25,9 @@ class LogInStore {
       password: ''
     };
 
-      this.errorMessage = '';
-      this.errorMessageState = '';
+    this.errorMessage = '';
+    this.errorMessageState = '';
+    this.inputBackground = '';
       
     }
 
@@ -51,15 +52,13 @@ class LogInStore {
   onLogInSuccess(token) {
     this.jwt = token;
     this.user = jwt_decode(token);
-    console.log('logged in');
-    // this.transitionTo('/member/' + this.user.username);
-
-  
+    console.log('logged in');  
   }
 
   onLogInFail(error) {
     this.errorMessageState = 'text-danger';
     this.errorMessage = error;
+    this.inputBackground = 'bg-danger';
   }
 }
 

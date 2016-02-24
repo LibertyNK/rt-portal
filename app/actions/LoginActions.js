@@ -12,8 +12,14 @@ class LogInActions {
 
 	constructor() {
 		this.generateActions(
+
 			'updateEmail',
+			'invalidEmail',
+
 			'updatePassword',
+			'invalidPassword',
+
+
 			'logInSuccess',
 			'logInFail'
 		);

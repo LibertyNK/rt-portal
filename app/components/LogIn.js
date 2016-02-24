@@ -33,10 +33,12 @@ class LogIn extends React.Component {
 		if (!email) {
 			// LogInActions.invalidemail();
 			this.refs.email.focus();
+			LogInActions.invalidEmail();
 		}
 
 		if (!password) {
 			this.refs.password.focus();
+			LogInActions.invalidPassword();
 		}
 
 		if (email && password) {
@@ -68,11 +70,11 @@ class LogIn extends React.Component {
 							<form onSubmit={this.handleSubmit.bind(this)}>
 								<div className={'form-group ' + this.state.validationState.email}>
 									<span className='help-block'> {this.state.helpBlock.email}</span>							
-									<input type='text' className='form-control' ref="email" placeholder="Email" onChange={LogInActions.updateEmail} />
+									<input type='text' className={'form-input ' + this.state.inputBackground } ref="email" placeholder="Email" onChange={LogInActions.updateEmail} />
 								</div>
 								<div className={'form-group ' + this.state.validationState.password}>
 									<span className='help-block'> {this.state.helpBlock.password}</span>							
-									<input type='password' className='form-control' ref="password" onChange={LogInActions.updatePassword} placeholder="Password"/>
+									<input type='password' className={'form-input ' + this.state.inputBackground }  ref="password" onChange={LogInActions.updatePassword} placeholder="Password"/>
 								</div>
 								<span className={ error_message_class }>{ error_message }</span>
 								<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Submit</button></p>
