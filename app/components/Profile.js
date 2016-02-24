@@ -30,8 +30,9 @@ class Profile extends React.Component {
 	render() {
 
 		return (
-			<div className="team_background">
-				<div className="background_image" style={{backgroundImage: "url('http://www.libertyinnorthkorea.org/wp-content/uploads/2016/02/rt_team.jpg')"}}>
+			<div className="">
+
+				<div className="map_background">
 				</div>
 				<div className="content_box"> 
 					<div className="row buffer">

@@ -55,6 +55,7 @@ class LogIn extends React.Component {
 		return (
 			<div className="pre_head_padding">
 				<div className="map_background">
+				</div>
 					<div className="form_card">
 						<div className='text-left'>
 							<div className="row">
@@ -97,7 +98,7 @@ class LogIn extends React.Component {
 						</div>
 					</div>
 				</div>
-			</div>
+
 
 
 		);
