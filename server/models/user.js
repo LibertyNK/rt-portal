@@ -66,7 +66,7 @@ var attributes = {
   about: {
     type: Sequelize.TEXT,
     validate: {
-          len: [0,140]
+          len: [0,340]
       }
   }
 }

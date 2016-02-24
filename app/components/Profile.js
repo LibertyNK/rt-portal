@@ -29,6 +29,10 @@ class Profile extends React.Component {
 
 	render() {
 
+		var style = {
+		    width: ((this.state.amount_raised / this.state.goal) * 100) + "%" 
+		};
+
 		return (
 			<div className="">
 
@@ -109,7 +113,7 @@ class Profile extends React.Component {
 								<div className="col-md-10 center-box padding-top-space-30px">
 									<div className="thermometer">
 
-										<div className="therm_progress">
+										<div className="therm_progress" style={style}>
 										</div>
 									</div>	
 								</div>
@@ -118,7 +122,7 @@ class Profile extends React.Component {
 							<div className="row ">
 								<div className="col-md-10 center-box">
 									<div className="col-md-6">
-										<h3>$0</h3>
+										<h3>${this.state.amount_raised}</h3>
 										<h5>raised</h5>
 									</div>
 
