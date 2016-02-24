@@ -25,7 +25,12 @@ class NavComponent extends React.Component {
 
   onSelected(e) {
     // doesn't need to have functionality (necessarily) ... just wired up
-}
+  }
+
+  handleSignOut() {
+    localStorage.removeItem('jwt');
+    window.location.href ='/';
+  }
 
   
   render() {
@@ -55,6 +60,7 @@ class NavComponent extends React.Component {
               <MenuItem divider />
               <li><Link to='/login'>About LiNK</Link></li>
             </NavDropdown>
+            <li className="btn btn-success" onClick={this.handleSignOut}>Sign Out</li> 
           </Nav>
           <Nav className="nav donate-nav " pullRight>
             <li className="donate-nav-li"><Link to='/login'>Donate</Link></li> 
