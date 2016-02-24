@@ -4,29 +4,62 @@ import {LOGIN_USER, LOGOUT_USER} from '../constants/ActionTypes';
 import jwt_decode from 'jwt-decode';
 import Iso from 'iso';
 
+
 class LogInStore {
+
   constructor() {
-    // super();
+
     this.bindActions(LogInActions);
     this.email = '';
     this.password = ''; 
     this.user = null;
     this.jwt = null;
 
-  }
+    this.helpBlock = {
+      email: '',
+      password: ''
+    };
+
+    this.validationState = {
+      email: '',
+      password: ''
+    };
+
+      this.errorMessage = '';
+      this.errorMessageState = '';
+      
+    }
 
   onUpdateEmail(event) {
   	this.email = event.target.value;
   }
 
+  onInvalidEmail() {
+    this.validationState.email = 'has-error';
+    this.helpBlock.email = 'Please enter an email address';
+  } 
+
   onUpdatePassword(event) {
   	this.password = event.target.value;
+  }
+
+  onInvalidPassword() {
+    this.validationState.password = 'has-error';
+    this.helpBlock.password = "Password can't be blank!";
   }
 
   onLogInSuccess(token) {
     this.jwt = token;
     this.user = jwt_decode(token);
     console.log('logged in');
+    // this.transitionTo('/member/' + this.user.username);
+
+  
+  }
+
+  onLogInFail(error) {
+    this.errorMessageState = 'text-danger';
+    this.errorMessage = error;
   }
 }
 

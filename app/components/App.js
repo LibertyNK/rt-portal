@@ -1,13 +1,20 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Navbar from './Navbar';
-import Footer from './Footer';
-import LoginActions from '../actions/LoginActions';
+// import Footer from './Footer';
+import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
 
-class App extends React.Component {
-
+export default AuthenticatedComponent(class App extends React.Component {
 
   render() {
+
+	if (this.props.user !==null) {
+		console.log("AuthenticatedComponent's user in App now is " + this.props.user.username );
+	}
+
+	else {
+		console.log("AuthenticatedComponent's user in App now is empty");
+	}
 
 	return (
 
@@ -18,7 +25,6 @@ class App extends React.Component {
 	      </div>
 	    );
 	  }
-}
+});
 
-export default App;
 
