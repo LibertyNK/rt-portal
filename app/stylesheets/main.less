@@ -3,14 +3,34 @@
 @import '_navbar.less';
 @import '_form.less';
 @import '_team.less';
+@import '_home.less';
 @import (less) '../../bower_components/magnific-popup/dist/magnific-popup.css';
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 body {
 	font-size: 16px;
 	line-height: 1.75em;
 	font-family: 'futura-pt', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	padding-bottom: 200px;
+	-webkit-font-smoothing: antialiased !important;
 	min-height: 100vh;
 	background: -webkit-linear-gradient(0deg, #d63a1f 10%, #CE0921 90%); /* Chrome 10+, Saf5.1+ */
   	background:    -moz-linear-gradient(0deg, #d63a1f 10%, #CE0921 90%); /* FF3.6+ */
@@ -137,8 +157,9 @@ input[type="text"] {
 	background: #dd3928;
     text-align: left;
     color: #fff;
-    padding: 20px 20px;
+    padding: 15px 20px;
     font-size: 20px;
+        border-radius: 3px;
 }
 
 .btn_color:hover {
@@ -157,3 +178,28 @@ input[type="text"] {
     padding: 14px 0px 17px;
     text-align: left;
 }
+
+.wf-loading body {
+  /* styles to use before Typekit is loaded */
+    font-family: 'futura-pt', sans-serif;
+    visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+ 
+.wf-active body {
+  /* styles to use after Typekit is loaded */
+    font-family: 'futura-pt', sans-serif;
+    visibility: visible;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.arrow-right { 
+	float: right;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 23px;
+    color: #fff !important;
+}
+

@@ -4,10 +4,6 @@ import AuthenticatedComponent from '../decorators/AuthenticatedComponent'
 
 export default AuthenticatedComponent(class Home extends React.Component {
   
-
-
-
-
   render() {
 
     if (this.props.user !==null) {
@@ -21,23 +17,32 @@ export default AuthenticatedComponent(class Home extends React.Component {
     console.log(this.props);
  
     return (
-        <div>
-	        <div className='row'>
-	        	<div className='col-sm-6 title'>
-	        		<h1>RESCUE<br/>TEAMS</h1>
-	        	</div>
-	        	<div className='col-sm-6 description'>
-	        		<p>We are stronger together. Thousands of North Korea refugees have escaped their country, but are now at risk of exploitation and capture because they cannot afford the 3,000 mile journey to a safe country.</p>
-	        	</div>	
-        	</div>
-        	<div className='team-actions'>
-        		<div className='col-sm-6'>
-        			<h3 className='text-center'><Link to='/add_team'>Start a team</Link></h3>
-        		</div>
-        		<div className='col-sm-6'>
-        			<h3 className='text-center'><Link to='/all_teams'>Join a team</Link></h3>
-        		</div>
-        	</div>
+
+    <div className="pre_head_padding">
+        <div className="map_background">
+            <div className="container">
+    	        <div className='row'>
+    	        	<div className='col-md-6 home_banner'>
+    	        		<h2>Welcome to the global community of people committed to supporting North Korean refugees. By working together and engaging our peers, Rescue Teams have funded a 3,000 mile rescue jounrey for over XXX people.</h2>
+
+                        <div className='row'>
+                            <div className='col-md-12'>
+                               <div className='banner_button'><Link to='/login'>Log In</Link></div>
+
+                                <div className='banner_button'><Link to='/signup'>Sign Up</Link></div>
+
+
+                            </div>  
+                        </div>
+    	        	</div>	
+
+                    <div className='col-md-6 home_banner'>
+                        <a href="" ><img className="play_button_home" src="img/play_button.png" /></a>
+                    </div>  
+            	</div>
+            </div>
+        </div>
+        	
         	<div className='stats'>
         		<h2 className='text-center'>How cool are we?</h2>
         		<div className='col-sm-4 text-center'>

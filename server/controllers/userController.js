@@ -2,8 +2,6 @@ var bcrypt = require('bcrypt');
 var Model = require('../models/models.js');
 
 
-let User = Model.User;
-
 /**
  * GET /users
  *
@@ -36,12 +34,6 @@ module.exports.getUser = function(req, res, next) {
 
     })
 }
-
-/**
- * GET /users/:username
- *
- * Returns user by username, if exists
- */
 
 /**
  * POST /users
@@ -116,10 +108,10 @@ module.exports.putUser = function(req, res, next) {
   {
     where: { uuid: req.params.user_id }
   })
-  .then(user => {
+  .then( user => {
     res.status(201).json({user, 'type': 'success', message: 'successfully updated user'});
   })
-  .catch(err => {
+  .catch( err => {
     res.status(400).json({ 'type': 'error', message: err });
   })
 }
@@ -136,70 +128,127 @@ module.exports.deleteUser = function(req, res, next) {
   {
     where: { uuid: req.params.user_id }
   })
-  .then(uuid => {
+  .then( uuid => {
     res.status(201).json({uuid, 'type': 'success', message: 'successfully deleted user from RTP-DB' });
   })
-  .catch(err => {
+  .catch( err => {
     res.status(400).json({ 'type': 'error', message: err });
   })
 
 }
 
+/**
+ * POST /users/:username/:team_id
+ *
+ * Adds team foreign key to user based on username
+ */
+module.exports.updateUserTeamKey = function(req, res, next) {
 
+  let team_id = req.params.team_id
+  
+  // Find user based on username and add team_id as fk
+  Model.User.update(
+  {
+    team_uuid: team_id
+  },
+  {
+    where: { username: req.params.username }
+  })
+  .then( users_affected => {
+    res.status(201).json({users_affected, 'type': 'success', message: 'successfully updated user'});
+  })
+  .catch( err => {
+    res.status(400).json({ 'type': 'error', message: err });
+  })
+}
 
-//Update User's Team and Admin Level
+/**
+ * POST /teams (called from postTeams method to update user/team ID)
+ * 
+ * Updates User's Team and Admin Level
+ */
 module.exports.updateUserTeam = function (req, res, next) {
 
   // console.log("this is team info passing from teamController: " + req.team_name);
 
-  User.find({ where: { email: req.leader } })
-      .then(user => {
-        User.update({
-          team_uuid: req.uuid,
-          admin_level: 2
-        },
-        {
-          where: { email: req.leader }
+  Model.User.find({ where: { email: req.leader } })
+    .then(user => {
+      Model.User.update({
+        team_uuid: req.uuid,
+        admin_level: 2
+      },
+      {
+        where: { email: req.leader }
+      })
+        .then(updated_user => {
+          res.status(201).json({updated_user, 'type': 'success', message: "successfully updated user's team"});
         })
-          .then(updated_user => {
-            res.status(201).json({updated_user, 'type': 'success', message: "successfully updated user's team"});
-          })
-          .catch(error => {
-            console.log(error);
-            // res.status(400).json({ 'type': 'error', message: error });
-          });
-      })
-      .catch(err => {
-        console.log(err);
-        // res.status(400).json({ 'type': 'error', message: err});
-      });
+        .catch(error => {
+          console.log(error);
+          // res.status(400).json({ 'type': 'error', message: error });
+        });
+    })
+    .catch(err => {
+      console.log(err);
+      // res.status(400).json({ 'type': 'error', message: err});
+    });
 }
 
-
-//Get User By Name
+/**
+ * GET /users/:username
+ *
+ * Returns user by username, if exists
+ */
 module.exports.getUserByUsername = function (req, res, next) {
-   User.find({ where: { username: req.params.username } })
-      .then(user => {
-        console.log(user.username);
-        if (user && user.username != null) {
-          res.status(201).json({  user: {
-                                          username: user.username,
-                                          first_name: user.first_name,
-                                          last_name: user.last_name,
-                                          user_id: user.uuid,
-                                          level: user.admin_level
-                                        },
-                                  'type': 'success',
-                                  message: 'Successfully retrieved user'});
+  
+ Model.User.find({ where: { username: req.params.username } })
+    .then(user => {
+      console.log(user.username);
+      if (user && user.username != null) {
+        res.status(201).json({  
+          user: {
+                  username: user.username,
+                  first_name: user.first_name,
+                  last_name: user.last_name,
+                  user_id: user.uuid,
+                  level: user.admin_level
+                },
+          'type': 'success',
+          message: 'Successfully retrieved user'});
 
-        } else {
-          res.status(400).json({ 'type': 'error', message: 'No such user!' });
-        }
+      } else {
+        res.status(400).json({ 'type': 'error', message: 'No such user!' });
+      }
 
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(400).json({ 'type': 'error', message: "User Not Found" });
-      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).json({ 'type': 'error', message: "User Not Found" });
+    });
 }
+ 
+/**
+ * GET /users/team/:team_id
+ *
+ * Returns users on a specific team by team_id
+ */
+module.exports.getUsersByTeam = function(req, res, next) {
+   
+  let team_id = req.params.team_id
 
+  Model.User.findAll({ 
+    where: {
+      team_uuid: team_id
+    }
+  })
+  .then( users => {
+    res.status(201).json({          
+      users: users,
+      'type': 'success',
+      message: 'Successfully retrieved users'});
+  })
+  .catch( err => {
+    res.status(400).json({ 'type': 'error', message: "Users or Team ID Not Valid" });
+  });
+  
+}
