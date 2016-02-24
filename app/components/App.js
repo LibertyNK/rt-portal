@@ -1,8 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Navbar from './Navbar';
-// import Footer from './Footer';
 import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
+
+import Nav from './Navbar';
+
 
 export default AuthenticatedComponent(class App extends React.Component {
 
@@ -19,7 +21,7 @@ export default AuthenticatedComponent(class App extends React.Component {
 	return (
 
 	      <div>
-	    	<Navbar history={this.props.history} />
+	    	<Nav history={this.props.history} />
 	        {this.props.children}
 
 	      </div>
