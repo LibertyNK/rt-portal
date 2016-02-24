@@ -4,9 +4,6 @@ import { LOGIN_USER, LOGOUT_USER } from '../constants/ActionTypes';
 import LogInStore from '../stores/LogInStore';
 import RouterContainer from '../services/RouterContainer'
 
-
-
-
 class LogInActions {
 
 	constructor() {
@@ -39,7 +36,6 @@ class LogInActions {
 			this.actions.logInFail(jqXhr.responseJSON.message);
 		});
 	}
-
 
 }
 
