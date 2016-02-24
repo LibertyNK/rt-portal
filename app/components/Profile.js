@@ -7,7 +7,7 @@ class Profile extends React.Component {
 	constructor(props) {
 		super(props);
 		this._load = this._load.bind(this);
-		this.state = {first_name: '', last_name: ''};
+		this.state = {first_name: '', last_name: '', goal: '', about: ''};
 	}
 
 	componentDidMount() {
@@ -22,7 +22,7 @@ class Profile extends React.Component {
 	 			this.setState(data.user);
 	 	})
 	 	.fail((jqXhr) => {
-	 		
+
 	 		console.log('Error Message from server: ');
 	 	});	
 	}
@@ -77,7 +77,7 @@ class Profile extends React.Component {
 								</div>
 
 								<div className="col-md-6 text-right">
-									<h2>$300</h2>
+									<h2>${this.state.goal}</h2>
 									<h4>Goal</h4>
 								</div>
 							</div>
@@ -86,7 +86,7 @@ class Profile extends React.Component {
 								<div className="col-md-6">
 
 									<h2>ABOUT</h2>
-									<h4>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt exp.</h4>
+									<h4>{this.state.about}</h4>
 								</div>
 
 								<div className="col-md-6">

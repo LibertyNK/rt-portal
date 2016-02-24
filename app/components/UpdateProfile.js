@@ -1,9 +1,32 @@
 import React from 'react';
 import UpdateProfileActions from '../actions/UpdateProfileActions';
 import UpdateProfileStore from '../stores/UpdateProfileStore';
+import ApiUtils from '../utils/apiUtils';
 
 
 class UpdateProfile extends React.Component {
+	constructor(props) {
+		super(props);
+		this._load = this._load.bind(this);
+		this.state = {first_name: '', last_name: '', goal: '', about: ''};
+	}
+
+	componentDidMount() {
+		this._load();
+
+	}
+
+	_load() {
+		console.log("loading?");
+	 	ApiUtils.findUser(this.props.params.username)
+	 		.done((data) => {
+	 			this.setState(data.user);
+	 	})
+	 	.fail((jqXhr) => {
+
+	 		console.log('Error Message from server: ');
+	 	});	
+	}
 
 	render() {
 

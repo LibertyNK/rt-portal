@@ -213,6 +213,8 @@ module.exports.getUserByUsername = function (req, res, next) {
                   first_name: user.first_name,
                   last_name: user.last_name,
                   user_id: user.uuid,
+                  goal: user.goal,
+                  about: user.about,
                   level: user.admin_level
                 },
           'type': 'success',
