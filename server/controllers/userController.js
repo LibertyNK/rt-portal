@@ -67,6 +67,7 @@ module.exports.postUsers = function(req, res, next) {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     username: req.body.username,
+    amount_raised: 0,
     goal: req.body.goal,
     about: req.body.about,
     admin_level: 3
@@ -215,6 +216,7 @@ module.exports.getUserByUsername = function (req, res, next) {
                   first_name: user.first_name,
                   last_name: user.last_name,
                   user_id: user.uuid,
+                  amount_raised: user.amount_raised,
                   goal: user.goal,
                   about: user.about,
                   level: user.admin_level

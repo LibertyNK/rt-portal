@@ -57,6 +57,9 @@ var attributes = {
   last_login: {
     type: Sequelize.DATE,
   },
+  amount_raised: {
+    type: Sequelize.INTEGER,
+  },
   goal: {
     type: Sequelize.INTEGER,
   },
