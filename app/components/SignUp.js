@@ -63,10 +63,8 @@ class SignUp extends React.Component {
 		}
 
 		if(user.username.match(/\s/g)){
-
-			alert('Sorry, you are not allowed to enter any spaces');
-
-			user.username.replace(/\s/g,'');
+			this.refs.username.focus();
+			SignUpActions.invalidUsernameSpace();
 
 		}
 		
@@ -149,13 +147,17 @@ class SignUp extends React.Component {
 											<span className='help-block'> {this.state.helpBlock.email}</span>
 											<input type='text' className='form-control' ref="email" onChange={SignUpActions.updateEmail}  placeholder="Email"/>
 										</div>
+										<div className={this.state.validationState.username}>
+											<span className='help-block '>{this.state.helpBlock.username}</span>
+										</div>
 										<div className={'input-group form-group url_field ' + this.state.validationState.username}>	
 												<span className="input-group-addon " id="basic-addon3">www.rescueteams.org/</span>
-												<input type='text' className='form-control ' ref="username" onChange={SignUpActions.updateUsername} placeholder="Custom Url" aria-describedby="basic-addon3"/>
+												<input type='text' className='form-control ' ref="username" onChange={SignUpActions.updateUsername} placeholder="Username" aria-describedby="basic-addon3"/>
 											
 										</div>
 										<div>
-											<span className='help-block under_text'>Url must not contain spaces</span>
+											<span className='help-block under_text '>Username must not contain spaces</span>
+											
 										</div>
 										<div className="input-padded-spacing">
 											<div className={'input-top-spacing form-group ' + this.state.validationState.password + ' ' + this.state.validationState.password_length + ' '  + this.state.validationState.matching_passwords}>							
@@ -169,11 +171,13 @@ class SignUp extends React.Component {
 												<input type='password' className='form-control' ref="password_conf"  onChange={SignUpActions.updatePasswordConf}  placeholder="Confirm Password"/>
 											</div>
 										</div>
+										
 										<div className="input-padded-spacing">
+											<div className={this.state.validationState.goal}>
+												<span className='help-block '>{this.state.helpBlock.goal}</span>
+											</div>
 											<div className={'goal_field form-group input-group ' + this.state.validationState.goal}>				
 												
-  												
-												<span className='help-block'> {this.state.helpBlock.goal}</span>
 												<span className="input-group-addon dollar-addon">$</span>
 												<input type='text' className='form-control' ref="goal" onChange={SignUpActions.updateGoal}  placeholder="enter your fundraising goal"/>
 											</div>

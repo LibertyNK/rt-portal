@@ -1,6 +1,7 @@
 import alt from '../alt';
 import SignUpActions from '../actions/SignUpActions';
 
+
 class SignUpStore {
  
 
@@ -47,6 +48,9 @@ class SignUpStore {
 
   onUpdateFirstName(event) {
   	this.first_name = event.target.value;
+    if (this.first_name !== '') {
+      this.validationState.first_name = 'has-success';
+    }
   }
 
   onInvalidFirstName() {
@@ -69,26 +73,21 @@ class SignUpStore {
   onUpdateUsername(event) {
     this.username = event.target.value;
 
-    if (this.username !== '') {
-
-      if (this.username.match(/\s/g)) {
-        this.validationState.username = 'has-error';
-      }
-      else {
-        this.validationState.username = 'has-success';
-      }
-      
-    }
-
   }
 
   onInvalidUsername() {
     this.validationState.username = 'has-error';
-    this.helpBlock.username = "Username can't be blank!";
+    this.helpBlock.username = "Username is invalid or already taken";
+  }
+
+  onInvalidUsernameSpace() {
+    this.validationState.username = 'has-error';
+    this.helpBlock.username = "Username must NOT contain spaces";
   }
 
   onUpdateEmail(event) {
     this.email = event.target.value;
+
   }
 
   onInvalidEmail() {
@@ -145,11 +144,6 @@ class SignUpStore {
 
       //redirect to All Teams Page or User Dashboard
       // window.location.href = '/new_team';
-      console.log(data.username);
-      localStorage.setItem('user', data.username);
-      var user = localStorage.getItem('user');
-
-      console.log(localStorage.user);
 
 
     } else {

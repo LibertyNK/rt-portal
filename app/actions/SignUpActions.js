@@ -1,7 +1,10 @@
 import alt from '../alt';
 import ApiUtils from '../utils/apiUtils';
-
-
+import LogInStore from '../stores/LogInStore';
+import RouterContainer from '../services/RouterContainer';
+import LogInActions from '../actions/LogInActions';
+import jwt_decode from 'jwt-decode';
+import {LOGIN_USER, LOGOUT_USER} from '../constants/ActionTypes';
 
 class SignUpActions {
 
@@ -19,6 +22,7 @@ class SignUpActions {
 			'invalidFirstName',
 			'invalidLastName',
 			'invalidUsername',
+			'invalidUsernameSpace',
 			'invalidPassword',
 			'invalidPasswordLength',
 			'invalidPasswordConf',
@@ -36,9 +40,12 @@ class SignUpActions {
 				if(data.message == 'success') {
 					console.log(data);
 					console.log('Success Message from server: ' + data.message);
-					window.location.href = "/" + data.username;
-					this.actions.signUpSuccess(data);
+					
 					this.actions.displayErrorMessage(data.message);
+
+					localStorage.setItem('jwt', data.token);	
+					let user = jwt_decode(data.token);		
+					window.location.href = "/" + user.username;
 				} else {
 					console.log('Error Message from server: ' + data.message);
 					this.actions.signUpFail(data);

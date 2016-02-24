@@ -1,6 +1,7 @@
 var bcrypt = require('bcrypt');
 var Model = require('../models/models.js');
-
+var expressJWT = require('express-jwt');
+var jwt = require('jsonwebtoken');
 
 /**
  * GET /users
@@ -73,7 +74,8 @@ module.exports.postUsers = function(req, res, next) {
 
   Model.User.create(newUser)
     .then(user => {
-      res.status(201).json({username: user.username, 'type': 'success', message: 'success'});
+      let token = jwt.sign({ username: user.username }, 'secrettoken', { expiresIn: 86400});
+      res.status(201).json({token : token, 'type': 'success', message: 'success'});
     })
     .catch(err => {
       // Add some more error handling for different user creation errors here.
