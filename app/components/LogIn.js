@@ -72,18 +72,19 @@ class LogIn extends React.Component {
 										<form onSubmit={this.handleSubmit.bind(this)}>
 											<div className={'form-group ' + this.state.validationState.email}>
 												<span className='help-block'> {this.state.helpBlock.email}</span>							
-												<input type='text' className={'form-input ' + this.state.inputBackground } ref="email" placeholder="Email" onChange={LogInActions.updateEmail} />
+												<input type='text' className={'form-input ' + this.state.inputBackground } ref="email" placeholder="Email" onChange={LogInActions.updateEmail} required/>
 											</div>
 											<div className={'form-group ' + this.state.validationState.password}>
 												<span className='help-block'> {this.state.helpBlock.password}</span>							
-												<input type='password' className={'form-input ' + this.state.inputBackground }  ref="password" onChange={LogInActions.updatePassword} placeholder="Password"/>
+												<input type='password' className={'form-input ' + this.state.inputBackground }  ref="password" onChange={LogInActions.updatePassword} placeholder="Password" required/>
 											</div>
 											<span className={ error_message_class }>{ error_message }</span>
-											<p className='text-center'><button type='submit' className='btn btn-lg btn-success'>Submit</button></p>
+											
+											<p className='text-center'><button type='submit' className='btn btn-lg btn btn-large red-btn width_100 btn_color'>Submit <span className="glyphicon glyphicon-chevron-right arrow-right" aria-hidden="true"></span></button></p>
 										</form>
 									</div>
 
-									<p className='text-center'><button type='submit' className='btn btn-lg btn btn-large red-btn width_100 btn_color'>Submit <span className="glyphicon glyphicon-chevron-right arrow-right" aria-hidden="true"></span></button></p>
+									
 
 							
 					
