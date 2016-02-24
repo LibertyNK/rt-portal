@@ -34,20 +34,28 @@ class Profile extends React.Component {
 
 				<div className="map_background">
 				</div>
-				<div className="content_box"> 
-					<div className="row buffer">
-						<div className="col-md-2 pull-right">
-							<button>Edit page</button>
+
+				<div className="profile_banner">
+					<div className="container">
+						<div className="row">
+							<div className="col-md-8 text-center center-margin">
+								<h2>NORTH KOREAN REFUGEES ARE IN URGENT NEED.</h2>
+
+								<h4>WE CAN HELP.</h4>
+							</div>
+						
 						</div>
 					</div>
-				
-					<div className="">
+				</div>
+
+
+				<div className="profile_box"> 
+
+					<div className="profile_box_left">
 						<div className="col-md-12 profile_card">
 							<div className="row ">
 								<div className="col-md-4">
 
-									<h2>{this.state.first_name} {this.state.last_name}</h2>
-									<h4>Member of <a href="#">Team Name</a></h4>
 
 								</div>
 
@@ -55,14 +63,50 @@ class Profile extends React.Component {
 									<img className="" src="http://www.libertyinnorthkorea.org/wp-content/uploads/2016/02/profile_blank.png" />
 								</div>
 
-								<div className="col-md-4 pull-right">
-									<button>Donate to {this.state.first_name}</button>
+								<div className="col-md-4">
+									
 								</div>
 
 							</div>
 
+							<div className="row ">
+								<div className="col-md-12 text-center">
+
+									<h3>{this.state.first_name} {this.state.last_name}</h3>
+									<h4>Member of Team Name</h4>
+
+								</div>
+							</div>
+
+							<div className="row padding-top-space-30px">
+								<div className="col-md-10 text-left center-box">
+
+									<p>{this.state.about}</p>
+									
+
+								</div>
+							</div>
+						</div>
+
+
+
+
+					</div>
+					<div className="profile_box_right">
+
+
+						<div className="col-md-12 profile_card">
+
 							<div className="row">
-								<div className="col-md-12">
+								<div className="col-md-10 center-box text-center">
+									<h4>Together we can give others the chance to live in safety and freedom. 100% of your donation will fund emergency refugee work.</h4>
+								</div>
+							</div>
+
+
+
+							<div className="row">
+								<div className="col-md-10 center-box padding-top-space-30px">
 									<div className="thermometer">
 
 										<div className="therm_progress">
@@ -72,53 +116,66 @@ class Profile extends React.Component {
 							</div>
 
 							<div className="row ">
+								<div className="col-md-10 center-box">
+									<div className="col-md-6">
+										<h3>$0</h3>
+										<h5>raised</h5>
+									</div>
 
-								<div className="col-md-6">
-									<h2>$0</h2>
-								</div>
-
-								<div className="col-md-6 text-right">
-									<h2>${this.state.goal}</h2>
-									<h4>Goal</h4>
-								</div>
-							</div>
-
-							<div className="row padding_100">
-								<div className="col-md-6">
-
-									<h2>ABOUT</h2>
-									<h4>{this.state.about}</h4>
-								</div>
-
-								<div className="col-md-6">
-									<iframe width="560" height="315" src="https://www.youtube.com/embed/tx45jDnBJyI" frameborder="0" allowfullscreen></iframe>
-								</div>
-							</div>
-						</div>
-
-
-						<div className="col-md-12">
-							<div className="row padding_100">
-								<div className="col-md-12 text-center">
-									<h2>ACTIVITY</h2>
+									<div className="col-md-6 text-right text-right-left color_grey">
+										<h3><span>${this.state.goal}</span></h3>
+										<h5>goal</h5>
+									</div>
 								</div>
 							</div>
 
 							<div className="row ">
-								<div className="col-md-6">
-									<h2>Bill  Donated $30.00  3-18-2016  9:10am</h2>
-								</div>
-							</div>
+								<div className="col-md-10 center-box">
+									
 
-							<div className="row ">
-								<div className="col-md-6">
-									<h2>Jimmy  Donated $30.00  3-18-2016  9:10am</h2>
+									<div className="col-md-10 center-box">
+										<p className="margin-top-30px">
+							              <a type="button" href="/schedule-demo" className="btn btn-primary btn-lg btn-lg-green max-width-380 margin_0_auto" >Donate to my goal</a>
+							            </p>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
+					<div className="donation_box_full">
+						
+						<div className="container">
+							<div className="row">
+								<div className="col-md-12 text-center margin_0_auto">
+									
+									<h2>DONATIONS</h2>
+										
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="donation_box_full">
+						<div className="container">
+							<div className="row">
+								<div className="col-md-6 text-left">
+									
+									<h4>Donor Name <span>Donated ###</span></h4>
+										
+								</div>
+
+								<div className="col-md-6 text-right text-right-left">
+									
+									<h4>Time and date donation happened</h4>
+										
+								</div>
+							</div>
+				
+						</div>
+					</div>
 				</div>
 			</div>
+		
 		);
 	}
 }
