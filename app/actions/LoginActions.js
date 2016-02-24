@@ -5,9 +5,6 @@ import LogInStore from '../stores/LogInStore';
 import RouterContainer from '../services/RouterContainer';
 import jwt_decode from 'jwt-decode';
 
-
-
-
 class LogInActions {
 
 	constructor() {
@@ -46,7 +43,6 @@ class LogInActions {
 			this.actions.logInFail(jqXhr.responseJSON.message);
 		});
 	}
-
 
 }
 
