@@ -30,6 +30,10 @@ module.exports = function(express) {
     .post(userController.postUsers) // register user
     .get(userController.getUsers);
 
+
+  router.route('/updateUser')
+    .post(userController.putUser) // register user
+
   // Endpoint handlers for /users/:user_id
   // router.route('/users/:user_id')
   //   .get(userController.getUser)

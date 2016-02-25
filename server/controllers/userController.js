@@ -94,12 +94,14 @@ module.exports.postUsers = function(req, res, next) {
 module.exports.putUser = function(req, res, next) {
 
   // New params
-  let email = req.body.email
   let password = req.body.password
   let salt = bcrypt.genSaltSync(10)
   let hashedPassword = bcrypt.hashSync(password, salt)
   let first_name = req.body.first_name
   let last_name = req.body.last_name
+  let goal = req.body.goal
+  let about = req.body.about
+
 
   // Fills in blank for any blank fields from form
   Model.User.update(
@@ -108,7 +110,9 @@ module.exports.putUser = function(req, res, next) {
     salt: salt,
     password: hashedPassword,
     first_name: first_name,
-    last_name: last_name
+    last_name: last_name,
+    goal: goal,
+    about: about
   },
   {
     where: { uuid: req.params.user_id }
@@ -215,6 +219,7 @@ module.exports.getUserByUsername = function (req, res, next) {
                   username: user.username,
                   first_name: user.first_name,
                   last_name: user.last_name,
+                  email: user.email,
                   user_id: user.uuid,
                   amount_raised: user.amount_raised,
                   goal: user.goal,

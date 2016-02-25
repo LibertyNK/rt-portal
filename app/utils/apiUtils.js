@@ -65,6 +65,14 @@ module.exports = {
 		})
 	},
 
+	updateUser: function(user) {
+		return $.ajax({
+			url: '/updateUser',
+			type: 'POST',
+			data: user
+		})
+	},
+
 
 	// API calls for teams
 
