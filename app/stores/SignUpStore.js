@@ -5,6 +5,7 @@ class SignUpStore {
  
 
   constructor() {
+
     this.bindActions(SignUpActions);
     this.user = {};
     this.email = '';
@@ -14,27 +15,30 @@ class SignUpStore {
     this.last_name = '';
     this.username = '';
     this.helpBlock = {
-                        first_name: '',
-                        last_name: '',
-                        username: '',
-                        email: '',
-                        password: '',
-                        password_length: '',
-                        password_conf:'',
-                        matching_passwords:''
-                     };
+      first_name: '',
+      last_name: '',
+      username: '',
+      email: '',
+      password: '',
+      password_length: '',
+      password_conf:'',
+      matching_passwords:''
+    };
+
     this.validationState = {
-                              first_name: '',
-                              last_name: '',
-                              username: '',
-                              email: '',
-                              password: '',
-                              password_length: '',
-                              password_conf:'',
-                              matching_passwords:''
-                           };
+      first_name: '',
+      last_name: '',
+      username: '',
+      email: '',
+      password: '',
+      password_length: '',
+      password_conf:'',
+      matching_passwords:''
+    };
+
     this.errorMessage = [];
     this.errorMessageState = '';
+    
   }
 
   onUpdateFirstName(event) {

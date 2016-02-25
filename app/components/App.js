@@ -1,24 +1,32 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Navbar from './Navbar';
-import Footer from './Footer';
-import LoginActions from '../actions/LoginActions';
+import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
 
-class App extends React.Component {
+import Nav from './Navbar';
 
+
+export default AuthenticatedComponent(class App extends React.Component {
 
   render() {
+
+	if (this.props.user !==null) {
+		console.log("AuthenticatedComponent's user in App now is " + this.props.user.username );
+	}
+
+	else {
+		console.log("AuthenticatedComponent's user in App now is empty");
+	}
 
 	return (
 
 	      <div>
-	    	<Navbar history={this.props.history} />
+	    	<Nav history={this.props.history} user={this.props.user} />
 	        {this.props.children}
 
 	      </div>
 	    );
 	  }
-}
+});
 
-export default App;
 

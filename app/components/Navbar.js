@@ -1,46 +1,73 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import NavbarStore from '../stores/NavbarStore';
 import NavbarActions from '../actions/NavbarActions';
+import UserNav from './UserNav';
 import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
 
-export default AuthenticatedComponent(class Navbar extends React.Component {
+
+export default class Navigation extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = NavbarStore.getState();
+    this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    NavbarStore.listen(this.onChange);
+  }
+
+  componentWillUnmount() {
+    NavbarStore.unlisten(this.onChange);
+  }
+
+  onChange(state) {
+    this.setState(state);
+  }
+
+  onSelected(e) {
+    // doesn't need to have functionality (necessarily) ... just wired up
+  }
 
   render() {
 
     var os = this;
 
-    if(this.props.user !== null) {
-      console.log("Username in Navbar is" + this.props.user.username);
-      let username = this.props.user.username;
-    }
-
     return (
-      <nav className='navbar navbar-default navbar-static-top'>
-        <div className='navbar-header'>
-          <button type='button' className='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar'>
-            <span className='sr-only'>Toggle navigation</span>
-            <span className='icon-bar'></span>
-            <span className='icon-bar'></span>
-            <span className='icon-bar'></span>
-          </button>
-          <Link to='/' className='navbar-brand'>
-            rtPORTAL
-          </Link>
-          <ul><li>Helllo</li></ul>
-        </div>
-        <div id='navbar' className='navbar-collapse collapse'>
-          <ul className='nav navbar-nav'>
-            <li><Link to='/add_team'>Start a Team</Link></li> 
-            <li><Link to='/all_teams'>Find a Teams</Link></li> 
-            <li><Link to='/refugee'>Rescued Refugees</Link></li> 
-            <li><Link to='/about'>How We Rescue</Link></li>
+      <Navbar inverse>
+        <UserNav />
+        <Navbar.Header>
+          <Navbar.Brand>
+            <div className='navbar-brand'><Link to='/'>
+              <img src="img/link_logo.png" />
+              <h3>Rescue Campaigns</h3>
+            </Link></div>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
             <li><Link to='/login'>Log In</Link></li>
-            <li><Link to='/update_profile'>Update Profile</Link></li>
-          </ul>
-        </div>
-      </nav>
+            <li><Link to='/signup'>Sign Up</Link></li> 
+            <li><Link to='/all_teams'>Teams</Link></li> 
+            <li><Link to='/all_members'>Members</Link></li>
+            <li><Link to='/refugee_stories'>Refugee Stories</Link></li>
+            <NavDropdown title="Menu" id="basic-nav-dropdown">
+              <li><Link to='/login'>Who & Why we Rescue</Link></li>
+              <MenuItem divider />
+              <li><Link to='/login'>About LiNK</Link></li>
+            </NavDropdown>
+            
+          </Nav>
+          <Nav className="nav donate-nav " pullRight>
+            <li className="donate-nav-li"><Link to='/login'>Donate</Link></li> 
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
-});
+};
+
 
