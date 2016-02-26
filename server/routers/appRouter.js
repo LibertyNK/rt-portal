@@ -30,18 +30,18 @@ module.exports = function(express) {
     res.redirect('/')
   }
 
-  // Endpoint handlers for /users
+  // Endpoint handlers for registering a user and getting all users
   router.route('/users')
     .post(userController.postUsers)                   // register user
     .get(userController.getUsers);
 
-  // Endpoint handlers for /users/:user_id
+  // Endpoint handlers for fetching, updating, and deleting specific user
   router.route('/users/:user_id')
     .get(userController.getUser)
     .put(userController.putUser)
     .delete(userController.deleteUser);
 
-  // Endpoint handlers for /users/:username
+  // Endpoint handlers for fetching user by username
   router.route('/users/:username')
     .get(userController.getUserByUsername);
     
@@ -53,18 +53,18 @@ module.exports = function(express) {
   router.route('/users/team/:team_id')
     .get(userController.getUsersByTeam);
 
-  // Endpoint handlers for /teams
+  // Endpoint handlers for creating team and getting all teams
   router.route('/teams')
     .post(teamController.postTeams)                   // create team
     .get(teamController.getTeams);
 
-  // Endpoint handlers for /teams/:team_id
+  // Endpoint handlers for fetching, updating, and deleting specific team
   router.route('/teams/:team_id')
     .get(teamController.getTeam)
     .put(teamController.putTeam)
     .delete(teamController.deleteTeam);
 
-  // Endpoint handlers for /teams/:team_name
+  // Endpoint handlers for getting team by teamname
   router.route('/teams/:team_name')
     .get(teamController.getTeamByName);
 
