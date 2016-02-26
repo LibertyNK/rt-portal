@@ -16,14 +16,12 @@ class Profile extends React.Component {
 	}
 
 	_load() {
-		console.log("loading?");
 	 	ApiUtils.findUser(this.props.params.username)
 	 		.done((data) => {
 	 			this.setState(data.user);
 	 	})
 	 	.fail((jqXhr) => {
-
-	 		console.log('Error Message from server: ');
+	 		console.log('Error Message from server: '+ jqXhr.responseJSON.message);
 	 	});	
 	}
 

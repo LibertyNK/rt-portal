@@ -129,7 +129,8 @@ module.exports.putUser = function(req, res, next) {
  * DELETE /users/:user_id
  *
  * Delete specific user based on user_id.
- * NOTE: This currently only deletes from our local psql DB, NOT from LiNK Salesforce API.
+ * NOTE: This currently only deletes from our local psql DB, 
+ * NOT from LiNK Salesforce API.
  */
 module.exports.deleteUser = function(req, res, next) {
 

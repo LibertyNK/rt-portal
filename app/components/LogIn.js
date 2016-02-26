@@ -84,6 +84,7 @@ class LogIn extends React.Component {
 									
 									<p className='text-center'><button type='submit' className='btn btn-lg btn btn-large red-btn width_100 btn_color'>Submit <span className="glyphicon glyphicon-chevron-right arrow-right" aria-hidden="true"></span></button></p>
 								</form>
+
 							</div>
 						</div>
 					</div>
