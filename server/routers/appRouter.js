@@ -11,6 +11,11 @@ module.exports = function(express) {
   // expressJWT({ secret: 'secrettoken' }).unless({ path: ['/login'] });
 
   /**
+   * FOR PASSPORT: We're currently not using this because we're 
+   * using JWT instead, but in the future if we use Passport, 
+   * we'll want to call this method to do server check 
+   * to see if a user is authenticated.
+   * 
    * Checks if user is authenticated. Currently, authentication
    * required for any page, outside of root domain '/'.
    *
@@ -19,24 +24,24 @@ module.exports = function(express) {
    * call.
    */
   var isAuthenticated = function (req, res, next) {
-    // if (req.isAuthenticated())
-    //   return next()
-    // req.flash('error', 'You have to be logged in to access the page.')
-    // res.redirect('/')
+    if (req.isAuthenticated())
+      return next()
+    req.flash('error', 'You have to be logged in to access the page.')
+    res.redirect('/')
   }
 
-  // Endpoint handlers for /users
+  // Endpoint handlers for registering a user and getting all users
   router.route('/users')
-    .post(userController.postUsers) // register user
+    .post(userController.postUsers)                   // register user
     .get(userController.getUsers);
 
-  // Endpoint handlers for /users/:user_id
-  // router.route('/users/:user_id')
-  //   .get(userController.getUser)
-  //   .put(userController.putUser)
-  //   .delete(userController.deleteUser);
+  // Endpoint handlers for fetching, updating, and deleting specific user
+  router.route('/users/:user_id')
+    .get(userController.getUser)
+    .put(userController.putUser)
+    .delete(userController.deleteUser);
 
-  // Endpoint handlers for /users/:username
+  // Endpoint handlers for fetching user by username
   router.route('/users/:username')
     .get(userController.getUserByUsername);
     
@@ -48,19 +53,19 @@ module.exports = function(express) {
   router.route('/users/team/:team_id')
     .get(userController.getUsersByTeam);
 
-  // Endpoint handlers for /teams
+  // Endpoint handlers for creating team and getting all teams
   router.route('/teams')
-    .post(teamController.postTeams)
+    .post(teamController.postTeams)                   // create team
     .get(teamController.getTeams);
 
-  // Endpoint handlers for /teams/:team_id
-  // router.route('/teams/:team_id')
-  //   .get(teamController.getTeam)
-  //   .put(teamController.putTeam)
-  //   .delete(teamController.deleteTeam);
+  // Endpoint handlers for fetching, updating, and deleting specific team
+  router.route('/teams/:team_id')
+    .get(teamController.getTeam)
+    .put(teamController.putTeam)
+    .delete(teamController.deleteTeam);
 
-  // Endpoint handlers for /teams/:team_name
-  router.route('/teams/:team_name')
+  // Endpoint handlers for getting team by teamname
+  router.route('/team/:team_name')
     .get(teamController.getTeamByName);
 
 
@@ -84,7 +89,7 @@ module.exports = function(express) {
     res.redirect('/new_team');
   });
 
-  router.get('/dashboard', isAuthenticated, function(req, res) {
+  router.get('/dashboard', function(req, res) {
     res.json({ message: 'Render dashboard here' });
   })
 
