@@ -6,24 +6,13 @@ class UpdateProfileStore {
 
     this.bindActions(UpdateProfileActions);
     this.user = {};
-    this.email = '';
-    this.password = '';   
-    this.password_conf = '';  
-    this.first_name = '';
-    this.last_name = '';
-    this.username = '';
-    this.goal = '';
-    this.about = '';
+    
     this.helpBlock = {
 
         first_name: '',
         last_name: '',
         username: '',
         email: '',
-        password: '',
-        password_length: '',
-        password_conf:'',
-        matching_passwords:'',
         goal:''
      };
     this.validationState = {
@@ -31,10 +20,6 @@ class UpdateProfileStore {
       last_name: '',
       username: '',
       email: '',
-      password: '',
-      password_length: '',
-      password_conf:'',
-      matching_passwords:'',
       goal:''
    };
 
@@ -53,6 +38,7 @@ class UpdateProfileStore {
   onInvalidFirstName() {
     this.validationState.first_name = 'has-error';
     this.helpBlock.first_name = "First Name can't be blank!";
+    return
   }
 
   onUpdateLastName(event) {
@@ -79,7 +65,7 @@ class UpdateProfileStore {
 
   onInvalidUsernameSpace() {
     this.validationState.username = 'has-error';
-    this.helpBlock.username = "Username must NOT contain spaces";
+    this.helpBlock.username = "Username must not contain spaces";
   }
 
   onUpdateEmail(event) {
@@ -133,7 +119,7 @@ class UpdateProfileStore {
     this.about = event.target.value;
   }
 
-  onSignUpSuccess(data) {
+  onUpdateSuccess(data) {
 
     this.errorMessage = data.message;
     if (data.message == 'success') {
@@ -149,7 +135,7 @@ class UpdateProfileStore {
  
   }
 
-  onSignUpFail(error) {
+  onUpdateFail(error) {
     console.log(error);
     
     for (var i in error.responseJSON.message.errors) {

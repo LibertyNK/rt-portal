@@ -37,14 +37,14 @@ module.exports = function(express) {
 
 
   // Endpoint handlers for fetching, updating, and deleting specific user
-  router.route('/users/:user_id')
+  router.route('/users/userId/:user_id')
     .get(userController.getUser)
     .put(userController.putUser)
     .delete(userController.deleteUser);
 
 
   // Endpoint handlers for fetching user by username
-  router.route('/users/:username')
+  router.route('/users/username/:username')
     .get(userController.getUserByUsername);
     
   // Endpoint handler to update team id for a user
@@ -52,7 +52,7 @@ module.exports = function(express) {
     .post(userController.updateUserTeamKey);
     
   // Endpoint to get all users by team_id
-  router.route('/users/team/:team_id')
+  router.route('/users/team/teamId/:team_id')
     .get(userController.getUsersByTeam);
 
   // Endpoint handlers for creating team and getting all teams
@@ -61,13 +61,13 @@ module.exports = function(express) {
     .get(teamController.getTeams);
 
   // Endpoint handlers for fetching, updating, and deleting specific team
-  router.route('/teams/:team_id')
+  router.route('/teams/teamId/:team_id')
     .get(teamController.getTeam)
     .put(teamController.putTeam)
     .delete(teamController.deleteTeam);
 
   // Endpoint handlers for getting team by teamname
-  router.route('/team/:team_name')
+  router.route('/team/teamName/:team_name')
     .get(teamController.getTeamByName);
 
 
@@ -79,7 +79,7 @@ module.exports = function(express) {
       }
       else {
         //user has authenticated correctly thus we create a JWT token
-        let token = jwt.sign({ username: user.username, full_name: user.first_name + ' ' + user.last_name }, 'secrettoken', { expiresIn: 86400});
+        let token = jwt.sign({ username: user.username, first_name: user.first_name, last_name: user.last_name }, 'secrettoken', { expiresIn: 86400});
         res.status(200).json({ token : token });
 
       }

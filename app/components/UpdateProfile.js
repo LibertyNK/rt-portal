@@ -1,14 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router';
+import ApiUtils from '../utils/apiUtils';
 import UpdateProfileActions from '../actions/UpdateProfileActions';
 import UpdateProfileStore from '../stores/UpdateProfileStore';
-import ApiUtils from '../utils/apiUtils';
 import CurrentUserStore from '../stores/CurrentUserStore';
+import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
 
 var _ = require('underscore');
 
 
-class UpdateProfile extends React.Component {
+export default AuthenticatedComponent (class UpdateProfile extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = UpdateProfileStore.getState();
@@ -31,9 +32,12 @@ class UpdateProfile extends React.Component {
 
 
 	_load() {
-	 	ApiUtils.findUser("flash")
+		console.log(this.props.user.username);
+	 	ApiUtils.findUser(this.props.user.username)
 	 		.done((data) => {
+	 			console.log(data);
 	 			this.setState(data.user);
+	 			this.usernameCheck = data.user.username;
 	 	})
 	 	.fail((jqXhr) => {
 
@@ -43,78 +47,79 @@ class UpdateProfile extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-
+		console.log(this.state.uuid);
 		var user = {
 			first_name: this.state.first_name,
 			last_name: this.state.last_name,
 			username: this.state.username,
 			email: this.state.email.trim(),
-			password: this.state.password,
-			password_conf: this.state.password_conf,
 			goal: this.state.goal,
-			about: this.state.about
+			about: this.state.about,
+			uuid: this.state.uuid
 		}
 		//Initial form validation
 
-		if (!user.first_name) {
-			this.refs.first_name.focus();
-			UpdateProfileActions.invalidFirstName();
-		}
 
-		if (!user.last_name) {
-			this.refs.last_name.focus();
-			UpdateProfileActions.invalidLastName();
-		}
+	
+		if (!this.state.first_name || !this.state.first_name === '' || !this.state.last_name || !this.state.last_name === '' || !this.state.username || !this.state.username === '' || !this.state.goal || !this.state.goal === '' || !this.state.about || !this.state.about === '') {
+            
 
-		if (!user.username) {
-			this.refs.username.focus();
-			UpdateProfileActions.invalidUsername();
-		}
+	        if (!user.first_name) {
+				this.refs.first_name.focus();
+				UpdateProfileActions.invalidFirstName();
+			}
+
+			if (!user.last_name) {
+				this.refs.last_name.focus();
+				UpdateProfileActions.invalidLastName();
+			}
+
+			if (!user.username) {
+				this.refs.username.focus();
+				UpdateProfileActions.invalidUsername();
+			}
+
+			
+			if (!user.email) {
+				this.refs.email.focus();
+				UpdateProfileActions.invalidEmail();
+			}
+
+
+			if (!user.goal) {
+				this.refs.goal.focus();
+				UpdateProfileActions.invalidGoal();
+			}
+
+			return
+        }
+
+        else {
+
+        	
+
+        	if(this.usernameCheck !== user.username) {
+        		if(user.username.match(/\s/g)){
+					this.refs.username.focus();
+					UpdateProfileActions.invalidUsernameSpace();
+					return;
+				}
+
+				
+				else {
+
+					UpdateProfileActions.update(user);
+				}
+
+			}
+
+			else {
+				UpdateProfileActions.update(user);
+			}
+        	
+        }
 		
 
-		if (user.username) {
-			this.refs.username.focus();
-			UpdateProfileActions.invalidUsername();
-		}
-
-		if(user.username.match(/\s/g)){
-			this.refs.username.focus();
-			UpdateProfileActions.invalidUsernameSpace();
-
-		}
-		
-		if (!user.email) {
-			this.refs.email.focus();
-			UpdateProfileActions.invalidEmail();
-		}
-
-		if (!user.password) {
-			this.refs.password.focus();
-			UpdateProfileActions.invalidPassword();
-		}
-
-		if (user.password.length < 6) {
-			this.refs.password.focus();
-			UpdateProfileActions.invalidPasswordLength();
-		}
-
-		if (!user.password_conf) {
-			this.refs.password_conf.focus();
-			UpdateProfileActions.invalidPasswordConf();
-		}
-
-		if (user.password_conf !== user.password) {
-			UpdateProfileActions.unmatchPasswords();
-		}
-
-		if (!user.goal) {
-			this.refs.goal.focus();
-			UpdateProfileActions.invalidGoal();
-		}
-
-		if (user.username && user.password) {
-			UpdateProfileActions.signUp(user);
-		}
 	}
 
 
@@ -176,23 +181,6 @@ class UpdateProfile extends React.Component {
 										<span className='help-block under_text '>Username must not contain spaces</span>
 										
 									</div>
-									<div className="input-padded-spacing">
-										<div className={'input-top-spacing form-group ' + this.state.validationState.password + ' ' + this.state.validationState.password_length + ' '  + this.state.validationState.matching_passwords}>							
-											<span className='help-block'> {this.state.helpBlock.password}</span>
-											<span className='help-block'> {this.state.helpBlock.password_length}</span>
-											<span className='help-block'> {this.state.helpBlock.matching_passwords}</span>
-											<input type='password' className='form-control' ref="password"  onChange={UpdateProfileActions.updatePassword} placeholder="Current Password"/>
-										</div>
-										<div className={'form-group ' + this.state.validationState.password_conf}>								
-											<span className='help-block'> {this.state.helpBlock.password_conf}</span>
-											<input type='password' className='form-control' ref="password_conf"  onChange={UpdateProfileActions.updatePasswordConf}   placeholder="New Password"/>
-										</div>
-
-										<div className={'form-group ' + this.state.validationState.password_conf}>								
-											<span className='help-block'> {this.state.helpBlock.password_conf}</span>
-											<input type='password' className='form-control' ref="password_conf"  onChange={UpdateProfileActions.updatePasswordConf}   placeholder="Confirm New Password"/>
-										</div>
-									</div>
 									
 									<div className="input-padded-spacing">
 										<div className={this.state.validationState.goal}>
@@ -207,6 +195,8 @@ class UpdateProfile extends React.Component {
 											<span className='help-block'> {this.state.helpBlock.about}</span>
 											<textarea className='form-control' ref="about" onChange={UpdateProfileActions.updateAbout} value={this.state.about} placeholder="In 340 characters, write a brief description of why YOU are fundraising."></textarea>
 										</div>
+
+										<input type="hidden" ref="uuid" value={this.state.uuid} />
 									</div>
 									<p className='text-left'><button type='submit' className='btn btn-large red-btn width_100 btn_color'>Update my page <span className="glyphicon glyphicon-chevron-right arrow-right" aria-hidden="true"></span></button></p>
 								</form>
@@ -228,6 +218,4 @@ class UpdateProfile extends React.Component {
 
 		);
 	}
-}
-
-export default UpdateProfile;
+});

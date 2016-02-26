@@ -43,8 +43,6 @@ module.exports.getUser = function(req, res, next) {
  */
 module.exports.postUsers = function(req, res, next) {
 
-  console.log("hai");
-
   let email = req.body.email;
   let password = req.body.password;
   let password2 = req.body.password_conf;
@@ -75,7 +73,7 @@ module.exports.postUsers = function(req, res, next) {
 
   Model.User.create(newUser)
     .then(user => {
-      let token = jwt.sign({ username: user.username }, 'secrettoken', { expiresIn: 86400});
+      let token = jwt.sign({ username: user.username, first_name: user.first_name, last_name: user.last_name }, 'secrettoken', { expiresIn: 86400});
       res.status(201).json({token : token, 'type': 'success', message: 'success'});
     })
     .catch(err => {
@@ -93,12 +91,10 @@ module.exports.postUsers = function(req, res, next) {
  */
 module.exports.putUser = function(req, res, next) {
 
-  // New params
-  let password = req.body.password
-  let salt = bcrypt.genSaltSync(10)
-  let hashedPassword = bcrypt.hashSync(password, salt)
+
   let first_name = req.body.first_name
   let last_name = req.body.last_name
+  let username = req.body.username
   let goal = req.body.goal
   let about = req.body.about
 
@@ -106,19 +102,24 @@ module.exports.putUser = function(req, res, next) {
   // Fills in blank for any blank fields from form
   Model.User.update(
   {
-    email: email,
-    salt: salt,
-    password: hashedPassword,
+
     first_name: first_name,
     last_name: last_name,
+    username: username,
     goal: goal,
     about: about
   },
   {
     where: { uuid: req.params.user_id }
   })
+
+
+
   .then( user => {
-    res.status(201).json({user, 'type': 'success', message: 'successfully updated user'});
+
+    let token = jwt.sign({ username: req.body.username, first_name: req.body.first_name, last_name: req.body.last_name }, 'secrettoken', { expiresIn: 86400});
+    res.status(201).json({token: token, 'type': 'success', message: 'successfully updated user'});
+   
   })
   .catch( err => {
     res.status(400).json({ 'type': 'error', message: err });
@@ -221,7 +222,7 @@ module.exports.getUserByUsername = function (req, res, next) {
                   first_name: user.first_name,
                   last_name: user.last_name,
                   email: user.email,
-                  user_id: user.uuid,
+                  uuid: user.uuid,
                   amount_raised: user.amount_raised,
                   goal: user.goal,
                   about: user.about,

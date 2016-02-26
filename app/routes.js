@@ -38,12 +38,11 @@ export default (
 	   <Route name="refugee" path='/refugee' component={Refugee} />
 	   <Route name="all_refugees" path='/all_refugees' component={AllRefugees} />
 	   <Route name="dashboard" path='/dashboard' component={Dashboard} />
-	   <Route name="profile" path='/member/:username' component={Profile} />
 	   <Route name="new_team" path='/new_team' component={NewTeamForm} />
 	   <Route name="join_team" path='/join_team' component={JoinTeam} />
 	   <Route name="join_team_form" path='/join_team_form' component={JoinTeamForm} />
 	   <Route name="update_team" path='/update_team' component={UpdateTeamSettings} />
-	   <Route name="update_profile" path='/update_profile' component={UpdateProfileSettings} />
+	   <Route name="update-profile" path='/update-profile' component={UpdateProfileSettings} />
 	   <Route name="signup_success" path='/signup_success' component={SignUpSuccess} />
 	   <Route name="update_profile" path='/update_profile' component={UpdateProfile} />
 	   <Route name="profile" path='/:username' component={Profile} />
