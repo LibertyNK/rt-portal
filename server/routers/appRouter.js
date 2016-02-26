@@ -13,8 +13,8 @@ module.exports = function(express) {
   /**
    * FOR PASSPORT: We're currently not using this because we're 
    * using JWT instead, but in the future if we use Passport, 
-   * we'll want to call this method to do server check if user is 
-   * authenticated.
+   * we'll want to call this method to do server check 
+   * to see if a user is authenticated.
    * 
    * Checks if user is authenticated. Currently, authentication
    * required for any page, outside of root domain '/'.
@@ -24,10 +24,10 @@ module.exports = function(express) {
    * call.
    */
   var isAuthenticated = function (req, res, next) {
-    // if (req.isAuthenticated())
-    //   return next()
-    // req.flash('error', 'You have to be logged in to access the page.')
-    // res.redirect('/')
+    if (req.isAuthenticated())
+      return next()
+    req.flash('error', 'You have to be logged in to access the page.')
+    res.redirect('/')
   }
 
   // Endpoint handlers for /users
@@ -90,7 +90,7 @@ module.exports = function(express) {
     res.redirect('/new_team');
   });
 
-  router.get('/dashboard', isAuthenticated, function(req, res) {
+  router.get('/dashboard', function(req, res) {
     res.json({ message: 'Render dashboard here' });
   })
 
