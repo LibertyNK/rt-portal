@@ -103,14 +103,28 @@ module.exports.postTeams = function(req, res, next) {
  */
 module.exports.putTeam = function(req, res, next) {
 
-
+  // Assumes a blank sent from the user/form means user wants that field blank
+  // I can add validation for a blank field to not change in the update
   let team_name = req.body.team_name;
+  let address1 = req.body.address1;
+  let address2 = req.body.address2;
+  let team_state = req.body.team_state;
+  let zipcode = req.body.zipcode;
+  let country = req.body.country;
+  let about = req.body.about;
+  let leader = req.body.leader;
 
-
-  // Fills in blank for any blank fields from form
+  // Assumes a blank sent from the user/form means user wants that field blank
   Model.Team.update(
   {
-    team_name: team_name
+    team_name: team_name,
+    address1: address1,
+    address2: address2,
+    team_state: team_state,
+    zipcode: zipcode,
+    country: country,
+    about: about,
+    leader: leader
   },
   {
     where: { uuid: req.params.team_id }
