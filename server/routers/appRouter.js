@@ -73,10 +73,9 @@ module.exports = function(express) {
     passport.authenticate('local', function( err, user, info) {
       if (err) { return next(err) }
       if (!user) {
-        res.status(401).json({ message: 'Error looking up user.' });
+        res.status(401).json({ message: 'Uh oh! We do not recognize that email and password combination!' });
       }
       else {
-
         //user has authenticated correctly thus we create a JWT token
         let token = jwt.sign({ username: user.username }, 'secrettoken', { expiresIn: 86400});
         res.status(200).json({ token : token });

@@ -4,7 +4,6 @@ import LogInStore from '../stores/LogInStore';
 export default (ComposedComponent) => {
 	return class AuthenticatedComponent extends React.Component {
 
-
 		constructor(props) {
 			super(props);
 			this.onChange = this.onChange.bind(this);
@@ -12,7 +11,7 @@ export default (ComposedComponent) => {
 		}
 
 		onChange() {
-			this.setState(this.getLoginState());
+			this.setState(LogInStore.getState());
 		}
 
 		componentDidMount() {
