@@ -6,8 +6,7 @@ import NavbarActions from '../actions/NavbarActions';
 import UserNav from './UserNav';
 import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
 
-
-export default class Navigation extends React.Component {
+export default AuthenticatedComponent (class Navigation extends React.Component {
 
   constructor(props) {
     super(props);
@@ -35,9 +34,13 @@ export default class Navigation extends React.Component {
 
     var os = this;
 
+    const user = this.props.user;
+
     return (
       <Navbar inverse>
-        <UserNav />
+        {user && 
+          <UserNav /> 
+        }
         <Navbar.Header>
           <Navbar.Brand>
             <div className='navbar-brand'><Link to='/'>
@@ -49,8 +52,12 @@ export default class Navigation extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <li><Link to='/login'>Log In</Link></li>
-            <li><Link to='/signup'>Sign Up</Link></li> 
+            {!user && 
+              <li><Link to='/login'>Log In</Link></li>      
+            }
+            {!user && 
+              <li><Link to='/signup'>Sign Up</Link></li>      
+            }          
             <li><Link to='/all_teams'>Teams</Link></li> 
             <li><Link to='/all_members'>Members</Link></li>
             <li><Link to='/refugee_stories'>Refugee Stories</Link></li>
@@ -68,6 +75,4 @@ export default class Navigation extends React.Component {
       </Navbar>
     );
   }
-};
-
-
+});
