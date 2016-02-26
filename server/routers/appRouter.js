@@ -11,6 +11,11 @@ module.exports = function(express) {
   // expressJWT({ secret: 'secrettoken' }).unless({ path: ['/login'] });
 
   /**
+   * FOR PASSPORT: We're currently not using this because we're 
+   * using JWT instead, but in the future if we use Passport, 
+   * we'll want to call this method to do server check if user is 
+   * authenticated.
+   * 
    * Checks if user is authenticated. Currently, authentication
    * required for any page, outside of root domain '/'.
    *
@@ -27,14 +32,14 @@ module.exports = function(express) {
 
   // Endpoint handlers for /users
   router.route('/users')
-    .post(userController.postUsers) // register user
+    .post(userController.postUsers)                   // register user
     .get(userController.getUsers);
 
   // Endpoint handlers for /users/:user_id
-  // router.route('/users/:user_id')
-  //   .get(userController.getUser)
-  //   .put(userController.putUser)
-  //   .delete(userController.deleteUser);
+  router.route('/users/:user_id')
+    .get(userController.getUser)
+    .put(userController.putUser)
+    .delete(userController.deleteUser);
 
   // Endpoint handlers for /users/:username
   router.route('/users/:username')
@@ -50,14 +55,14 @@ module.exports = function(express) {
 
   // Endpoint handlers for /teams
   router.route('/teams')
-    .post(teamController.postTeams)
+    .post(teamController.postTeams)                   // create team
     .get(teamController.getTeams);
 
   // Endpoint handlers for /teams/:team_id
-  // router.route('/teams/:team_id')
-  //   .get(teamController.getTeam)
-  //   .put(teamController.putTeam)
-  //   .delete(teamController.deleteTeam);
+  router.route('/teams/:team_id')
+    .get(teamController.getTeam)
+    .put(teamController.putTeam)
+    .delete(teamController.deleteTeam);
 
   // Endpoint handlers for /teams/:team_name
   router.route('/teams/:team_name')
