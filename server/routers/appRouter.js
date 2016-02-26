@@ -65,7 +65,7 @@ module.exports = function(express) {
     .delete(teamController.deleteTeam);
 
   // Endpoint handlers for getting team by teamname
-  router.route('/teams/:team_name')
+  router.route('/team/:team_name')
     .get(teamController.getTeamByName);
 
 
