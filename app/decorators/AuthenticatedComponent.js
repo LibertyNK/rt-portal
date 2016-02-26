@@ -7,7 +7,7 @@ export default (ComposedComponent) => {
 		constructor(props) {
 			super(props);
 			this.onChange = this.onChange.bind(this);
-            this.state = LogInStore.getState();
+         this.state = LogInStore.getState();
 		}
 
 		onChange() {
@@ -16,11 +16,17 @@ export default (ComposedComponent) => {
 
 		componentDidMount() {
 	    	LogInStore.listen(this.onChange);
-	    }
+	   }
 
-	    componentWillUnmount() {
+	   componentWillUnmount() {
 	    	LogInStore.unlisten(this.onChange);
-	    }
+	   }
+
+	   checkAuth() {
+	   	if(this.state.user && this.state.jwt) {
+	   		return true;
+	   	}
+	   }
 
 		render() {
 			

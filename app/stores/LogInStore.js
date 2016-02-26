@@ -52,7 +52,7 @@ class LogInStore {
   onLogInSuccess(token) {
     this.jwt = token;
     this.user = jwt_decode(token);
-    console.log('logged in');  
+    console.log('LogIn Store user: ' + this.user.username);  
   }
 
   onLogInFail(error) {

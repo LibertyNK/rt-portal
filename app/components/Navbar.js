@@ -3,8 +3,11 @@ import {Link} from 'react-router';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import NavbarStore from '../stores/NavbarStore';
 import NavbarActions from '../actions/NavbarActions';
+import UserNav from './UserNav';
+import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
 
-class NavComponent extends React.Component {
+export default AuthenticatedComponent (class Navigation extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = NavbarStore.getState();
@@ -27,18 +30,17 @@ class NavComponent extends React.Component {
     // doesn't need to have functionality (necessarily) ... just wired up
   }
 
-  handleSignOut() {
-    localStorage.removeItem('jwt');
-    window.location.href ='/';
-  }
-
-  
   render() {
 
     var os = this;
 
+    const user = this.props.user;
+
     return (
       <Navbar inverse>
+        {user && 
+          <UserNav /> 
+        }
         <Navbar.Header>
           <Navbar.Brand>
             <div className='navbar-brand'><Link to='/'>
@@ -50,8 +52,12 @@ class NavComponent extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <li><Link to='/login'>Log In</Link></li>
-            <li><Link to='/signup'>Sign Up</Link></li> 
+            {!user && 
+              <li><Link to='/login'>Log In</Link></li>      
+            }
+            {!user && 
+              <li><Link to='/signup'>Sign Up</Link></li>      
+            }          
             <li><Link to='/all_teams'>Teams</Link></li> 
             <li><Link to='/all_members'>Members</Link></li>
             <li><Link to='/refugee_stories'>Refugee Stories</Link></li>
@@ -60,7 +66,7 @@ class NavComponent extends React.Component {
               <MenuItem divider />
               <li><Link to='/login'>About LiNK</Link></li>
             </NavDropdown>
-            <li className="btn btn-success" onClick={this.handleSignOut}>Sign Out</li> 
+            
           </Nav>
           <Nav className="nav donate-nav " pullRight>
             <li className="donate-nav-li"><Link to='/login'>Donate</Link></li> 
@@ -69,6 +75,4 @@ class NavComponent extends React.Component {
       </Navbar>
     );
   }
-}
-
-export default NavComponent;
+});

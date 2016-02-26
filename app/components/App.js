@@ -21,7 +21,7 @@ export default AuthenticatedComponent(class App extends React.Component {
 	return (
 
 	      <div>
-	    	<Nav history={this.props.history} />
+	    	<Nav history={this.props.history} user={this.props.user} />
 	        {this.props.children}
 
 	      </div>

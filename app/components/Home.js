@@ -21,7 +21,6 @@ export default class Home extends React.Component {
 
                                 <div className='banner_button'><Link to='/signup'>Sign Up</Link></div>
 
-
                             </div>  
                         </div>
     	        	</div>	
