@@ -10,6 +10,8 @@ export default class Home extends React.Component {
 
     <div className="pre_head_padding">
         <div className="map_background">
+        </div>
+        <div className="home-wrapper">
             <div className="container">
     	        <div className='row'>
     	        	<div className='col-md-6 home_banner'>
@@ -92,6 +94,7 @@ export default class Home extends React.Component {
         		<button className='btn btn-large red-btn'><Link to='/all_events'>Do something</Link></button>
     		</div>
         </div>
+  
     );
   }
 };

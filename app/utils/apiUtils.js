@@ -45,22 +45,30 @@ module.exports = {
 
 	getTeam: function(team_id) {
 		return $.ajax({
-			url: 'teams/' + team_id,
+			url: 'teams/teamId/' + team_id,
 			type: 'GET'
 		})
 	},
 
 	findUser: function(username) {
 		return $.ajax({
-			url: '/users/' + username,
+			url: '/users/username/' + username,
 			type: 'GET'
 		})
 	},
 
 	findTeam: function(team_name) {
 		return $.ajax({
-			url: '/teams/' + team_name,
+			url: '/teams/teamName/' + team_name,
 			type: 'GET'
+		})
+	},
+
+	updateUser: function(user) {
+		return $.ajax({
+			url: '/users/userId/' + user.uuid,
+			type: 'PUT',
+			data: user
 		})
 	},
 

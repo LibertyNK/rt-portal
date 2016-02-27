@@ -1,7 +1,5 @@
 .navbar {
 	font-weight: 300;
-	position:absolute;
-    top: 0px;
     display: block;
     width: 100%;
 	text-transform: capitalize;
@@ -66,6 +64,130 @@
 button.navbar-toggle, button.navbar-toggle:focus, button.navbar-toggle:hover {
     background: transparent !important;
 }
+
+.user-nav {
+    margin: 0 auto;
+    display: block;
+    padding: 2px 15px;;
+    background-color: #333;
+    color: white;
+}
+
+.user-nav .nav > li {
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.04em;
+    font-weight: 300;
+    font-size: 16px;
+    vertical-align: top;
+    margin-top: 0px;
+    background: transparent;
+}
+
+.user-nav .nav > li:hover {
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.04em;
+    font-weight: 300;
+    font-size: 16px;
+    vertical-align: top;
+    margin-top: 0px;
+    background: transparent;
+}
+
+.user-nav .nav > li:focus {
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.04em;
+    font-weight: 300;
+    font-size: 16px;
+    vertical-align: top;
+    margin-top: 0px;
+    background: transparent;
+}
+
+.user-nav .nav > li.pull-right {
+    position: relative;
+    display: block;
+    padding: 9px 15px;
+    color: white;
+}
+
+
+.user-nav .nav > li > a {
+    position: relative;
+    display: block;
+    padding: 3px 10px 0px 0px;
+    color: white;
+    letter-spacing: 0em;
+}
+
+.user-nav .nav > li > a:hover {
+    color: #E0E0E0;
+    text-transform: normal;
+    background: transparent;
+}
+
+.user-nav .nav > li > a:focus {
+    color: #E0E0E0;
+    text-transform: normal;
+    background: transparent;
+}
+
+
+
+.edit_buttons {
+    background: #F3F3F3;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 2px 15px 3px;
+    color: #414042;
+    float: right;
+    margin-right: 15px;
+    letter-spacing: 0em;
+    margin-top: 2px;
+
+}
+
+li div.edit_buttons {
+
+    margin-right: 5px;
+    margin-top: 2px;
+    font-size: 15px;
+}
+
+.edit_buttons:hover {
+    background: #DEDEDE;
+}
+
+
+
+.glyphicon-pencil {
+    padding-left: 5px;
+    padding-top: 3px;
+}
+
+
+.glyphicon-user {
+    padding-left: 5px;
+    padding-top: 3px;
+}
+
+.glyphicon-plus {
+    padding-right: 5px;
+    top: 3px !important;
+}
+
+
+.glyphicon-flag {
+    padding-right: 5px;
+    top: 3px !important;
+}
+.margin-left-10px {
+    margin-left: 10px;
+}
+
+
 
 @media (max-width: 900px){
     .navbar-brand h3 {
@@ -261,8 +383,3 @@ button.navbar-toggle, button.navbar-toggle:focus, button.navbar-toggle:hover {
 	}
 }
 
-.user-nav {
-    height: 70px;
-    background-color: #333;
-    color: white;
-}

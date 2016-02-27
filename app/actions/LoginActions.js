@@ -3,7 +3,7 @@ import ApiUtils from '../utils/apiUtils';
 import { LOGIN_USER, LOGOUT_USER } from '../constants/ActionTypes';
 import LogInStore from '../stores/LogInStore';
 import RouterContainer from '../services/RouterContainer';
-import jwt_decode from 'jwt-decode';
+
 
 class LogInActions {
 
@@ -37,7 +37,7 @@ class LogInActions {
 			this.actions.logInSuccess(response.token);
 			localStorage.setItem('jwt', response.token);	
 			let user = jwt_decode(response.token);		
-			window.location.href = '/member/' + user.username;
+			window.location.href = '/' + user.username;
 		})
 		.fail((jqXhr) => {
 			this.actions.logInFail(jqXhr.responseJSON.message);

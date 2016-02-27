@@ -13,6 +13,11 @@ class CurrentUserStore {
 		this.user = data.username;
 		console.log(this.username);
 	}
+
+	onUpdateSuccess(data) {
+		this.user = data.username;
+		console.log(this.username);
+	}
 }
 
 export default alt.createStore(CurrentUserStore);
