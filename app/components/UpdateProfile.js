@@ -42,6 +42,7 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 
 	 		console.log('Error Message from server: ');
 	 	});	
+
 	}
 
 	handleSubmit(event) {
@@ -175,10 +176,8 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 										<span className='help-block'> {this.state.helpBlock.last_name}</span>
 										<input type='text' className='form-control' ref="last_name" onChange={UpdateProfileActions.updateLastName} value={this.state.last_name} placeholder="Last Name"/>
 									</div>
-
 										
 									<div className={'form-group ' }>								
-									
 										<input type='text' className='form-control' ref="email" value={this.state.email} placeholder="Email" readOnly/>
 									</div>
 									
@@ -226,6 +225,40 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 										</div>
 
 										<input type="hidden" ref="uuid" value={this.state.uuid} />
+									</div>
+										
+								</div>
+
+							</div>
+
+							<div className='row input-padded-spacing'>
+
+								<div className='col-sm-4'>
+									<h3>Your Team Affiliation</h3>
+									<p>You are fundraising independantly.
+										<br />&nbsp;<br />
+										f you would like to continue to fundraise independtly (without joing a team), Your fundraising totals will still be added to our collective goal and totals.
+										<br />&nbsp;<br />
+										We highly recommend you either join a team or start your own. We believe in teamwork : ) </p>
+								</div>
+
+								<div className='col-sm-12 col-sm-8 settings_inputs margin-top-30px'>
+									
+									<div className="">
+										<div className={'form-group ' }>								
+											<input type='text' className='form-control' ref="team_name" value={this.state.team_name} placeholder="General Funraising Team" readOnly/>
+										</div>
+
+										<span className="">
+									        <Link to="join-team" ><button className="btn-primary btn-lg btn-small-grey max-width-380 pull-right" ><span className="glyphicon glyphicon-flag"></span>  Join a team</button></Link>
+									    </span>
+
+										<span className="margin-left-10px">
+
+									         <Link to="start-team" ><button className="btn-primary btn-lg btn-small-grey max-width-380 pull-right" ><span className="glyphicon glyphicon-plus"></span>  Start your own team</button></Link>
+									    </span>
+
+										
 									</div>
 										
 									
