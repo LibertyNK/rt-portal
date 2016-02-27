@@ -233,8 +233,6 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 
 
 							</div>
-
-							
 						</div>
 					</div>
 
