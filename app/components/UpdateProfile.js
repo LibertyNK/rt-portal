@@ -148,7 +148,7 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 							<div className="col-md-4">
 
 								<p className="">
-							        <button type='submit' className="btn-primary btn-lg btn-small-green max-width-280 pull-right" >Save Changes</button>
+							        <button type='submit' className="btn-primary btn-lg btn-small-green max-width-280 pull-right-left" >Save Changes</button>
 							    </p>
 
 							</div>
