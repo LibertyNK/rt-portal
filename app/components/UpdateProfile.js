@@ -95,8 +95,6 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 
         else {
 
-        	
-
         	if(this.usernameCheck !== user.username) {
         		if(user.username.match(/\s/g)){
 					this.refs.username.focus();
@@ -104,21 +102,15 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 					return;
 				}
 
-				
 				else {
-
 					UpdateProfileActions.update(user);
 				}
-
 			}
 
 			else {
 				UpdateProfileActions.update(user);
 			}
-        	
         }
-		
-
 	}
 
 
@@ -172,73 +164,77 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 
 								<div className='col-sm-12 col-sm-8 settings_inputs margin-top-30px'>
 										
-										<div className={this.state.errorMessageState}> 
+									<div className={this.state.errorMessageState}> 
 											{single_error}
-									   </div>				
-										<div className={'form-group__half first_input form-group ' + this.state.validationState.first_name}>
-											<span className='help-block'> {this.state.helpBlock.first_name}</span>
-											<input type='text' className='form-control ' ref="first_name" onChange={UpdateProfileActions.updateFirstName} value={this.state.first_name} placeholder="First Name" autoFocus />
-										</div>
-										<div className={'form-group__half form-group ' + this.state.validationState.last_name}>								
-											<span className='help-block'> {this.state.helpBlock.last_name}</span>
-											<input type='text' className='form-control' ref="last_name" onChange={UpdateProfileActions.updateLastName} value={this.state.last_name} placeholder="Last Name"/>
-										</div>
-
-										
-										<div className={'form-group ' }>								
-										
-											<input type='text' className='form-control' ref="email" value={this.state.email} placeholder="Email" readOnly/>
-										</div>
-										
+									</div>				
+									<div className={'form-group__half first_input form-group ' + this.state.validationState.first_name}>
+										<span className='help-block'> {this.state.helpBlock.first_name}</span>
+										<input type='text' className='form-control ' ref="first_name" onChange={UpdateProfileActions.updateFirstName} value={this.state.first_name} placeholder="First Name" autoFocus />
 									</div>
-								</div>
-
-								<div className='row input-padded-spacing'>
-
-									<div className='col-sm-4'>
-										<h3>Your Rescue Campaign</h3>
-										<p>Make sure to uppload your profile photo so donors know it’s you : )
-											<br />&nbsp;<br />
-											Your email is locked here, becuase this is your user name for this account and is uneditable. 
-											<br />&nbsp;<br />
-											Your email and phone number are ONLY viewable to your team members, if you are fundraising on a team.</p>
+									<div className={'form-group__half form-group ' + this.state.validationState.last_name}>								
+										<span className='help-block'> {this.state.helpBlock.last_name}</span>
+										<input type='text' className='form-control' ref="last_name" onChange={UpdateProfileActions.updateLastName} value={this.state.last_name} placeholder="Last Name"/>
 									</div>
 
-									<div className='col-sm-12 col-sm-8 settings_inputs'>
 										
-										<div className="">
-											<div className={this.state.validationState.goal}>
-												<span className='help-block '>{this.state.helpBlock.goal}</span>
-											</div>
-											<div className={'goal_field form-group input-group ' + this.state.validationState.goal}>				
-												
-												<span className="input-group-addon dollar-addon">$</span>
-												<input type='text' className='form-control' ref="goal" onChange={UpdateProfileActions.updateGoal}  value={this.state.goal} placeholder="enter your fundraising goal"/>
-											</div>
-											<div className={'form-group ' + this.state.validationState.about}>
-												<span className='help-block'> {this.state.helpBlock.about}</span>
-												<textarea className='form-control' ref="about" onChange={UpdateProfileActions.updateAbout} value={this.state.about} placeholder="In 340 characters, write a brief description of why YOU are fundraising."></textarea>
-											</div>
-
-											<div className={this.state.validationState.username}>
-												<span className='help-block '>{this.state.helpBlock.username}</span>
-											</div>
-											<div className={'input-group form-group url_field ' + this.state.validationState.username}>	
-													<span className="input-group-addon " id="basic-addon3">www.rescueteams.org/</span>
-													<input type='text' className='form-control ' ref="username" onChange={UpdateProfileActions.updateUsername} value={this.state.username} placeholder="Username" aria-describedby="basic-addon3"/>
-												
-											</div>
-											<div>
-												<span className='help-block under_text '>Username must not contain spaces</span>
-												
-											</div>
-
-											<input type="hidden" ref="uuid" value={this.state.uuid} />
-										</div>
-										
+									<div className={'form-group ' }>								
+									
+										<input type='text' className='form-control' ref="email" value={this.state.email} placeholder="Email" readOnly/>
+									</div>
 									
 								</div>
 							</div>
+
+							<div className='row input-padded-spacing'>
+
+								<div className='col-sm-4'>
+									<h3>Your Rescue Campaign</h3>
+									<p>Make sure to uppload your profile photo so donors know it’s you : )
+										<br />&nbsp;<br />
+										Your email is locked here, becuase this is your user name for this account and is uneditable. 
+										<br />&nbsp;<br />
+										Your email and phone number are ONLY viewable to your team members, if you are fundraising on a team.</p>
+								</div>
+
+								<div className='col-sm-12 col-sm-8 settings_inputs'>
+									
+									<div className="">
+										<div className={this.state.validationState.goal}>
+											<span className='help-block '>{this.state.helpBlock.goal}</span>
+										</div>
+										<div className={'goal_field form-group input-group ' + this.state.validationState.goal}>				
+											
+											<span className="input-group-addon dollar-addon">$</span>
+											<input type='text' className='form-control' ref="goal" onChange={UpdateProfileActions.updateGoal}  value={this.state.goal} placeholder="enter your fundraising goal"/>
+										</div>
+										<div className={'form-group ' + this.state.validationState.about}>
+											<span className='help-block'> {this.state.helpBlock.about}</span>
+											<textarea className='form-control' ref="about" onChange={UpdateProfileActions.updateAbout} value={this.state.about} placeholder="In 340 characters, write a brief description of why YOU are fundraising."></textarea>
+										</div>
+
+										<div className={this.state.validationState.username}>
+											<span className='help-block '>{this.state.helpBlock.username}</span>
+										</div>
+										<div className={'input-group form-group url_field ' + this.state.validationState.username}>	
+												<span className="input-group-addon " id="basic-addon3">www.rescueteams.org/</span>
+												<input type='text' className='form-control ' ref="username" onChange={UpdateProfileActions.updateUsername} value={this.state.username} placeholder="Username" aria-describedby="basic-addon3"/>
+											
+										</div>
+										<div>
+											<span className='help-block under_text '>Username must not contain spaces</span>
+											
+										</div>
+
+										<input type="hidden" ref="uuid" value={this.state.uuid} />
+									</div>
+										
+									
+								</div>
+
+
+							</div>
+
+							
 						</div>
 					</div>
 
