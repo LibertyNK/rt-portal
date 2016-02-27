@@ -32,7 +32,6 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 
 
 	_load() {
-		console.log(this.props.user.username);
 	 	ApiUtils.findUser(this.props.user.username)
 	 		.done((data) => {
 	 			console.log(data);

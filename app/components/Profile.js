@@ -1,21 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router'
 import ApiUtils from '../utils/apiUtils';
+import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
+import {LOGIN_USER, LOGOUT_USER} from '../constants/ActionTypes';
 
 
-class Profile extends React.Component {
+export default AuthenticatedComponent(class Profile extends React.Component {
 	constructor(props) {
 		super(props);
 		this._load = this._load.bind(this);
+		this._compareUsername = this._compareUsername.bind(this);
 		this.state = {first_name: '', last_name: '', goal: '', about: ''};
+
 	}
 
 	componentDidMount() {
 		this._load();
+		this._compareUsername();
+	}
 
+
+	_compareUsername() {
+		if (this.props.user.username === this.props.params.username) {
+			return this.userlogged = true;
+		}
+		else {
+			return this.userlogged = false;
+		}
 	}
 
 	_load() {
+
 	 	ApiUtils.findUser(this.props.params.username)
 	 		.done((data) => {
 	 			this.setState(data.user);
@@ -27,6 +42,8 @@ class Profile extends React.Component {
 
 	render() {
 
+
+
 		var style = {
 		    width: ((this.state.amount_raised / this.state.goal) * 100) + "%" 
 		};
@@ -37,10 +54,22 @@ class Profile extends React.Component {
 				<div className="map_background">
 				</div>
 
+
 				<div className="profile_banner">
+					{this.userlogged ? 
+					<Link to='/update-profile'><div className="edit_buttons">Edit your page  <span className="glyphicon glyphicon-pencil"></span></div></Link>
+
+					:
+
+					null
+
+					}
+
 					<div className="container">
 						<div className="row">
 							<div className="col-md-8 text-center center-margin">
+
+								
 								<h2>NORTH KOREAN REFUGEES ARE IN URGENT NEED.</h2>
 
 								<h4>WE CAN HELP.</h4>
@@ -62,7 +91,7 @@ class Profile extends React.Component {
 								</div>
 
 								<div className="col-md-4 profile_image">
-									<img className="" src="http://www.libertyinnorthkorea.org/wp-content/uploads/2016/02/profile_blank.png" />
+									<img className="" src="img/profile_blank-1.png" />
 								</div>
 
 								<div className="col-md-4">
@@ -180,6 +209,4 @@ class Profile extends React.Component {
 		
 		);
 	}
-}
-
-export default Profile;
+});
