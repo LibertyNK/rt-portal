@@ -14,12 +14,11 @@ import Refugee from './components/Refugee';
 import AllRefugees from './components/AllRefugees';
 import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
-import NewTeamForm from './components/NewTeamForm';
 import JoinTeam from './components/JoinTeam';
 import JoinTeamForm from './components/JoinTeamForm';
 import UpdateTeamSettings from './components/UpdateTeam';
 import UpdateProfileSettings from './components/UpdateProfile';
-import SignUpSuccess from './components/SignUpSuccess';
+import PickTeam from './components/PickTeam';
 import UpdateProfile from './components/UpdateProfile';
 import ErrorPage from './components/404Page';
 
@@ -27,7 +26,6 @@ import ErrorPage from './components/404Page';
 export default (
   	<Route component={App}>
 	   <Route name="" path='/' component={Home} />
-	   <Route name="add_team" path='/add_team' component={AddTeam} />
 	   <Route name="about" path='/about' component={About} />
 	   <Route name="login" path='/login' component={LogIn} />
 	   <Route name="signup" path='/signup' component={SignUp} />
@@ -38,11 +36,11 @@ export default (
 	   <Route name="refugee" path='/refugee' component={Refugee} />
 	   <Route name="all_refugees" path='/all_refugees' component={AllRefugees} />
 	   <Route name="dashboard" path='/dashboard' component={Dashboard} />
-	   <Route name="start-team" path='/start-team' component={NewTeamForm} />
+	   <Route name="create-team" path='/create-team' component={AddTeam} />
 	   <Route name="join-team" path='/join-team' component={JoinTeamForm} />
 	   <Route name="update_team" path='/update_team' component={UpdateTeamSettings} />
 	   <Route name="update-profile" path='/update-profile' component={UpdateProfileSettings} />
-	   <Route name="signup_success" path='/signup_success' component={SignUpSuccess} />
+	   <Route name="pick-team" path='/pick-team' component={PickTeam} />
 	   <Route name="update_profile" path='/update_profile' component={UpdateProfile} />
 	   <Route name="profile" path='/:username' component={Profile} />
 	   <Route name="404" path='/error' component={ErrorPage} />

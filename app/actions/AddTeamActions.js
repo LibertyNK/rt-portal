@@ -45,3 +45,4 @@ class AddTeamActions {
 }
 
 export default alt.createActions(AddTeamActions);
+	

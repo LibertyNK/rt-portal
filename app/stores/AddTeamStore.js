@@ -14,10 +14,7 @@ class AddTeamStore {
       this.country = '';
     	this.about = '';
 
-    	// TODO: Need to pass user data from current state to this. I leave it empty for now
-    	this.user = "lannify@gmail.com"; // Temporarily using fixed email to find user for now. Should change this later to user ID or something
-
-
+    
     	this.helpBlock = {
     								team_name: '',
     								address1: '',

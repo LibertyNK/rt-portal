@@ -154,11 +154,11 @@ class SignUp extends React.Component {
 									</div>
 									<div className={'input-group form-group url_field ' + this.state.validationState.username}>	
 											<span className="input-group-addon " id="basic-addon3">www.rescueteams.org/</span>
-											<input type='text' className='form-control ' ref="username" onChange={SignUpActions.updateUsername} placeholder="Username" aria-describedby="basic-addon3"/>
+											<input type='text' className='form-control ' ref="username" onChange={SignUpActions.updateUsername} placeholder="Custom Url" aria-describedby="basic-addon3"/>
 										
 									</div>
 									<div>
-										<span className='help-block under_text '>Username must not contain spaces</span>
+										<span className='help-block under_text '>Custom Url must not contain spaces</span>
 										
 									</div>
 									<div className="input-padded-spacing">
@@ -185,7 +185,7 @@ class SignUp extends React.Component {
 										</div>
 										<div className={'form-group ' + this.state.validationState.about}>
 											<span className='help-block'> {this.state.helpBlock.about}</span>
-											<textarea className='form-control' ref="about" onChange={SignUpActions.updateAbout} placeholder="In 140 characters, write a brief description of why YOU are fundraising."></textarea>
+											<textarea className='form-control' ref="about" onChange={SignUpActions.updateAbout} placeholder="In 340 characters, write a brief description of why YOU are fundraising."></textarea>
 										</div>
 									</div>
 									<p className='text-left'><button type='submit' className='btn btn-large red-btn width_100 btn_color'>Create my page <span className="glyphicon glyphicon-chevron-right arrow-right" aria-hidden="true"></span></button></p>
