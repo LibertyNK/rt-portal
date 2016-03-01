@@ -3,6 +3,7 @@ bower_components
 npm-debug.log
 .tmp
 .idea
-public
+public/css
+public/js
 reports
 selenium-debug.log
