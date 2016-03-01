@@ -68,12 +68,13 @@ module.exports.postUsers = function(req, res, next) {
     amount_raised: 0,
     goal: req.body.goal,
     about: req.body.about,
+    team_uuid: null,
     admin_level: 3
   }
 
   Model.User.create(newUser)
     .then(user => {
-      let token = jwt.sign({ username: user.username, first_name: user.first_name, last_name: user.last_name }, 'secrettoken', { expiresIn: 86400});
+      let token = jwt.sign({ username: user.username, first_name: user.first_name, last_name: user.last_name, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
       res.status(201).json({token : token, 'type': 'success', message: 'success'});
     })
     .catch(err => {
@@ -97,6 +98,7 @@ module.exports.putUser = function(req, res, next) {
   let username = req.body.username
   let goal = req.body.goal
   let about = req.body.about
+  let team_uuid = req.body.team_uuid
 
 
   // Fills in blank for any blank fields from form
@@ -107,7 +109,8 @@ module.exports.putUser = function(req, res, next) {
     last_name: last_name,
     username: username,
     goal: goal,
-    about: about
+    about: about,
+    team_uuid: team_uuid
   },
   {
     where: { uuid: req.params.user_id }
@@ -117,7 +120,7 @@ module.exports.putUser = function(req, res, next) {
 
   .then( user => {
 
-    let token = jwt.sign({ username: req.body.username, first_name: req.body.first_name, last_name: req.body.last_name }, 'secrettoken', { expiresIn: 86400});
+    let token = jwt.sign({ username: req.body.username, first_name: req.body.first_name, last_name: req.body.last_name, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
     res.status(201).json({token: token, 'type': 'success', message: 'successfully updated user'});
    
   })
@@ -182,14 +185,14 @@ module.exports.updateUserTeam = function (req, res, next) {
 
   // console.log("this is team info passing from teamController: " + req.team_name);
 
-  Model.User.find({ where: { email: req.leader } })
+  Model.User.find({ where: { username: req.leader } })
     .then(user => {
       Model.User.update({
         team_uuid: req.uuid,
         admin_level: 2
       },
       {
-        where: { email: req.leader }
+        where: { username: req.leader }
       })
         .then(updated_user => {
           res.status(201).json({updated_user, 'type': 'success', message: "successfully updated user's team"});

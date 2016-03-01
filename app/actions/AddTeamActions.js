@@ -1,5 +1,10 @@
 import alt from '../alt';
 import ApiUtils from '../utils/apiUtils';
+import LogInStore from '../stores/LogInStore';
+import RouterContainer from '../services/RouterContainer';
+import LogInActions from '../actions/LogInActions';
+import jwt_decode from 'jwt-decode';
+import {LOGIN_USER, LOGOUT_USER} from '../constants/ActionTypes';
 
 class AddTeamActions {
 
@@ -35,6 +40,11 @@ class AddTeamActions {
 					console.log("action is receiving " + data.message + " message from server");
 					this.actions.addTeamSuccess(data);
 					this.actions.dipslayErrorMessage(data.message);
+					localStorage.setItem('jwt', data.token);	
+					let user = jwt_decode(data.token);
+					console.log(user);	
+					window.location.href = "/" + data.updated_user.username;
+
 				} 
 			})
 			.fail((jqXhr) => {
@@ -45,4 +55,3 @@ class AddTeamActions {
 }
 
 export default alt.createActions(AddTeamActions);
-	

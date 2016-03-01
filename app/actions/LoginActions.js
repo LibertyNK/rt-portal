@@ -3,7 +3,7 @@ import ApiUtils from '../utils/apiUtils';
 import { LOGIN_USER, LOGOUT_USER } from '../constants/ActionTypes';
 import LogInStore from '../stores/LogInStore';
 import RouterContainer from '../services/RouterContainer';
-
+import jwt_decode from 'jwt-decode';
 
 class LogInActions {
 

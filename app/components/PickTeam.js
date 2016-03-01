@@ -49,7 +49,7 @@ export default AuthenticatedComponent(class PickTeam extends React.Component {
 							<Link  to={'/' + this.state.username}><span className='btn btn-large red-btn width_100 btn_color'>Fundraise individially <span className="glyphicon glyphicon-chevron-right arrow-right" aria-hidden="true"></span></span></Link>
 						</div>
 						<div className='col-sm-12'>
-							<Link  params={{ signupNext: "create" }} to='/create-team'><span className='btn btn-large red-btn width_100 btn_color'>Team on a school campus</span></Link>
+							<Link  params={{ signupNext: "create" }} to='/create-team'><span className='btn btn-large red-btn width_100 btn_color'>Start a team</span></Link>
 						</div>
 						<div className='col-sm-12'>
 							<Link params={{ signupNext: "join" }} to='/join_team_form'><span className='btn btn-large red-btn width_100 btn_color'>Join a team</span></Link>

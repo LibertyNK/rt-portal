@@ -78,27 +78,11 @@ module.exports.postTeams = function(req, res, next) {
 
   }
 
-  console.log(newTeam);
 
   Model.Team.create(newTeam)
 
     .then( team => {
-
-      res.status(201).json({team, 'type': 'success', message: 'success'});
-
-
-      //Update User's Team and User's Admin Level
-      console.log("Team info from DB: " + team.uuid + ", team name: " + team.team_name);
-
-
-        Model.User.update(
-        {
-          team_id: team.uuid,
-        },
-        {
-          where: { username: team.leader }
-        })
-      // userController.updateUserTeam(team);
+      userController.updateUserTeam(team);
 
      }).catch(err => {
 
@@ -110,7 +94,6 @@ module.exports.postTeams = function(req, res, next) {
       res.status(400).json({ 'type': 'error', message: err });
 
     });
-
 
 }
 
