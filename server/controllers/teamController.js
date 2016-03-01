@@ -65,6 +65,7 @@ module.exports.postTeams = function(req, res, next) {
     team_name: team_name,
     team_type: team_type,
     color: color,
+    amount_raised: 0,
     goal: goal,
     about: about,
     address1: address1,

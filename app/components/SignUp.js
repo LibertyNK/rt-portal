@@ -57,16 +57,9 @@ class SignUp extends React.Component {
 			SignUpActions.invalidUsername();
 		}
 		
-
-		if (user.username) {
-			this.refs.username.focus();
-			SignUpActions.invalidUsername();
-		}
-
 		if(user.username.match(/\s/g)){
 			this.refs.username.focus();
 			SignUpActions.invalidUsernameSpace();
-
 		}
 		
 		if (!user.email) {
@@ -181,7 +174,7 @@ class SignUp extends React.Component {
 										<div className={'goal_field form-group input-group ' + this.state.validationState.goal}>				
 											
 											<span className="input-group-addon dollar-addon">$</span>
-											<input type='text' className='form-control' ref="goal" onChange={SignUpActions.updateGoal}  placeholder="enter your fundraising goal"/>
+											<input type='number' className='form-control' ref="goal" onChange={SignUpActions.updateGoal}  placeholder="enter your fundraising goal"/>
 										</div>
 										<div className={'form-group ' + this.state.validationState.about}>
 											<span className='help-block'> {this.state.helpBlock.about}</span>

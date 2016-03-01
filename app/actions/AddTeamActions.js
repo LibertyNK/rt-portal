@@ -13,24 +13,32 @@ class AddTeamActions {
 			'addTeamSuccess',
 			'addTeamFail',
 			'updateTeamName',
-			'updateAddress1',
-			'updateAddress2',
-			'updateState',
-			'updateZipcode',
-			'updateCountry',
-			'updateAbout',
-			'updateUsername',
 			'invalidTeamName',
 			'invalidTeamNameLength',
-			'isUniqueTeamName',
-			'invalidAddress1',
-			'invalidAddress2',
-			'invalidState',
-			'invalidZipcode',
-			'invalidCountry',
+			'updateTeamType',
+			'invalidTeamType',
+			'updateColor',
+			'invalidColor',
+			'updateGoal',
+			'invalidGoal',
+			'updateAbout',
 			'invalidAbout',
 			'invalidAboutLength',
-			'dipslayErrorMessage'
+			'updateUsername',
+			'invalidUsername',
+			'invalidUsernameSpace',
+			'updateAddress1',
+			'invalidAddress1',
+			'updateAddress2',
+			'updateCity',
+			'invalidCity',
+			'updateState',
+			'invalidState',
+			'updateZipcode',
+			'invalidZipcode',
+			'updateCountry',
+			'invalidCountry',
+			'displayErrorMessage'
 		);
 	}
 
@@ -40,7 +48,7 @@ class AddTeamActions {
 				if(data.type === 'success') {
 					console.log("action is receiving " + data.message + " message from server");
 					this.actions.addTeamSuccess(data);
-					this.actions.dipslayErrorMessage(data.message);
+					this.actions.displayErrorMessage(data.message);
 					localStorage.setItem('jwt', data.token);	
 					let user = jwt_decode(data.token);	
 					window.location.href = "/" + user.username;

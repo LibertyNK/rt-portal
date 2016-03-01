@@ -26,7 +26,7 @@ var attributes = {
     type: Sequelize.STRING,
   },
   goal: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
   },
   about: {
     type: Sequelize.TEXT,

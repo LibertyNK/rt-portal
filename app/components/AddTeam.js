@@ -66,9 +66,44 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 			AddTeamActions.invalidTeamName();
 		}
 
-		if (team.team_name.length < 3 || team.team_name.length > 50) {
+		if (team.team_name.length < 3 || team.team_name.length > 70) {
 			this.refs.team_name.focus();
 			AddTeamActions.invalidTeamNameLength();
+		}
+
+		if (!team.team_type) {
+			this.refs.team_type.focus();
+			AddTeamActions.invalidTeamType();
+		}
+
+		if (!team.color) {
+			this.refs.color.focus();
+			AddTeamActions.invalidColor();
+		}
+
+		if (!team.goal) {
+			this.refs.goal.focus();
+			AddTeamActions.invalidGoal();
+		}
+
+		if (!team.username) {
+			this.refs.username.focus();
+			AddTeamActions.invalidUsername();
+		}
+		
+		if(team.username.match(/\s/g)){
+			this.refs.username.focus();
+			AddTeamActions.invalidUsernameSpace();
+		}
+
+		if (team.about.length < 5 || team.about.length > 500) {
+			this.refs.about.focus();
+			AddTeamActions.invalidAboutLength();
+		}
+
+		if (!team.about) {
+			this.refs.about.focus();
+			AddTeamActions.invalidAbout();
 		}
 
 		if (!team.address1) {
@@ -76,11 +111,10 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 			AddTeamActions.invalidAddress1();
 		}
 
-		if (!team.address2) {
-			this.refs.address2.focus();
-			AddTeamActions.invalidAddress2();
+		if (!team.team_city) {
+			this.refs.team_city.focus();
+			AddTeamActions.invalidCity();
 		}
-
 		if (!team.team_state) {
 			this.refs.team_state.focus();
 			AddTeamActions.invalidState();
@@ -96,15 +130,9 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 			AddTeamActions.invalidCountry();
 		}
 
-		if (!team.about) {
-			this.refs.about.focus();
-			AddTeamActions.invalidAbout();
-		}
 
-		if (team.about.length < 5 || team.about.length > 500) {
-			this.refs.about.focus();
-			AddTeamActions.invalidAboutLength();
-		}
+
+
 
 		// console.log("Error message state now is " + this.state.errorMessageState);
 		// console.log("Validation state now is " + this.state.validationState.team_name);
@@ -170,7 +198,7 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 						<div className={'goal_field form-group input-group ' + this.state.validationState.goal}>				
 							
 							<span className="input-group-addon dollar-addon">$</span>
-							<input type='text' className='form-control' ref="goal" onChange={AddTeamActions.updateGoal}  placeholder="enter your team's fundraising goal"/>
+							<input type='number' className='form-control' ref="goal" onChange={AddTeamActions.updateGoal}  placeholder="enter your team's fundraising goal"/>
 						</div>
 						<div className={'form-group ' + this.state.validationState.about}>
 							<span className='help-block'> {this.state.helpBlock.about}</span>
@@ -188,7 +216,7 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 							</div>
 							<div className={'form-group ' + this.state.validationState.team_city}>
 								<span className='help-block'> {this.state.helpBlock.team_city}</span>
-								<input type='text' className='form-control' ref="team_city" placeholder="City" onChange={AddTeamActions.updateTeamCity}/>
+								<input type='text' className='form-control' ref="team_city" placeholder="City" onChange={AddTeamActions.updateCity}/>
 							</div>
 							<div className={'form-group ' + this.state.validationState.team_state}>
 								<span className='help-block'> {this.state.helpBlock.team_state}</span>
