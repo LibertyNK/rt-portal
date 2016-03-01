@@ -19,6 +19,7 @@ class AddTeamActions {
 			'updateZipcode',
 			'updateCountry',
 			'updateAbout',
+			'updateUsername',
 			'invalidTeamName',
 			'invalidTeamNameLength',
 			'isUniqueTeamName',
@@ -41,9 +42,8 @@ class AddTeamActions {
 					this.actions.addTeamSuccess(data);
 					this.actions.dipslayErrorMessage(data.message);
 					localStorage.setItem('jwt', data.token);	
-					let user = jwt_decode(data.token);
-					console.log(user);	
-					window.location.href = "/" + data.updated_user.username;
+					let user = jwt_decode(data.token);	
+					window.location.href = "/" + user.username;
 
 				} 
 			})
@@ -51,6 +51,7 @@ class AddTeamActions {
 				this.actions.addTeamFail(jqXhr.responseJSON.message);
 				console.log("Error message from server: " + jqXhr.responseJSON.message);
 			});
+
 	}
 }
 

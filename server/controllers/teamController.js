@@ -82,7 +82,7 @@ module.exports.postTeams = function(req, res, next) {
   Model.Team.create(newTeam)
 
     .then( team => {
-      userController.updateUserTeam(team);
+      userController.updateUserTeam(team, res, next);
 
      }).catch(err => {
 

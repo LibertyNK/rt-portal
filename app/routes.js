@@ -38,10 +38,9 @@ export default (
 	   <Route name="dashboard" path='/dashboard' component={Dashboard} />
 	   <Route name="create-team" path='/create-team' component={AddTeam} />
 	   <Route name="join-team" path='/join-team' component={JoinTeamForm} />
-	   <Route name="update_team" path='/update_team' component={UpdateTeamSettings} />
+	   <Route name="update_team" path='/update-team' component={UpdateTeamSettings} />
 	   <Route name="update-profile" path='/update-profile' component={UpdateProfileSettings} />
 	   <Route name="pick-team" path='/pick-team' component={PickTeam} />
-	   <Route name="update_profile" path='/update_profile' component={UpdateProfile} />
 	   <Route name="profile" path='/:username' component={Profile} />
 	   <Route name="404" path='/error' component={ErrorPage} />
  	</Route>

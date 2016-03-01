@@ -13,6 +13,7 @@ class AddTeamStore {
     	this.zipcode = '';
       this.country = '';
     	this.about = '';
+      this.username = '';
 
     
     	this.helpBlock = {
@@ -100,6 +101,9 @@ class AddTeamStore {
 
   onUpdateAbout(event) {
    	this.about = event.target.value;
+  }
+  onUpdateUsername(event) {
+    this.username = event.target.value;
   }
 
   onInvalidAbout() {

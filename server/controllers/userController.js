@@ -183,29 +183,43 @@ module.exports.updateUserTeamKey = function(req, res, next) {
  */
 module.exports.updateUserTeam = function (req, res, next) {
 
-  // console.log("this is team info passing from teamController: " + req.team_name);
 
   Model.User.find({ where: { username: req.leader } })
-    .then(user => {
-      Model.User.update({
-        team_uuid: req.uuid,
-        admin_level: 2
-      },
-      {
-        where: { username: req.leader }
-      })
-        .then(updated_user => {
-          res.status(201).json({updated_user, 'type': 'success', message: "successfully updated user's team"});
-        })
-        .catch(error => {
-          console.log(error);
-          // res.status(400).json({ 'type': 'error', message: error });
-        });
+  .then(updated_user => {
+    Model.User.update({
+      team_uuid: req.uuid,
+      admin_level: 2
+    },
+    {
+      where: { username: req.leader }
     })
-    .catch(err => {
-      console.log(err);
-      // res.status(400).json({ 'type': 'error', message: err});
+    .then(user => {
+      console.log(req.team_name);
+      console.log(req.username);
+
+      let token = jwt.sign({ 
+        username: updated_user.username, 
+        first_name: updated_user.first_name, 
+        last_name: updated_user.last_name,
+        admin_level: 2, 
+        team_uuid: req.uuid,
+        team_username: req.username  
+      }, 
+        'secrettoken', { expiresIn: 86400});
+
+
+        res.status(201).json({token: token, 'type': 'success', message: "successfully updated user's team"});
+      }).catch(error => {
+      console.log(error);
+      res.status(400).json({ 'type': 'error', message: error });
     });
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(400).json({ 'type': 'error', message: error });
+  });
+
+
 }
 
 /**
