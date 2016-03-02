@@ -204,6 +204,23 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 							<span className='help-block'> {this.state.helpBlock.about}</span>
 							<textarea className='form-control' ref="about" onChange={AddTeamActions.updateAbout} placeholder="In 340 characters, write a brief description of why YOU are fundraising."></textarea>
 						</div>
+
+						<div className="input-padded-spacing">
+							<div className={this.state.validationState.username}>
+								<span className='help-block '>{this.state.helpBlock.username}</span>
+							</div>
+							<div className={'input-group form-group url_field ' + this.state.validationState.username}>	
+									<span className="input-group-addon " id="basic-addon3">www.rescueteams.org/team/</span>
+									<input type='text' className='form-control ' ref="username" onChange={AddTeamActions.updateUsername} placeholder="Custom Url" aria-describedby="basic-addon3"/>
+								
+							</div>
+							<div>
+								<span className='help-block under_text '>Custom Url must not contain spaces</span>
+								
+							</div>
+
+					
+						</div>			
 						<div className="input-padded-spacing">
 							<label className='control-label'>Team Address</label>	
 							<div className={'form-group ' + this.state.validationState.address1}>
@@ -232,22 +249,7 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 							</div>
 						
 						</div>		
-						<div className="input-padded-spacing">
-							<div className={this.state.validationState.username}>
-								<span className='help-block '>{this.state.helpBlock.username}</span>
-							</div>
-							<div className={'input-group form-group url_field ' + this.state.validationState.username}>	
-									<span className="input-group-addon " id="basic-addon3">www.rescueteams.org/team/</span>
-									<input type='text' className='form-control ' ref="username" onChange={AddTeamActions.updateUsername} placeholder="Custom Url" aria-describedby="basic-addon3"/>
-								
-							</div>
-							<div>
-								<span className='help-block under_text '>Custom Url must not contain spaces</span>
-								
-							</div>
-
-					
-						</div>			
+						
 						<p className='text-left'><button type='submit' className='btn btn-large red-btn width_100 btn_color'>Create your new team! <span className="glyphicon glyphicon-chevron-right arrow-right" aria-hidden="true"></span></button></p>
 
 					</form>

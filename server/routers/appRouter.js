@@ -61,7 +61,7 @@ module.exports = function(express) {
     .get(teamController.getTeams);
 
   // Endpoint handlers for fetching, updating, and deleting specific team
-  router.route('/teams/teamId/:team_id')
+  router.route('/team/teamId/:team_id')
     .get(teamController.getTeam)
     .put(teamController.putTeam)
     .delete(teamController.deleteTeam);

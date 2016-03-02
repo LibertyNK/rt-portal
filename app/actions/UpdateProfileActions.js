@@ -38,9 +38,6 @@ class UpdateProfileActions {
 			.done((data) => {
 				if(data.type == 'success') {
 					console.log(data);
-
-					localStorage.setItem('jwt', data.token);	
-					let user = jwt_decode(data.token);
 					window.location.href ='/update-profile';
 				
 				} else {

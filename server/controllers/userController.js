@@ -120,8 +120,8 @@ module.exports.putUser = function(req, res, next) {
 
   .then( user => {
 
-    let token = jwt.sign({ username: req.body.username, first_name: req.body.first_name, last_name: req.body.last_name, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
-    res.status(201).json({token: token, 'type': 'success', message: 'successfully updated user'});
+    
+    res.status(201).json({user, 'type': 'success', message: 'successfully updated user'});
    
   })
   .catch( err => {
@@ -243,7 +243,8 @@ module.exports.getUserByUsername = function (req, res, next) {
                   amount_raised: user.amount_raised,
                   goal: user.goal,
                   about: user.about,
-                  level: user.admin_level
+                  level: user.admin_level,
+                  team_uuid: user.team_uuid
                 },
           'type': 'success',
           message: 'Successfully retrieved user'});

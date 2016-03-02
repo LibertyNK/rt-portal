@@ -25,9 +25,10 @@ module.exports.getTeams = function(req, res, next) {
  */
 
 module.exports.getTeam = function(req, res, next) {
-
+   console.log("made it to the get team, also there is this: " + req.params.team_id);
   Model.Team.findById(req.params.team_id)
   .then(team => {
+    console.log("got the team. see: " + team);
     res.status(200).json({team, 'type': 'success', message: 'success'});
   })
   .catch(err => {
