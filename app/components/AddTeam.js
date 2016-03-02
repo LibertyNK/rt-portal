@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ColorPicker from 'react-colors-picker';
 import AddTeamActions from '../actions/AddTeamActions';
 import AddTeamStore from '../stores/AddTeamStore';
 import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
@@ -14,12 +14,14 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 		this.state = AddTeamStore.getState();
 		this.onChange = this.onChange.bind(this);
 		this._load = this._load.bind(this);
+		this.changeHandler = this.changeHandler.bind(this);
+		this.color = '#dd3928';
 	}
-
 
 	componentDidMount() {
 		this._load();
 		AddTeamStore.listen(this.onChange);
+
 	}
 
 	componentWillUnmount() {
@@ -38,13 +40,20 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 		this.setState(state);
 	}
 
+	changeHandler (colors) {
+	  console.log(colors.color);
+
+	  this.color = colors.color;
+
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
 							
 		var team = {
 			team_name: this.state.team_name,
 			team_type: this.state.team_type,
-			color: this.state.color,
+			color: this.color,
 			goal: this.state.goal,
 			about: this.state.about,
 			address1: this.state.address1,
@@ -149,6 +158,8 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 	
 	render() {
 
+
+
 		return (
 
 	<div className="pre_head_padding">
@@ -184,12 +195,32 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 
 						<div className={'form-group ' + this.state.validationState.team_type}>
 							<span className='help-block'> {this.state.helpBlock.team_type}</span>
-							<input type='text' className='form-control' ref="team_type" placeholder="Team Type"  onChange={AddTeamActions.updateTeamType} />
+							<select class="form-control" ref="team_type" placeholder="Team Type"  onChange={AddTeamActions.updateTeamType}>
+								<option value="">Team Type</option>
+								<option value="High School">High School</option>
+								<option value="College/University">College/University</option>
+								<option value="Community">Community</option>
+								<option value="Business">Business</option>
+								<option value="Religious Institution">Religious Institution</option>
+							</select>
 						</div>
 
 						<div className={'form-group ' + this.state.validationState.color}>
 							<span className='help-block'> {this.state.helpBlock.color}</span>
-							<input type='text' className='form-control' ref="color" placeholder="Team Color"  onChange={AddTeamActions.updateColor} />
+
+
+							<div className="color_input">
+								Select color
+								<div className="colorPicker_box">
+									<ColorPicker color={'#dd3928'} alpha={100}  ref="color" placement="topRight" trigger={<span className='react-colorpicker-trigger colorBox-square'></span>}
+									onChange={this.changeHandler}
+						    	/>
+						    	</div>
+							</div>
+							
+
+							
+
 						</div>
 
 						<div className={this.state.validationState.goal}>
