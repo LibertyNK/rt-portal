@@ -74,7 +74,7 @@ module.exports.postUsers = function(req, res, next) {
 
   Model.User.create(newUser)
     .then(user => {
-      let token = jwt.sign({ username: user.username, first_name: user.first_name, last_name: user.last_name, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
+      let token = jwt.sign({ username: user.username, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
       res.status(201).json({token : token, 'type': 'success', message: 'success'});
     })
     .catch(err => {
@@ -92,7 +92,6 @@ module.exports.postUsers = function(req, res, next) {
  */
 module.exports.putUser = function(req, res, next) {
 
-
   let first_name = req.body.first_name
   let last_name = req.body.last_name
   let username = req.body.username
@@ -104,7 +103,6 @@ module.exports.putUser = function(req, res, next) {
   // Fills in blank for any blank fields from form
   Model.User.update(
   {
-
     first_name: first_name,
     last_name: last_name,
     username: username,
@@ -118,13 +116,13 @@ module.exports.putUser = function(req, res, next) {
 
 
 
-  .then( user => {
-
-    
-    res.status(201).json({user, 'type': 'success', message: 'successfully updated user'});
+  .then(user => {
+   
+     let token = jwt.sign({ username: req.body.username, team_uuid: req.body.team_uuid }, 'secrettoken', { expiresIn: 86400});
+    res.status(201).json({token: token, user, 'type': 'success', message: 'successfully updated user'});
    
   })
-  .catch( err => {
+  .catch(err => {
     res.status(400).json({ 'type': 'error', message: err });
   })
 }
@@ -243,7 +241,7 @@ module.exports.getUserByUsername = function (req, res, next) {
                   amount_raised: user.amount_raised,
                   goal: user.goal,
                   about: user.about,
-                  level: user.admin_level,
+                  admin_level: user.admin_level,
                   team_uuid: user.team_uuid
                 },
           'type': 'success',

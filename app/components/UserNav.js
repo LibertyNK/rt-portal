@@ -9,7 +9,7 @@ export default AuthenticatedComponent (class Navigation extends React.Component 
 		super(props);
 		this._load = this._load.bind(this);
 		this._getTeam = this._getTeam.bind(this);
-		this.state = {username: '', first_name: '', last_name: '', goal: '', about: '', team_uuid: '', team_username: ''};
+		this.state = {username: '', first_name: '', last_name: '', goal: '', about: '', team_uuid: '', team_username: '', admin_level: ''};
 
 	}
 
@@ -33,10 +33,7 @@ export default AuthenticatedComponent (class Navigation extends React.Component 
 	 	.fail((jqXhr) => {
 	 		console.log('Error Message from server: '+ jqXhr.responseJSON.message);
 	 	});	
-
-	 	
-
-	 	
+	
 	}
 
 	_getTeam() {
@@ -64,7 +61,7 @@ export default AuthenticatedComponent (class Navigation extends React.Component 
 							<li className=""><Link to='update-profile'><div className="edit_buttons">Edit Your Page  <span className="glyphicon glyphicon-pencil"></span></div></Link></li>
 							<li className=""><Link to={'/team/' + this.state.team_username}><div className="edit_buttons">View Your Team Page  <span className="glyphicon glyphicon-user"></span></div></Link></li>
 
-							{this.props.user.admin_level === 2 ? 
+							{this.state.admin_level === 2 ? 
 
 								<li className=""><Link to='update-team'><div className="edit_buttons">Edit Your Team Page  <span className="	glyphicon glyphicon-pencil"></span></div></Link></li>
 							:
