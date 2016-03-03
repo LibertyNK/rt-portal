@@ -28,11 +28,14 @@ class Team extends React.Component {
 	}
 
 	render() {
-
-
-
-		var style = {
+		var progress = {
 		    width: ((this.state.team.amount_raised / this.state.team.goal) * 100) + "%" 
+		};
+
+		var team_border = {
+		    borderColor: (this.state.team.color),
+		    borderWidth: 10
+    		
 		};
 
 		return (
@@ -64,18 +67,13 @@ class Team extends React.Component {
 					<div className="profile_box_left">
 						<div className="col-md-12 profile_card">
 							<div className="row ">
-								<div className="col-md-4">
-
-
+								<div className="col-md-3 ">
+								</div>
+								<div className="col-md-6 team_image">
+									<img className="" src="../img/rt-cook_logo.jpg" />
 								</div>
 
-								<div className="col-md-4 team_image">
-									<img className="" src="../img/rt-cook_logo.jpg.png" />
-								</div>
-
-								<div className="col-md-4">
-									
-								</div>
+		
 
 							</div>
 
@@ -152,7 +150,7 @@ class Team extends React.Component {
 								<div className="col-md-10 center-box padding-top-space-30px">
 									<div className="thermometer">
 
-										<div className="therm_progress" style={style}>
+										<div className="therm_progress" style={progress}>
 										</div>
 									</div>	
 								</div>
@@ -186,34 +184,33 @@ class Team extends React.Component {
 						</div>
 					</div>
 
-					<div className="donation_box_full">
-						
-						<div className="container">
-							<div className="row">
-								<div className="col-md-12 text-center margin_0_auto">
-									
-									<h2>DONATIONS</h2>
-										
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="donation_box_full">
-						<div className="container">
-							<div className="row">
-								<div className="col-md-6 text-left">
-									
-									<h4>Donor Name <span>Donated ###</span></h4>
-										
-								</div>
 
-								<div className="col-md-6 text-right text-right-left">
+					<div className="map_background_white">
+
+						<div className="container">
+							<div className="row">
+								<div className="col-md-12 about_team_card">
+
+								
+									<img src="../img/team_banner.jpg" />
 									
-									<h4>Time and date donation happened</h4>
-										
+									<div className="team_card_padding" style={team_border}>
+
+										<div className="col-md-8">
+
+											<h3>About our team</h3>
+
+											<p>{this.state.team.about}</p>
+										</div>
+
+										<div className="col-md-4">
+											<h3>Get involved!</h3>
+										</div>
+									</div>
+									
 								</div>
+							
 							</div>
-				
 						</div>
 					</div>
 				</div>
