@@ -15,7 +15,7 @@ class Team extends React.Component {
 	}
 
 	_load() {
-		console.log(this.props.params.team_name);
+		console.log(this.props.params.team_uuid);
 	 	ApiUtils.findTeam(this.props.params.team_name)
 	 		.done((data) => {
 	 			this.setState(data);

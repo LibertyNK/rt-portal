@@ -19,6 +19,15 @@ var attributes = {
                 }
             }
   },
+  team_type: {
+    type: Sequelize.STRING,
+  },
+  color: {
+    type: Sequelize.STRING,
+  },
+  goal: {
+    type: Sequelize.INTEGER,
+  },
   about: {
     type: Sequelize.TEXT,
   },
@@ -37,6 +46,9 @@ var attributes = {
   address2: {
     type: Sequelize.STRING, 
   },
+  team_city: {
+    type: Sequelize.STRING, 
+  },
   team_state: {
     type: Sequelize.STRING, 
   },
@@ -44,6 +56,9 @@ var attributes = {
     type: Sequelize.STRING, 
   },
   country: {
+    type: Sequelize.STRING, 
+  },
+  username: {
     type: Sequelize.STRING, 
   },
   leader: {

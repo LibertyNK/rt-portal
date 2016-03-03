@@ -61,7 +61,7 @@ module.exports = function(express) {
     .get(teamController.getTeams);
 
   // Endpoint handlers for fetching, updating, and deleting specific team
-  router.route('/teams/teamId/:team_id')
+  router.route('/team/teamId/:team_id')
     .get(teamController.getTeam)
     .put(teamController.putTeam)
     .delete(teamController.deleteTeam);
@@ -79,7 +79,7 @@ module.exports = function(express) {
       }
       else {
         //user has authenticated correctly thus we create a JWT token
-        let token = jwt.sign({ username: user.username, first_name: user.first_name, last_name: user.last_name }, 'secrettoken', { expiresIn: 86400});
+        let token = jwt.sign({ username: user.username, team_id: user.team_id }, 'secrettoken', { expiresIn: 86400});
         res.status(200).json({ token : token });
 
       }

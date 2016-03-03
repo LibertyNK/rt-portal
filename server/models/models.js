@@ -1,7 +1,7 @@
-var TeamMeta = require('./Team.js')
-var UserMeta = require('./User.js')
-var EventMeta = require('./Event.js')
-var CampaignMeta = require('./Campaign.js')
+var TeamMeta = require('./team.js')
+var UserMeta = require('./user.js')
+var EventMeta = require('./event.js')
+var CampaignMeta = require('./campaign.js')
 
 var sequelize = require('../config/sequelize.js')
 
