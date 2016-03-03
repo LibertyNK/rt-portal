@@ -67,7 +67,14 @@ module.exports = {
 
 	findTeam: function(team_name) {
 		return $.ajax({
-			url: '/teams/teamName/' + team_name,
+			url: '/team/teamName/' + team_name,
+			type: 'GET'
+		})
+	},
+
+	findTeamUsers: function(team_id) {
+		return $.ajax({
+			url: '/users/team/teamId/' + team_id,
 			type: 'GET'
 		})
 	},

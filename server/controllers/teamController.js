@@ -167,15 +167,12 @@ module.exports.deleteTeam = function(req, res, next) {
  * Returns team by name, if exists
  */
 module.exports.getTeamByName = function(req, res, next) {
-
-  Model.Team.find({ where: { team_name: req.params.team_name } })
+      console.log("made it to controller");
+  Model.Team.find({ where: { username: req.params.team_name } })
       .then(team => {
-        console.log(team.team_name);
-        if (team && team.team_name != null) {
-          res.status(201).json({team, 'type': 'success', message: 'Successfully retrieved team'});
-        } else {
-          res.status(400).json({ 'type': 'error', message: 'No such team!' });
-        }
+
+        userController.getUsersByTeam(team, res, next);
+        
 
       })
       .catch(err => {
