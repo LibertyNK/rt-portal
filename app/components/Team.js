@@ -69,8 +69,8 @@ class Team extends React.Component {
 
 								</div>
 
-								<div className="col-md-4 profile_image">
-									<img className="" src="img/profile_blank-1.png" />
+								<div className="col-md-4 team_image">
+									<img className="" src="../img/rt-cook_logo.jpg.png" />
 								</div>
 
 								<div className="col-md-4">
@@ -89,7 +89,7 @@ class Team extends React.Component {
 							</div>
 
 							<div className="row padding-top-space-30px">
-								<div className="col-md-10 text-center">
+								<div className="col-md-10 text-left center-box">
 									<div className="col-md-4 text-left">
 										{this.state.team.team_tier ? 
 											<h3>{this.state.team.team_tier}</h3>
@@ -122,9 +122,9 @@ class Team extends React.Component {
 							</div>
 
 							<div className="row padding-top-space-30px">
-								<div className="col-md-10 text-left center-box">
+								<div className="col-md-10 text-center center-box">
 
-									<p>{this.state.team.about}</p>
+									<p>Please donate, or share our goal</p>
 									
 
 								</div>
