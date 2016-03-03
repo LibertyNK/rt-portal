@@ -283,7 +283,7 @@ class Team extends React.Component {
 								</div>
 							</div>
 
-							<div className="row margin-top-60px">
+							<div className="row margin-top-120px">
 								<div className="col-md-12 text-center">
 									<h2><strong>TEAM MEMBERS</strong></h2>
 								</div>
