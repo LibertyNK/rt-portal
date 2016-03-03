@@ -7,6 +7,7 @@ class Team extends React.Component {
 	constructor(props) {
 		super(props);
 		this._load = this._load.bind(this);
+		this.showTeamNames = this.showTeamNames.bind(this);
 		this.state = {team: {}, users: {}};
 	}
 
@@ -16,15 +17,54 @@ class Team extends React.Component {
 	}
 
 	_load() {
-		console.log(this.props.params.team_name);
 	 	ApiUtils.findTeam(this.props.params.team_name)
 	 		.done((data) => {
 	 			this.setState(data);
-	 			console.log(data);
+	 			this.showTeamNames();
 	 	})
 	 	.fail((jqXhr) => {
 	 		console.log('Error Message from server: ');
 	 	});	
+	}
+
+	showTeamNames() {
+		var showTeamNames = [];
+
+	 	for (var i = 0; i < this.state.users.length; i++) {
+	 		console.log(this.state.users[i].first_name);
+	 		var userProgress = {
+		    	width: ((this.state.users[i].amount_raised / this.state.users[i].goal) * 100) + "%" 
+			};
+
+	 		showTeamNames.push(<div className="col-sm-12 col-sm-offset-0 col-md-3 col-sm-offset-0 white_box_shadow border-staff-green white_box_shadow-4-col text-center ">
+
+	 				<div className="col-md-12 profile_image">
+						<img className="" src="../img/profile_blank-1.png" />
+					</div>
+
+
+	 				<h3>{this.state.users[i].first_name} {this.state.users[i].last_name}</h3>
+	 				<h4><span className="green_font">${this.state.users[i].amount_raised}</span> raised</h4>
+
+	 				<div className="row">
+	 					<div className="col-md-10 center-box padding-top-space-30px">
+	 						<div className="thermometer team_member_therm">
+	 							<div className="therm_progress" style={userProgress}>
+	 							</div>
+ 							</div>
+ 						</div>
+ 					</div>
+ 					<div className="col-md-10 center-box">
+						<p className="">
+							<Link to={'/' + this.state.users[i].username} ><span className="btn btn-primary btn-lg btn-small-green max-width-380 margin_0_auto" >View Profile</span>
+			              	</Link>
+			            </p>
+					</div>
+ 					
+ 				</div>)
+		}
+
+		return showTeamNames;
 	}
 
 	render() {
@@ -34,7 +74,7 @@ class Team extends React.Component {
 
 		var team_border = {
 		    borderColor: (this.state.team.color),
-		    borderWidth: 10
+		    borderWidth: 5
     		
 		};
 
@@ -207,10 +247,57 @@ class Team extends React.Component {
 											<h3>Get involved!</h3>
 										</div>
 									</div>
-									
 								</div>
 							
 							</div>
+
+							<div className="row">
+								<div className="col-md-12 about_team_card">
+
+									<div className="donation_box_full">
+										
+										<div className="container">
+											<div className="row">
+												<div className="col-md-12 text-left ">
+													
+													<h3>Recent Activity</h3>
+														
+												</div>
+											</div>
+										</div>
+									</div>
+									<div className="donation_box_full">
+										<div className="container">
+											<div className="row">
+												<div className="col-md-12 text-left">
+													
+													<h4>Donor Name <span>Donated ###</span> Time and date donation happened</h4>
+														
+												</div>
+
+										
+											</div>
+								
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div className="row margin-top-60px">
+								<div className="col-md-12 text-center">
+									<h2><strong>TEAM MEMBERS</strong></h2>
+								</div>
+								
+
+						    </div>
+							<div className="row team_members">
+
+								{this.showTeamNames()}
+
+						    </div>
+
+
+
 						</div>
 					</div>
 				</div>
