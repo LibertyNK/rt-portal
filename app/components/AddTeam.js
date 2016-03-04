@@ -195,7 +195,7 @@ export default AuthenticatedComponent(class AddTeam extends React.Component {
 
 						<div className={'form-group ' + this.state.validationState.team_type}>
 							<span className='help-block'> {this.state.helpBlock.team_type}</span>
-							<select class="form-control" ref="team_type" placeholder="Team Type"  onChange={AddTeamActions.updateTeamType}>
+							<select className="form-control" ref="team_type" placeholder="Team Type"  onChange={AddTeamActions.updateTeamType}>
 								<option value="">Team Type</option>
 								<option value="High School">High School</option>
 								<option value="College/University">College/University</option>

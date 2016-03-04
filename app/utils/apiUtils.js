@@ -35,7 +35,7 @@ module.exports = {
 	},
 
 	addTeam: function(team) {
-		console.log("sending team to server, team: " +  team.team_name);
+		console.log("addTeam: " +  team.team_name);
 		return $.ajax({
 			url: '/teams',
 			type: 'POST',
@@ -51,7 +51,7 @@ module.exports = {
 	},
 
 	getTeam: function(team_uuid) {
-		console.log("sending team to server, team: " +  team_uuid);
+		console.log("getTeam: " +  team_uuid);
 		return $.ajax({
 			url: '/team/teamId/' + team_uuid,
 			type: 'GET'
@@ -84,6 +84,14 @@ module.exports = {
 			url: '/users/userId/' + user.uuid,
 			type: 'PUT',
 			data: user
+		})
+	},
+
+	updateTeam: function(team) {
+		return $.ajax({
+			url: '/team/teamId/' + team.uuid,
+			type: 'PUT',
+			data: team
 		})
 	},
 
