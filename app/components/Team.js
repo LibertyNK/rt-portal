@@ -29,7 +29,7 @@ class Team extends React.Component {
 
 	showTeamNames() {
 		var showTeamNames = [];
-
+		
 	 	for (var i = 0; i < this.state.users.length; i++) {
 	 		console.log(this.state.users[i].first_name);
 	 		var userProgress = {
