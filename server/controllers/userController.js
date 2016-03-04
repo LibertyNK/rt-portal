@@ -1,7 +1,8 @@
 var bcrypt = require('bcrypt');
 var Model = require('../models/models.js');
 var SFAPI = require('../SFAPICalls.js')
-
+var expressJWT = require('express-jwt');
+var jwt = require('jsonwebtoken');
 
 /**
  * GET /users
@@ -43,8 +44,6 @@ module.exports.getUser = function(req, res, next) {
  */
 module.exports.postUsers = function(req, res, next) {
 
-  console.log("hai");
-
   let email = req.body.email;
   let password = req.body.password;
   let password2 = req.body.password_conf;
@@ -67,12 +66,17 @@ module.exports.postUsers = function(req, res, next) {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     username: req.body.username,
-    admin_level: 2
+    amount_raised: 0,
+    goal: req.body.goal,
+    about: req.body.about,
+    team_uuid: null,
+    admin_level: 3
   }
 
   Model.User.create(newUser)
     .then(user => {
-      res.status(201).json({username: user.username, 'type': 'success', message: 'success'});
+      let token = jwt.sign({ username: user.username, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
+      res.status(201).json({token : token, 'type': 'success', message: 'success'});
     })
     .catch(err => {
       // Add some more error handling for different user creation errors here.
@@ -89,30 +93,37 @@ module.exports.postUsers = function(req, res, next) {
  */
 module.exports.putUser = function(req, res, next) {
 
-  // New params
-  let email = req.body.email
-  let password = req.body.password
-  let salt = bcrypt.genSaltSync(10)
-  let hashedPassword = bcrypt.hashSync(password, salt)
   let first_name = req.body.first_name
   let last_name = req.body.last_name
+  let username = req.body.username
+  let goal = req.body.goal
+  let about = req.body.about
+  let team_uuid = req.body.team_uuid
+
 
   // Fills in blank for any blank fields from form
   Model.User.update(
   {
-    email: email,
-    salt: salt,
-    password: hashedPassword,
     first_name: first_name,
-    last_name: last_name
+    last_name: last_name,
+    username: username,
+    goal: goal,
+    about: about,
+    team_uuid: team_uuid
   },
   {
     where: { uuid: req.params.user_id }
   })
-  .then( user => {
-    res.status(201).json({user, 'type': 'success', message: 'successfully updated user'});
+
+
+
+  .then(user => {
+   
+     let token = jwt.sign({ username: req.body.username, team_uuid: req.body.team_uuid }, 'secrettoken', { expiresIn: 86400});
+    res.status(201).json({token: token, user, 'type': 'success', message: 'successfully updated user'});
+   
   })
-  .catch( err => {
+  .catch(err => {
     res.status(400).json({ 'type': 'error', message: err });
   })
 }
@@ -171,29 +182,43 @@ module.exports.updateUserTeamKey = function(req, res, next) {
  */
 module.exports.updateUserTeam = function (req, res, next) {
 
-  // console.log("this is team info passing from teamController: " + req.team_name);
 
-  Model.User.find({ where: { email: req.leader } })
-    .then(user => {
-      Model.User.update({
-        team_uuid: req.uuid,
-        admin_level: 2
-      },
-      {
-        where: { email: req.leader }
-      })
-        .then(updated_user => {
-          res.status(201).json({updated_user, 'type': 'success', message: "successfully updated user's team"});
-        })
-        .catch(error => {
-          console.log(error);
-          // res.status(400).json({ 'type': 'error', message: error });
-        });
+  Model.User.find({ where: { username: req.leader } })
+  .then(updated_user => {
+    Model.User.update({
+      team_uuid: req.uuid,
+      admin_level: 2
+    },
+    {
+      where: { username: req.leader }
     })
-    .catch(err => {
-      console.log(err);
-      // res.status(400).json({ 'type': 'error', message: err});
+    .then(user => {
+      console.log(req.team_name);
+      console.log(req.username);
+
+      let token = jwt.sign({ 
+        username: updated_user.username, 
+        first_name: updated_user.first_name, 
+        last_name: updated_user.last_name,
+        admin_level: 2, 
+        team_uuid: req.uuid,
+        team_username: req.username  
+      }, 
+        'secrettoken', { expiresIn: 86400});
+
+
+        res.status(201).json({token: token, 'type': 'success', message: "successfully updated user's team"});
+      }).catch(error => {
+      console.log(error);
+      res.status(400).json({ 'type': 'error', message: error });
     });
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(400).json({ 'type': 'error', message: error });
+  });
+
+
 }
 
 /**
@@ -212,8 +237,13 @@ module.exports.getUserByUsername = function (req, res, next) {
                   username: user.username,
                   first_name: user.first_name,
                   last_name: user.last_name,
-                  user_id: user.uuid,
-                  level: user.admin_level
+                  email: user.email,
+                  uuid: user.uuid,
+                  amount_raised: user.amount_raised,
+                  goal: user.goal,
+                  about: user.about,
+                  admin_level: user.admin_level,
+                  team_uuid: user.team_uuid
                 },
           'type': 'success',
           message: 'Successfully retrieved user'});

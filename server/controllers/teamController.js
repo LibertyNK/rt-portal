@@ -25,9 +25,10 @@ module.exports.getTeams = function(req, res, next) {
  */
 
 module.exports.getTeam = function(req, res, next) {
-
+   console.log("made it to the get team, also there is this: " + req.params.team_id);
   Model.Team.findById(req.params.team_id)
   .then(team => {
+    console.log("got the team. see: " + team);
     res.status(200).json({team, 'type': 'success', message: 'success'});
   })
   .catch(err => {
@@ -45,12 +46,17 @@ module.exports.getTeam = function(req, res, next) {
 module.exports.postTeams = function(req, res, next) {
 
   let team_name = req.body.team_name,
+      team_type = req.body.team_type,
+      color = req.body.color,
+      goal = req.body.goal,
+      about = req.body.about,
       address1 = req.body.address1,
       address2 = req.body.address2,
+      team_city = req.body.team_city,
       team_state = req.body.team_state,
       zipcode = req.body.zipcode,
       country = req.body.country,
-      about = req.body.about,
+      username = req.body.username,
       leader = req.body.leader;
 
   //validate team inputs here
@@ -58,29 +64,27 @@ module.exports.postTeams = function(req, res, next) {
 
   let newTeam = {
     team_name: team_name,
+    team_type: team_type,
+    color: color,
+    amount_raised: 0,
+    goal: goal,
+    about: about,
     address1: address1,
     address2: address2,
+    team_city: team_city,
     team_state: team_state,
     zipcode: zipcode,
     country: country,
-    about: about,
+    username: username,
     leader: leader
 
   }
 
-  console.log(newTeam);
 
   Model.Team.create(newTeam)
 
     .then( team => {
-
-      res.status(201).json({team, 'type': 'success', message: 'success'});
-
-
-      //Update User's Team and User's Admin Level
-      console.log("Team info from DB: " + team.uuid + ", team name: " + team.team_name);
-
-      // userController.updateUserTeam(team);
+      userController.updateUserTeam(team, res, next);
 
      }).catch(err => {
 
@@ -92,7 +96,6 @@ module.exports.postTeams = function(req, res, next) {
       res.status(400).json({ 'type': 'error', message: err });
 
     });
-
 
 }
 

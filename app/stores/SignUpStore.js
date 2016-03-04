@@ -1,6 +1,7 @@
 import alt from '../alt';
 import SignUpActions from '../actions/SignUpActions';
 
+
 class SignUpStore {
  
 
@@ -14,17 +15,20 @@ class SignUpStore {
     this.first_name = '';
     this.last_name = '';
     this.username = '';
+    this.goal = '';
+    this.about = '';
     this.helpBlock = {
-      first_name: '',
-      last_name: '',
-      username: '',
-      email: '',
-      password: '',
-      password_length: '',
-      password_conf:'',
-      matching_passwords:''
-    };
 
+        first_name: '',
+        last_name: '',
+        username: '',
+        email: '',
+        password: '',
+        password_length: '',
+        password_conf:'',
+        matching_passwords:'',
+        goal:''
+     };
     this.validationState = {
       first_name: '',
       last_name: '',
@@ -33,8 +37,9 @@ class SignUpStore {
       password: '',
       password_length: '',
       password_conf:'',
-      matching_passwords:''
-    };
+      matching_passwords:'',
+      goal:''
+   };
 
     this.errorMessage = [];
     this.errorMessageState = '';
@@ -43,6 +48,9 @@ class SignUpStore {
 
   onUpdateFirstName(event) {
   	this.first_name = event.target.value;
+    if (this.first_name !== '') {
+      this.validationState.first_name = 'has-success';
+    }
   }
 
   onInvalidFirstName() {
@@ -64,23 +72,36 @@ class SignUpStore {
 
   onUpdateUsername(event) {
     this.username = event.target.value;
-    if (this.username !== '') {
-      this.validationState.username = 'has-success';
-    }
+
   }
 
   onInvalidUsername() {
     this.validationState.username = 'has-error';
-    this.helpBlock.username = "Username can't be blank!";
+    this.helpBlock.username = "Username is invalid or already taken";
+  }
+
+  onInvalidUsernameSpace() {
+    this.validationState.username = 'has-error';
+    this.helpBlock.username = "Username must NOT contain spaces";
   }
 
   onUpdateEmail(event) {
     this.email = event.target.value;
+
   }
 
   onInvalidEmail() {
     this.validationState.email = 'has-error';
     this.helpBlock.email = 'Please enter an email address';
+  }
+
+  onUpdateGoal(event) {
+    this.goal = event.target.value;
+  }
+
+  onInvalidGoal() {
+    this.validationState.goal = 'has-error';
+    this.helpBlock.goal = 'Please enter goal amount';
   }
 
   onUpdatePassword(event) {
@@ -111,6 +132,10 @@ class SignUpStore {
     this.helpBlock.matching_passwords = "Passwords are not matching!";
   }
 
+  onUpdateAbout(event) {
+    this.about = event.target.value;
+  }
+
   onSignUpSuccess(data) {
 
     this.errorMessage = data.message;
@@ -119,11 +144,6 @@ class SignUpStore {
 
       //redirect to All Teams Page or User Dashboard
       // window.location.href = '/new_team';
-      console.log(data.username);
-      localStorage.setItem('user', data.username);
-      var user = localStorage.getItem('user');
-
-      console.log(localStorage.user);
 
 
     } else {

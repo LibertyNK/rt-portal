@@ -37,10 +37,13 @@ export default AuthenticatedComponent (class Navigation extends React.Component 
     const user = this.props.user;
 
     return (
-      <Navbar inverse>
+    <div>
+      
         {user && 
           <UserNav /> 
         }
+      <Navbar inverse>
+
         <Navbar.Header>
           <Navbar.Brand>
             <div className='navbar-brand'><Link to='/'>
@@ -73,6 +76,7 @@ export default AuthenticatedComponent (class Navigation extends React.Component 
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+    </div>
     );
   }
 });

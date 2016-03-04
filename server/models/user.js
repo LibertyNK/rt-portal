@@ -56,6 +56,21 @@ var attributes = {
   },
   last_login: {
     type: Sequelize.DATE,
+  },
+  amount_raised: {
+    type: Sequelize.INTEGER,
+  },
+  goal: {
+    type: Sequelize.INTEGER,
+  },
+  about: {
+    type: Sequelize.TEXT,
+    validate: {
+          len: [0,340]
+      }
+  },
+  team_uuid: {
+    type: Sequelize.UUID,
   }
 }
 

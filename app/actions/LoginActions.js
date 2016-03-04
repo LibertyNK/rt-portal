@@ -37,7 +37,7 @@ class LogInActions {
 			this.actions.logInSuccess(response.token);
 			localStorage.setItem('jwt', response.token);	
 			let user = jwt_decode(response.token);		
-			window.location.href = '/member/' + user.username;
+			window.location.href = '/' + user.username;
 		})
 		.fail((jqXhr) => {
 			this.actions.logInFail(jqXhr.responseJSON.message);
