@@ -66,6 +66,9 @@ var attributes = {
     // references: 'users',
     // referencesKey: 'id'
 
+  },
+  salesforce_id: {
+    type: Sequelize.STRING
   }
 }
 

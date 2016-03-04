@@ -71,6 +71,9 @@ var attributes = {
   },
   team_uuid: {
     type: Sequelize.UUID,
+  },
+  salesforce_id: {
+    type: Sequelize.STRING
   }
 }
 
