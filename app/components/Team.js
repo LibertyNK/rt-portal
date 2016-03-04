@@ -126,9 +126,17 @@ class Team extends React.Component {
 								</div>
 							</div>
 
-							<div className="row padding-top-space-30px">
-								<div className="col-md-10 text-left center-box">
-									<div className="col-md-4 text-left">
+							<div className="row ">
+								<div className="col-md-6 text-center center-box">
+
+									<div className="divider_team" ></div>
+
+								</div>
+							</div>
+
+							<div className="row">
+								<div className="col-md-12 text-center center-box team_profile">
+									<div className="col-md-4 text-center ">
 										{this.state.team.team_tier ? 
 											<h3>{this.state.team.team_tier}</h3>
 
@@ -141,14 +149,14 @@ class Team extends React.Component {
 										
 
 									</div>
-									<div className="col-md-4 text-left">
+									<div className="col-md-4 text-center">
 
-										<h3>${this.state.team.amount_raised}</h3>
+										<h3 className="green_font">${this.state.team.amount_raised}</h3>
 										<p>Amount raised</p>
 										
 
 									</div>
-									<div className="col-md-4 text-left">
+									<div className="col-md-4 text-center ">
 
 										<h3>{this.state.users.length}</h3>
 										<p>Members</p>
@@ -159,18 +167,22 @@ class Team extends React.Component {
 								</div>
 							</div>
 
+							<div className="row ">
+								<div className="col-md-6 text-center center-box">
+
+									<div className="divider_team" ></div>
+
+								</div>
+							</div>
+
 							<div className="row padding-top-space-30px">
 								<div className="col-md-10 text-center center-box">
 
 									<p>Please donate, or share our goal</p>
 									
-
 								</div>
 							</div>
 						</div>
-
-
-
 
 					</div>
 					<div className="profile_box_right">
@@ -245,6 +257,24 @@ class Team extends React.Component {
 
 										<div className="col-md-4">
 											<h3>Get involved!</h3>
+
+											<div className="team_about_buttons orange_stroke about_button">
+												<img src="../img/join_team_image.png" />
+												Join our team
+											</div>
+
+											<div className="team_about_buttons fb_blue_stroke about_button">
+												<img src="../img/fb_image.png" />
+												Follow us on facebook
+											</div>
+
+											<div className="team_about_buttons green_stroke about_button">
+												
+												<img src="../img/donate_image.png" />
+												Donate to our goal
+											</div>
+
+
 										</div>
 									</div>
 								</div>
