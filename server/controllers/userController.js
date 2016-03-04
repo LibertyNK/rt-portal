@@ -29,6 +29,15 @@ module.exports.getUser = function(req, res, next) {
 
   Model.User.findById(req.params.user_id)
     .then(user => {
+      
+      // Test getting user from Salesforce
+      SFAPI.performRequest('user', 'GET', user.salesforce_id, 
+        function(data) {
+          console.log("SF API response object: " + JSON.stringify(data))
+        }
+      )
+      
+      // Respond with user data (just from our DB right now)
       res.status(200).json({user, 'type': 'success', message: 'success'});
     })
     .catch(err => {

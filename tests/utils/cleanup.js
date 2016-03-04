@@ -2,7 +2,7 @@ var Model = require('../../server/models/models.js')
 
 module.exports = function(callback) {
 
-  // Create user table with sample user
+  // recreate user table with sample user
   Model.User.sync({ force: true }).then(function() {
     // create user with
     // email: user@user.com
