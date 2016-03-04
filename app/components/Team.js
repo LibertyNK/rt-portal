@@ -29,14 +29,14 @@ class Team extends React.Component {
 
 	showTeamNames() {
 		var showTeamNames = [];
-		
+
 	 	for (var i = 0; i < this.state.users.length; i++) {
 	 		console.log(this.state.users[i].first_name);
 	 		var userProgress = {
 		    	width: ((this.state.users[i].amount_raised / this.state.users[i].goal) * 100) + "%" 
 			};
 
-	 		showTeamNames.push(<div className="col-sm-12 col-sm-offset-0 col-md-3 col-sm-offset-0 white_box_shadow border-staff-green white_box_shadow-4-col text-center ">
+	 		showTeamNames.push(<div key={this.state.users[i].uuid} className="col-sm-12 col-sm-offset-0 col-md-3 col-sm-offset-0 white_box_shadow border-staff-green white_box_shadow-4-col text-center ">
 
 	 				<div className="col-md-12 profile_image">
 						<img className="" src="../img/profile_blank-1.png" />
