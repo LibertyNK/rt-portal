@@ -1,6 +1,6 @@
 var bcrypt = require('bcrypt');
 var Model = require('../models/models.js');
-var api = require('../apiCalls.js')
+var SFAPI = require('../SFAPICalls.js')
 
 
 /**

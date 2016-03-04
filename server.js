@@ -23,7 +23,6 @@ var Router = require('react-router');
 var swig  = require('swig');
 var xml2js = require('xml2js');
 var _ = require('underscore');
-var https = require('https');       // for SF API calls
 
 var routes = require('./app/routes');
 
