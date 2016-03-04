@@ -21,7 +21,7 @@ module.exports.getUsers = function(req, res, next) {
 }
 
 /**
- * GET /users/:user_id
+ * GET /users/userId/:user_id
  *
  * Returns user by id, if exists
  */
@@ -231,7 +231,7 @@ module.exports.updateUserTeam = function (req, res, next) {
 }
 
 /**
- * GET /users/:username
+ * GET /users/username/:username
  *
  * Returns user by username, if exists
  */
@@ -269,7 +269,7 @@ module.exports.getUserByUsername = function (req, res, next) {
 }
  
 /**
- * GET /users/team/:team_id
+ * GET /users/team/teamId/:team_id
  *
  * Returns users on a specific team by team_id
  */

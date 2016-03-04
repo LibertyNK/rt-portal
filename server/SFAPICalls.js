@@ -1,9 +1,9 @@
 var https = require('https')
-var salesforceURL = 'rtdev-libertyinnorthkorea.cs42.force.com'
+let salesforceURL = 'rtdev-libertyinnorthkorea.cs42.force.com'
 // Might need these to authenticate to SF API in the future
-// var username = ''
-// var password = ''
-// var apiKey = ''
+// let username = ''
+// let password = ''
+// let apiKey = ''
 
 module.exports.performRequest = function(endpoint, method, data, success) {
   
@@ -11,6 +11,7 @@ module.exports.performRequest = function(endpoint, method, data, success) {
   let headers = {}
   let path_user = '/services/apexrest/rescueteams/contact'
   let path_team = '/services/apexrest/rescueteams/account'
+  let path_affiliation = '/services/apexrest/rescueteams/affiliation'
 
   if( endpoint == 'user' ) {
     endpoint = path_user
@@ -19,6 +20,10 @@ module.exports.performRequest = function(endpoint, method, data, success) {
   else if( endpoint == 'team' ) {
     endpoint = path_team
     console.log("Endpoint is team!")
+  }
+  else if( endpoint == 'affiliation' ) {
+    endpoint = path_affiliation
+    console.log("Endpoint is affiliation!")
   }
  
   if( method == 'GET' ) {
@@ -51,7 +56,6 @@ module.exports.performRequest = function(endpoint, method, data, success) {
     
     res.on('data', function(data) {
       responseString += data
-      console.log("Response string: " + responseString) 
     })
     
     res.on('end', function() {

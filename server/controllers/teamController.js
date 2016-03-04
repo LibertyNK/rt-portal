@@ -19,7 +19,7 @@ module.exports.getTeams = function(req, res, next) {
 }
 
 /**
- * GET /teams/:team_id
+ * GET /teams/teamId/:team_id
  *
  * Returns team by id, if exists
  */
@@ -162,7 +162,7 @@ module.exports.deleteTeam = function(req, res, next) {
 
 
 /**
- * GET /teams/:team_name
+ * GET /teams/teamName/:team_name
  *
  * Returns team by name, if exists
  */

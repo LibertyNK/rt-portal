@@ -53,7 +53,7 @@ module.exports = {
 	getTeam: function(team_uuid) {
 		console.log("sending team to server, team: " +  team_uuid);
 		return $.ajax({
-			url: '/team/teamId/' + team_uuid,
+			url: '/teams/teamId/' + team_uuid,
 			type: 'GET'
 		})
 	},
