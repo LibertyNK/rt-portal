@@ -10,7 +10,8 @@ export default AuthenticatedComponent(class Profile extends React.Component {
 		super(props);
 		this._load = this._load.bind(this);
 		this._compareUsername = this._compareUsername.bind(this);
-		this.state = {first_name: '', last_name: '', goal: '', about: ''};
+		this.state = {first_name: '', last_name: '', goal: '', about: '', team_uuid: ''};
+		this._getTeam = this._getTeam.bind(this);
 
 	}
 
@@ -34,10 +35,30 @@ export default AuthenticatedComponent(class Profile extends React.Component {
 	 	ApiUtils.findUser(this.props.params.username)
 	 		.done((data) => {
 	 			this.setState(data.user);
+
+	 			if (data.user.team_uuid === null) {
+	 				this.setState({team_name: 'General Fundraiser'});
+	 			}
+	 			else {
+	 				this._getTeam();
+	 			}
+
 	 	})
 	 	.fail((jqXhr) => {
 	 		console.log('Error Message from server: '+ jqXhr.responseJSON.message);
 	 	});	
+	}
+
+	_getTeam() {
+		ApiUtils.getTeam(this.state.team_uuid)
+	 		.done((data) => {
+	 			this.setState({team_username: data.team.username, team_name: data.team.team_name});
+
+	 	})
+	 	.fail((jqXhr) => {
+	 		console.log('Error Message from server');
+	 	});	
+
 	}
 
 	render() {
@@ -104,7 +125,7 @@ export default AuthenticatedComponent(class Profile extends React.Component {
 								<div className="col-md-12 text-center">
 
 									<h3>{this.state.first_name} {this.state.last_name}</h3>
-									<h4>Member of Team Name</h4>
+									<h4>Member of <Link to={'/team/' + this.state.team_username} >{this.state.team_name}</Link></h4>
 
 								</div>
 							</div>

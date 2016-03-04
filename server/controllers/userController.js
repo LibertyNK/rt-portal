@@ -264,8 +264,8 @@ module.exports.getUserByUsername = function (req, res, next) {
  * Returns users on a specific team by team_id
  */
 module.exports.getUsersByTeam = function(req, res, next) {
-   
-  let team_id = req.params.team_id
+   console.log("checkin team id: " + req.uuid);
+  let team_id = req.uuid
 
   Model.User.findAll({ 
     where: {
@@ -273,7 +273,8 @@ module.exports.getUsersByTeam = function(req, res, next) {
     }
   })
   .then( users => {
-    res.status(201).json({          
+    res.status(201).json({   
+      team: req,       
       users: users,
       'type': 'success',
       message: 'Successfully retrieved users'});

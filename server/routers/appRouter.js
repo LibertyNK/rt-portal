@@ -68,6 +68,7 @@ module.exports = function(express) {
 
   // Endpoint handlers for getting team by teamname
   router.route('/team/teamName/:team_name')
+
     .get(teamController.getTeamByName);
 
 
