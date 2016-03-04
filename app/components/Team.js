@@ -84,7 +84,6 @@ class Team extends React.Component {
 				<div className="map_background">
 				</div>
 
-
 				<div className="profile_banner">
 
 					<div className="container">
@@ -96,11 +95,9 @@ class Team extends React.Component {
 
 								<h4>WE CAN HELP.</h4>
 							</div>
-						
 						</div>
 					</div>
 				</div>
-
 
 				<div className="profile_box"> 
 
@@ -112,8 +109,6 @@ class Team extends React.Component {
 								<div className="col-md-6 team_image">
 									<img className="" src="../img/rt-cook_logo.jpg" />
 								</div>
-
-		
 
 							</div>
 
@@ -139,31 +134,23 @@ class Team extends React.Component {
 									<div className="col-md-4 text-center ">
 										{this.state.team.team_tier ? 
 											<h3>{this.state.team.team_tier}</h3>
-
 											:
-
 											<h3>0</h3>
 										}
 										
 										<p>Team ranking</p>
-										
-
 									</div>
 									<div className="col-md-4 text-center">
 
 										<h3 className="green_font">${this.state.team.amount_raised}</h3>
 										<p>Amount raised</p>
-										
-
 									</div>
 									<div className="col-md-4 text-center ">
 
 										<h3>{this.state.users.length}</h3>
 										<p>Members</p>
 										
-
 									</div>
-
 								</div>
 							</div>
 
@@ -183,10 +170,8 @@ class Team extends React.Component {
 								</div>
 							</div>
 						</div>
-
 					</div>
 					<div className="profile_box_right">
-
 
 						<div className="col-md-12 profile_card">
 
@@ -195,8 +180,6 @@ class Team extends React.Component {
 									<h4>Together we can give others the chance to live in safety and freedom. 100% of your donation will fund emergency refugee work.</h4>
 								</div>
 							</div>
-
-
 
 							<div className="row">
 								<div className="col-md-10 center-box padding-top-space-30px">
@@ -225,7 +208,6 @@ class Team extends React.Component {
 							<div className="row ">
 								<div className="col-md-10 center-box">
 									
-
 									<div className="col-md-10 center-box">
 										<p className="margin-top-30px">
 							              <a type="button" href="/schedule-demo" className="btn btn-primary btn-lg btn-lg-green max-width-380 margin_0_auto" >Donate to my goal</a>
@@ -236,14 +218,12 @@ class Team extends React.Component {
 						</div>
 					</div>
 
-
 					<div className="map_background_white">
 
 						<div className="container">
 							<div className="row">
 								<div className="col-md-12 about_team_card">
 
-								
 									<img src="../img/team_banner.jpg" />
 									
 									<div className="team_card_padding" style={team_border}>
@@ -269,16 +249,13 @@ class Team extends React.Component {
 											</div>
 
 											<div className="team_about_buttons green_stroke about_button">
-												
+
 												<img src="../img/donate_image.png" />
 												Donate to our goal
 											</div>
-
-
 										</div>
 									</div>
 								</div>
-							
 							</div>
 
 							<div className="row">
@@ -304,10 +281,7 @@ class Team extends React.Component {
 													<h4>Donor Name <span>Donated ###</span> Time and date donation happened</h4>
 														
 												</div>
-
-										
 											</div>
-								
 										</div>
 									</div>
 								</div>
@@ -318,16 +292,12 @@ class Team extends React.Component {
 									<h2><strong>TEAM MEMBERS</strong></h2>
 								</div>
 								
-
 						    </div>
 							<div className="row team_members">
 
 								{this.showTeamNames()}
 
 						    </div>
-
-
-
 						</div>
 					</div>
 				</div>
