@@ -6,7 +6,7 @@ var attributes = {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true
   },
-  campaignname: {
+  campaign_name: {
     type: Sequelize.STRING,
     allowNull: false
   },
