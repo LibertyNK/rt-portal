@@ -16,7 +16,7 @@ module.exports = function(callback) {
       salt: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O'
     }).then(callback)
   })
-  
+
   // recreate Team table
   Model.Team.sync({ force: true }).then(function() {
     Model.Team.create({
@@ -34,7 +34,14 @@ module.exports = function(callback) {
   // recreate Campaign table
   Model.Campaign.sync({ force: true }).then(function() {
     Model.Campaign.create({
-      campaignname: 'Do awesome shtuff'
+      campaignname: 'Do awesome stuff'
+    }).then(callback)
+  })
+
+  // recreate File table
+  Model.File.sync({ force: true }).then(function() {
+    Model.File.create({
+      name: 'Test File'
     }).then(callback)
   })
 
