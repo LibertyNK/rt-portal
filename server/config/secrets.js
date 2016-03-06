@@ -21,7 +21,7 @@ module.exports = {
   },
   aws: {
     aws_bucket: 'linkrtportaltest',
-    aws_access_key: 'AKIAIZKBXQVGFTBJRABA',
-    aws_secret_key: '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'
+    aws_access_key: 'AKIAIZPSPT23JJG2OIBQ',
+    aws_secret_key: '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'
   }
 };

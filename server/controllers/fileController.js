@@ -26,12 +26,8 @@ var s3 = new AWS.S3({ params: { Bucket: AWS_bucket }});
 			if (err) {
 				console.error(err);
 			} else {
-				var response_data = {
-					signed_request: data,
-					url: 'https://' + AWS_bucket + '.s3.amazonaws.com/' + params.key
-				};
-				console.log("Success url: " + response_data.signed_request.Location);
-				res.write(JSON.stringify(response_data));
+				console.log("Success url from S3 Bucket: " + data.Location);
+				res.write(JSON.stringify(data));
 				res.end();
 			}
 		})
