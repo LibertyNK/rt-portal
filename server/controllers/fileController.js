@@ -17,9 +17,8 @@ module.exports.uploadFile = function (req, res) {
 		region: 'us-west-1'
 	});
 
-	console.log(secret_key);
+	var s3 = new AWS.S3({ params: { Bucket: AWS_bucket }});
 
-var s3 = new AWS.S3({ params: { Bucket: AWS_bucket }});
 	s3.createBucket(function() {
 		var params = { Key: "File name", Body: "File body" };
 		s3.upload(params, function (err, data) {
