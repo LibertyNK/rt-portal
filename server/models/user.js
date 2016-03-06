@@ -1,4 +1,4 @@
-var Sequelize = require('sequelize')
+var Sequelize = require('sequelize');
 
 var attributes = {
   uuid: { // Unique universal ID, if we choose to use this, won't have duplicate IDs for user vs team vs event, etc...
@@ -76,5 +76,5 @@ var options = {
   underscored: true
 }
 
-module.exports.attributes = attributes
-module.exports.options = options
+module.exports.attributes = attributes;
+module.exports.options = options;

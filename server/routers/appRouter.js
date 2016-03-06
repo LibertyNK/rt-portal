@@ -1,8 +1,9 @@
-var passport = require('passport')
+var passport = require('passport');
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
-var userController = require('../controllers/userController.js')
-var teamController = require('../controllers/teamController.js')
+var userController = require('../controllers/userController.js');
+var teamController = require('../controllers/teamController.js');
+var fileController = require('../controllers/fileController.js');
 
 module.exports = function(express) {
   var router = express.Router()
@@ -11,11 +12,11 @@ module.exports = function(express) {
   // expressJWT({ secret: 'secrettoken' }).unless({ path: ['/login'] });
 
   /**
-   * FOR PASSPORT: We're currently not using this because we're 
-   * using JWT instead, but in the future if we use Passport, 
-   * we'll want to call this method to do server check 
+   * FOR PASSPORT: We're currently not using this because we're
+   * using JWT instead, but in the future if we use Passport,
+   * we'll want to call this method to do server check
    * to see if a user is authenticated.
-   * 
+   *
    * Checks if user is authenticated. Currently, authentication
    * required for any page, outside of root domain '/'.
    *
@@ -46,11 +47,11 @@ module.exports = function(express) {
   // Endpoint handlers for fetching user by username
   router.route('/users/username/:username')
     .get(userController.getUserByUsername);
-    
+
   // Endpoint handler to update team id for a user
   router.route('/users/:username/:team_id')
     .post(userController.updateUserTeamKey);
-    
+
   // Endpoint to get all users by team_id
   router.route('/users/team/teamId/:team_id')
     .get(userController.getUsersByTeam);
@@ -83,7 +84,7 @@ module.exports = function(express) {
         res.status(200).json({ token : token });
 
       }
-   
+
     })(req, res)
   });
 
@@ -99,6 +100,15 @@ module.exports = function(express) {
     req.logout()
     res.redirect('/')
   })
+
+  // Routing to File Controller to upload and retrieve files
+  router.route('/file')
+    .post(fileController.uploadFile)
+    // .get(fileController.getFile);
+
+
+
+
 
   return router;
 }
