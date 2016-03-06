@@ -7,3 +7,4 @@ public/css
 public/js
 reports
 selenium-debug.log
+server/config/secrets.js
