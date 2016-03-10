@@ -57,7 +57,7 @@ module.exports = function(express) {
 
   // Endpoint handlers for creating team and getting all teams
   router.route('/teams')
-    .post(teamController.postTeams)                   // create team
+    .post(teamController.postTeams)
     .get(teamController.getTeams);
 
   // Endpoint handlers for fetching, updating, and deleting specific team

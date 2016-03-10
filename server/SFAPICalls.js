@@ -42,7 +42,6 @@ module.exports.performRequest = function(endpoint, method, data, success) {
   */
   let requestOptions = {
     host: salesforceURL,
-    // port: 443,
     path: endpoint,
     method: method,
     headers: headers
@@ -64,7 +63,7 @@ module.exports.performRequest = function(endpoint, method, data, success) {
     })
   })
   
-  req.write(data)
+  req.write(JSON.stringify(data))
   req.end()
     
 }

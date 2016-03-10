@@ -1,5 +1,6 @@
 var Model = require('../models/models.js');
 var userController = require('../controllers/userController.js')
+var SFAPI = require('../SFAPICalls.js')
 
 /**
  * GET /teams
@@ -45,6 +46,8 @@ module.exports.getTeam = function(req, res, next) {
  */
 module.exports.postTeams = function(req, res, next) {
 
+  console.log(req.body)
+  
   let team_name = req.body.team_name,
       team_type = req.body.team_type,
       color = req.body.color,
@@ -61,7 +64,6 @@ module.exports.postTeams = function(req, res, next) {
 
   //validate team inputs here
 
-
   let newTeam = {
     team_name: team_name,
     team_type: team_type,
@@ -76,27 +78,53 @@ module.exports.postTeams = function(req, res, next) {
     zipcode: zipcode,
     country: country,
     username: username,
-    leader: leader
+    leader: leader,
+    salesforce_id: ""
 
   }
+  
+  let newSFTeam = {
+    Name: team_name,
+    Preferred_Name__c: "",
+    Date_Established__c: "3/15/2016",
+    Date_Inactive__c: "3/15/2026",
+    Rescue_Team_Status__c: "",
+    ShippingCity: team_city,
+    ShippingState: team_state,
+    ShippingCountry: country,
+    RT_Profile_URL__c: "",
+    Facebook__c: "",
+    Facebook_Group__c: "",
+    Twitter__c: "",
+    Instagram__c: "",
+    Website: "",
+    How_Started__c: about,
+    Type: "",
+    RT_Site_ID__c: ""
+  }
 
+  // Create SF new team, get SF team id, and create new RT team callback
+  SFAPI.performRequest('team', 'POST', newSFTeam,
+    function(data) {
+    
+    console.log(data)
+    newTeam.salesforce_id = data.id
+    
+    Model.Team.create(newTeam)
+      .then( team => {
+        userController.updateUserTeam(team, res, next);
+       })
+      .catch(err => {
 
-  Model.Team.create(newTeam)
+        // Add some more error handling for different team creation errors here.
 
-    .then( team => {
-      userController.updateUserTeam(team, res, next);
+        console.log(err);
 
-     }).catch(err => {
+        // Default error message - send everything
+        res.status(400).json({ 'type': 'error', message: err });
 
-      // Add some more error handling for different team creation errors here.
-
-      console.log(err);
-
-      // Default error message - send everything
-      res.status(400).json({ 'type': 'error', message: err });
-
-    });
-
+      });
+  })
 }
 
 /**
