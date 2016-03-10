@@ -14,4 +14,4 @@ if (jwt) {
 }
 
 
-ReactDOM.render(<Router history={history}>{routes}</Router>, document.getElementById('app'));
+ReactDOM.render(<Router onUpdate={() => window.scrollTo(0, 0)} history={history}>{routes}</Router>, document.getElementById('app'));
