@@ -4,6 +4,7 @@ var EventMeta = require('./Event.js');;
 var CampaignMeta = require('./Campaign.js')
 var FileMeta = require('./File.js');
 
+
 var sequelize = require('../config/sequelize.js');
 
 /**

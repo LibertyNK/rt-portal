@@ -43,9 +43,17 @@ module.exports = {
 		});
 	},
 
-	getTeam: function(team_id) {
+	getTeams: function() {
 		return $.ajax({
-			url: 'teams/teamId/' + team_id,
+			url: '/teams',
+			type: 'GET'
+		});
+	},
+
+	getTeam: function(team_uuid) {
+		console.log("sending team to server, team: " +  team_uuid);
+		return $.ajax({
+			url: '/team/teamId/' + team_uuid,
 			type: 'GET'
 		})
 	},
@@ -59,7 +67,14 @@ module.exports = {
 
 	findTeam: function(team_name) {
 		return $.ajax({
-			url: '/teams/teamName/' + team_name,
+			url: '/team/teamName/' + team_name,
+			type: 'GET'
+		})
+	},
+
+	findTeamUsers: function(team_id) {
+		return $.ajax({
+			url: '/users/team/teamId/' + team_id,
 			type: 'GET'
 		})
 	},

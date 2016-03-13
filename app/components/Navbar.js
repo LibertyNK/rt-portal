@@ -47,7 +47,7 @@ export default AuthenticatedComponent (class Navigation extends React.Component 
         <Navbar.Header>
           <Navbar.Brand>
             <div className='navbar-brand'><Link to='/'>
-              <img src="img/link_logo.png" />
+              <img src="../img/link_logo.png" />
               <h3>Rescue Campaigns</h3>
             </Link></div>
           </Navbar.Brand>

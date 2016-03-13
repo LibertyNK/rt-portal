@@ -45,7 +45,7 @@ class SignUpActions {
 
 					localStorage.setItem('jwt', data.token);	
 					let user = jwt_decode(data.token);		
-					window.location.href = "/" + user.username;
+					window.location.href = "/pick-team";
 				} else {
 					console.log('Error Message from server: ' + data.message);
 					this.actions.signUpFail(data);

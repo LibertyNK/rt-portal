@@ -204,7 +204,7 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 										<div className={'goal_field form-group input-group ' + this.state.validationState.goal}>				
 											
 											<span className="input-group-addon dollar-addon">$</span>
-											<input type='text' className='form-control' ref="goal" onChange={UpdateProfileActions.updateGoal}  value={this.state.goal} placeholder="enter your fundraising goal"/>
+											<input type='number' className='form-control' ref="goal" onChange={UpdateProfileActions.updateGoal}  value={this.state.goal} placeholder="enter your fundraising goal"/>
 										</div>
 										<div className={'form-group ' + this.state.validationState.about}>
 											<span className='help-block'> {this.state.helpBlock.about}</span>

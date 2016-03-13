@@ -68,12 +68,13 @@ module.exports.postUsers = function(req, res, next) {
     amount_raised: 0,
     goal: req.body.goal,
     about: req.body.about,
+    team_uuid: null,
     admin_level: 3
   }
 
   Model.User.create(newUser)
     .then(user => {
-      let token = jwt.sign({ username: user.username, first_name: user.first_name, last_name: user.last_name }, 'secrettoken', { expiresIn: 86400});
+      let token = jwt.sign({ username: user.username, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
       res.status(201).json({token : token, 'type': 'success', message: 'success'});
     })
     .catch(err => {
@@ -91,23 +92,23 @@ module.exports.postUsers = function(req, res, next) {
  */
 module.exports.putUser = function(req, res, next) {
 
-
   let first_name = req.body.first_name
   let last_name = req.body.last_name
   let username = req.body.username
   let goal = req.body.goal
   let about = req.body.about
+  let team_uuid = req.body.team_uuid
 
 
   // Fills in blank for any blank fields from form
   Model.User.update(
   {
-
     first_name: first_name,
     last_name: last_name,
     username: username,
     goal: goal,
-    about: about
+    about: about,
+    team_uuid: team_uuid
   },
   {
     where: { uuid: req.params.user_id }
@@ -115,13 +116,13 @@ module.exports.putUser = function(req, res, next) {
 
 
 
-  .then( user => {
-
-    let token = jwt.sign({ username: req.body.username, first_name: req.body.first_name, last_name: req.body.last_name }, 'secrettoken', { expiresIn: 86400});
-    res.status(201).json({token: token, 'type': 'success', message: 'successfully updated user'});
+  .then(user => {
+   
+     let token = jwt.sign({ username: req.body.username, team_uuid: req.body.team_uuid }, 'secrettoken', { expiresIn: 86400});
+    res.status(201).json({token: token, user, 'type': 'success', message: 'successfully updated user'});
    
   })
-  .catch( err => {
+  .catch(err => {
     res.status(400).json({ 'type': 'error', message: err });
   })
 }
@@ -180,29 +181,43 @@ module.exports.updateUserTeamKey = function(req, res, next) {
  */
 module.exports.updateUserTeam = function (req, res, next) {
 
-  // console.log("this is team info passing from teamController: " + req.team_name);
 
-  Model.User.find({ where: { email: req.leader } })
-    .then(user => {
-      Model.User.update({
-        team_uuid: req.uuid,
-        admin_level: 2
-      },
-      {
-        where: { email: req.leader }
-      })
-        .then(updated_user => {
-          res.status(201).json({updated_user, 'type': 'success', message: "successfully updated user's team"});
-        })
-        .catch(error => {
-          console.log(error);
-          // res.status(400).json({ 'type': 'error', message: error });
-        });
+  Model.User.find({ where: { username: req.leader } })
+  .then(updated_user => {
+    Model.User.update({
+      team_uuid: req.uuid,
+      admin_level: 2
+    },
+    {
+      where: { username: req.leader }
     })
-    .catch(err => {
-      console.log(err);
-      // res.status(400).json({ 'type': 'error', message: err});
+    .then(user => {
+      console.log(req.team_name);
+      console.log(req.username);
+
+      let token = jwt.sign({ 
+        username: updated_user.username, 
+        first_name: updated_user.first_name, 
+        last_name: updated_user.last_name,
+        admin_level: 2, 
+        team_uuid: req.uuid,
+        team_username: req.username  
+      }, 
+        'secrettoken', { expiresIn: 86400});
+
+
+        res.status(201).json({token: token, 'type': 'success', message: "successfully updated user's team"});
+      }).catch(error => {
+      console.log(error);
+      res.status(400).json({ 'type': 'error', message: error });
     });
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(400).json({ 'type': 'error', message: error });
+  });
+
+
 }
 
 /**
@@ -226,7 +241,8 @@ module.exports.getUserByUsername = function (req, res, next) {
                   amount_raised: user.amount_raised,
                   goal: user.goal,
                   about: user.about,
-                  level: user.admin_level
+                  admin_level: user.admin_level,
+                  team_uuid: user.team_uuid
                 },
           'type': 'success',
           message: 'Successfully retrieved user'});
@@ -248,8 +264,8 @@ module.exports.getUserByUsername = function (req, res, next) {
  * Returns users on a specific team by team_id
  */
 module.exports.getUsersByTeam = function(req, res, next) {
-   
-  let team_id = req.params.team_id
+   console.log("checkin team id: " + req.uuid);
+  let team_id = req.uuid
 
   Model.User.findAll({ 
     where: {
@@ -257,7 +273,8 @@ module.exports.getUsersByTeam = function(req, res, next) {
     }
   })
   .then( users => {
-    res.status(201).json({          
+    res.status(201).json({   
+      team: req,       
       users: users,
       'type': 'success',
       message: 'Successfully retrieved users'});
