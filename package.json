@@ -44,7 +44,7 @@
     "react-bootstrap": "^0.28.3",
     "react-colors-picker": "^2.3.0",
     "react-dom": "^0.14.2",
-    "react-router": "^1.0.0",
+    "react-router": "^1.0.3",
     "request": "^2.65.0",
     "sequelize": "~3.6.0",
     "serve-favicon": "^2.3.0",
