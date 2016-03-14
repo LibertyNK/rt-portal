@@ -20,8 +20,13 @@ var File = sequelize.define('files', FileMeta.attributes, FileMeta.options);
  * Relationships defined here
  */
 User.belongsTo(Team); // User has foreign key team_id
-File.belongsTo(User);
+Team.hasMany(User, { as: 'Member' });
+User.hasOne(File, { as: 'Avatar' });
 File.belongsTo(Team);
+Team.hasMany(File, { as: 'Images' });
+File.belongsTo(Event);
+Event.hasMany(File, { as: 'Images' });
+
 
 module.exports.Campaign = Campaign;
 module.exports.Event = Event;
