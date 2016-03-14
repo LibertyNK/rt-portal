@@ -101,22 +101,19 @@ module.exports.putUser = function(req, res, next) {
 
 
   // Fills in blank for any blank fields from form
-  Model.User.update(
-  {
-    first_name: first_name,
-    last_name: last_name,
-    username: username,
-    goal: goal,
-    about: about,
-    team_uuid: team_uuid
-  },
-  {
-    where: { uuid: req.params.user_id }
-  })
+  Model.User.update({
+      first_name: first_name,
+      last_name: last_name,
+      username: username,
+      goal: goal,
+      about: about,
+      team_uuid: team_uuid
+    },
+    {
+      where: { uuid: req.params.user_id }
+    })
 
-
-
-  .then(user => {
+    .then(user => {
    
      let token = jwt.sign({ username: req.body.username, team_uuid: req.body.team_uuid }, 'secrettoken', { expiresIn: 86400});
     res.status(201).json({token: token, user, 'type': 'success', message: 'successfully updated user'});

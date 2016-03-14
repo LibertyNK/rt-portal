@@ -7,7 +7,7 @@ import CurrentUserStore from '../stores/CurrentUserStore';
 import AuthenticatedComponent from '../decorators/AuthenticatedComponent';
 
 var _ = require('underscore');
-
+var ReactS3Uploader = require('react-s3-uploader');
 
 export default AuthenticatedComponent (class UpdateProfile extends React.Component {
 	constructor(props) {
@@ -40,7 +40,7 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 	 	})
 	 	.fail((jqXhr) => {
 
-	 		console.log('Error Message from server: ');
+	 		console.log('Error Message from server: ' + jqXhr.message);
 	 	});	
 
 	}
@@ -158,7 +158,8 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 									<h3>Your Information</h3>
 									<p>Make sure to uppload your profile photo so donors know it’s you : )
 										<br />&nbsp;<br />
-										Your email is locked here, becuase this is your user name for this account and is uneditable. 
+
+										Your email is locked here, because this is your user name for this account and is uneditable. 
 										<br />&nbsp;<br />
 										Your email and phone number are ONLY viewable to your team members, if you are fundraising on a team.</p>
 								</div>
@@ -168,6 +169,9 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 									<div className={this.state.errorMessageState}> 
 											{single_error}
 									</div>				
+									<div className={'form-group ' }>								
+										<input type='file' className='form-control' ref="avatar" value={this.state.avatar} placeholder="Avatar" onChange={this.uploadFile} />
+									</div>
 									<div className={'form-group__half first_input form-group ' + this.state.validationState.first_name}>
 										<span className='help-block'> {this.state.helpBlock.first_name}</span>
 										<input type='text' className='form-control ' ref="first_name" onChange={UpdateProfileActions.updateFirstName} value={this.state.first_name} placeholder="First Name" autoFocus />
