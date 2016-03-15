@@ -1,11 +1,14 @@
 import alt from '../alt';
 import UpdateProfileActions from '../actions/UpdateProfileActions';
+import ApiUtils from '../utils/apiUtils';
 
 class UpdateProfileStore {
 	constructor() {
 
     this.bindActions(UpdateProfileActions);
     this.user = {};
+
+    this.file = [];
     
     this.helpBlock = {
 
@@ -143,7 +146,43 @@ class UpdateProfileStore {
     }
     this.errorMessageState = 'alert alert-danger';
   }
+
+  onUploadAvatar(event) {
+    this.file = event.target.files[0];
+    console.log("File in UpdateProfile Store got from input:" + this.file.name);
+
+    var xhr = new XMLHttpRequest();
+     xhr.open("GET", "/sign_s3?file_name="+this.file.name+"&file_type="+this.file.type);
+    xhr.onreadystatechange = function() {
+      if(xhr.readySate === 4) {
+        if(xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+          upload_file(this.file, response.signed_request, response.url);
+        } else {
+          console.log("Could not get signed URL");
+        }
+      }
+    }
+
+    xhr.send();
+    
+  }
   
+}
+
+function upload_file(file, signed_request, url){
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", signed_request);
+    xhr.setRequestHeader('x-amz-acl', 'public-read');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+          document.getElementById("preview").src = url;
+        }
+    };
+    xhr.onerror = function() {
+       console.log("Could not upload file.");
+    };
+    xhr.send(file);
 }
 
 export default alt.createStore(UpdateProfileStore);

@@ -27,7 +27,8 @@ class UpdateProfileActions {
 			'displayErrorMessage',
 			'updateAbout',
 			'updateGoal',
-			'invalidGoal'
+			'invalidGoal',
+			'uploadAvatar'
 		);
 	}
 
@@ -51,6 +52,10 @@ class UpdateProfileActions {
 			console.log('Error Message from server: ' + jqXhr.responseJSON.message.errors);
 			this.actions.displayErrorMessage(jqXhr.responseJSON.message);
 		});
+		
+	}
+
+	uploadAvatar(image) {
 		
 	}
 

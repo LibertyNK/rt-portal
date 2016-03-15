@@ -87,6 +87,16 @@ module.exports = {
 		})
 	},
 
+	uploadToS3: function(file) {
+		console.log("File in ApiUtile:" + file)
+		return $.ajax({
+			url:'/files/upload',
+			type: 'POST',
+			data: file,
+			processData: false
+		})
+	}
+
 
 	// API calls for teams
 

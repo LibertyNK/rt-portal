@@ -103,9 +103,9 @@ module.exports = function(express) {
   })
 
   // Routing to File Controller to upload and retrieve files
-  router.route('/file')
-    .post(fileController.uploadFile)
-    // .get(fileController.getFile);
+  router.route('/sign_s3')
+    .get(fileController.uploadFile)
+
 
 
 

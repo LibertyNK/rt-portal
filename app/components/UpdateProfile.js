@@ -153,6 +153,7 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 
 
 							<div className='row'>
+							<img id="preview"/>
 
 								<div className='col-sm-4'>
 									<h3>Your Information</h3>
@@ -170,7 +171,7 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 											{single_error}
 									</div>				
 									<div className={'form-group ' }>								
-										<input type='file' className='form-control' ref="avatar" value={this.state.avatar} placeholder="Avatar" onChange={this.uploadFile} />
+										<input type='file' className='form-control' ref="avatar_input" placeholder="Avatar" onChange={UpdateProfileActions.uploadAvatar} />
 									</div>
 									<div className={'form-group__half first_input form-group ' + this.state.validationState.first_name}>
 										<span className='help-block'> {this.state.helpBlock.first_name}</span>
