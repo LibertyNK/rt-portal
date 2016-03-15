@@ -39,20 +39,21 @@ module.exports.uploadFile = function (req, res) {
 	                signed_request: data,
 	                url: 'https://'+AWS_bucket+'.s3.amazonaws.com/'+req.query.file_name
 	            };
+	            console.log(return_data.url);
 	            res.write(JSON.stringify(return_data));
 	            res.end();
 	        }
 	    });
 
-		s3.upload(s3_params, function (err, data) {
-			if (err) {
-				console.error(err);
-			} else {
-				console.log("Success url from S3 Bucket: " + data.Location);
-				res.write(JSON.stringify(data));
-				res.end();
-			}
-		})
+		// s3.upload(s3_params, function (err, data) {
+		// 	if (err) {
+		// 		console.error(err);
+		// 	} else {
+		// 		console.log("Success url from S3 Bucket: " + data.Location);
+		// 		res.write(JSON.stringify(data));
+		// 		res.end();
+		// 	}
+		// })
 
 
 };
