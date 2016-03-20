@@ -171,18 +171,27 @@ class UpdateProfileStore {
 }
 
 function upload_file(file, signed_request, url){
-    var xhr = new XMLHttpRequest();
-    xhr.open("PUT", signed_request);
-    xhr.setRequestHeader('x-amz-acl', 'public-read');
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-          document.getElementById("preview").src = url;
-        }
-    };
-    xhr.onerror = function() {
-       console.log("Could not upload file.");
-    };
-    xhr.send(file);
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("PUT", signed_request);
+    // xhr.setRequestHeader('x-amz-acl', 'public-read');
+    // xhr.onload = function() {
+    //     if (xhr.status === 200) {
+    //       document.getElementById("preview").src = url;
+    //     }
+    // };
+    // xhr.onerror = function() {
+    //    console.log("Could not upload file.");
+    // };
+    // xhr.send(file);
+    $.ajax({
+      url: signed_request, // the presigned URL
+      type: 'PUT',
+      data: file,
+      cache : false,
+      contentType : file.type,
+      processData : false,
+      success: function() { console.log('Uploaded data successfully.'); }
+    });
 }
 
 export default alt.createStore(UpdateProfileStore);

@@ -8,6 +8,7 @@ var secret_key = secret.aws.aws_secret_key;
 
 
 
+
 module.exports.uploadFile = function (req, res) {
 
 	// Config S3 bucket with bucket name, key and secret key included in server/config/secrets.js
