@@ -102,11 +102,13 @@ module.exports = function(express) {
     res.redirect('/')
   })
 
-  // Routing to File Controller to upload and retrieve files
+  // Getting pre-signed file url from AWS S3
   router.route('/sign_s3')
-    .get(fileController.uploadFile)
+    .get(fileController.getSignedUrl)
 
-
+  // Upload file to S3
+  // router.route('/files')
+  //   .put(fileController.uploadFile)  
 
 
 

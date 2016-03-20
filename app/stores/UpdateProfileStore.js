@@ -1,6 +1,22 @@
 import alt from '../alt';
 import UpdateProfileActions from '../actions/UpdateProfileActions';
 import ApiUtils from '../utils/apiUtils';
+var secret = require('../../server/config/secrets');
+
+var AWS = require('aws-sdk');
+
+var AWS_bucket = secret.aws.aws_bucket;
+var access_key = secret.aws.aws_access_key;
+var secret_key = secret.aws.aws_secret_key;
+
+// Config S3 bucket with bucket name, key and secret key included in server/config/secrets.js
+AWS.config.update({
+  accessKeyId: access_key,
+  secretAccessKey: secret_key,
+  region: 'us-west-1'
+});
+
+var s3 = new AWS.S3();
 
 class UpdateProfileStore {
 	constructor() {
@@ -9,6 +25,7 @@ class UpdateProfileStore {
     this.user = {};
 
     this.file = [];
+    this.image_src ='';
     
     this.helpBlock = {
 
@@ -150,48 +167,31 @@ class UpdateProfileStore {
   onUploadAvatar(event) {
     this.file = event.target.files[0];
     console.log("File in UpdateProfile Store got from input:" + this.file.name);
+    var s3_params = { 
+      Bucket: AWS_bucket,
+      Key: this.file.name,
+      Expires: 60,
+      ContentType: this.file.type,
+      ACL: 'public-read',
+      Body: this.file
+    };
 
-    var xhr = new XMLHttpRequest();
-     xhr.open("GET", "/sign_s3?file_name="+this.file.name+"&file_type="+this.file.type);
-    xhr.onreadystatechange = function() {
-      if(xhr.readySate === 4) {
-        if(xhr.status === 200) {
-          var response = JSON.parse(xhr.responseText);
-          upload_file(this.file, response.signed_request, response.url);
-        } else {
-          console.log("Could not get signed URL");
-        }
+    s3.upload(s3_params, function (err, data) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log("Success url from S3 Bucket: " + data.Location);
+        this.image_src = data.Location;
+        // console.log(this.image_src)
+       document.getElementById("preview").setAttribute("src",data.Location)
       }
-    }
-
-    xhr.send();
+    })
+    
     
   }
   
 }
 
-function upload_file(file, signed_request, url){
-    // var xhr = new XMLHttpRequest();
-    // xhr.open("PUT", signed_request);
-    // xhr.setRequestHeader('x-amz-acl', 'public-read');
-    // xhr.onload = function() {
-    //     if (xhr.status === 200) {
-    //       document.getElementById("preview").src = url;
-    //     }
-    // };
-    // xhr.onerror = function() {
-    //    console.log("Could not upload file.");
-    // };
-    // xhr.send(file);
-    $.ajax({
-      url: signed_request, // the presigned URL
-      type: 'PUT',
-      data: file,
-      cache : false,
-      contentType : file.type,
-      processData : false,
-      success: function() { console.log('Uploaded data successfully.'); }
-    });
-}
+
 
 export default alt.createStore(UpdateProfileStore);

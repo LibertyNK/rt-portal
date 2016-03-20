@@ -119,8 +119,6 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 		var errors = this.state.errorMessage || [];
 
 		var single_error = errors.map(function (err, key) { return <p key = {key}> {err} </p> });
-
-
 		return (
 
 			<div className="pre_head_padding">
@@ -151,9 +149,9 @@ export default AuthenticatedComponent (class UpdateProfile extends React.Compone
 					<div className="form_card_large">
 						<div className=''>
 
-
+							<img id="preview" />
 							<div className='row'>
-							<img id="preview"/>
+					
 
 								<div className='col-sm-4'>
 									<h3>Your Information</h3>

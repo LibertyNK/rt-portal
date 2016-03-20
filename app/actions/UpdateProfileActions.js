@@ -6,6 +6,9 @@ import LogInActions from '../actions/LogInActions';
 import jwt_decode from 'jwt-decode';
 import {LOGIN_USER, LOGOUT_USER} from '../constants/ActionTypes';
 
+
+
+
 class UpdateProfileActions {
 		constructor() {
 		this.generateActions(
@@ -55,9 +58,11 @@ class UpdateProfileActions {
 		
 	}
 
-	uploadAvatar(image) {
-		
+	uploadAvatar(file) {
+	
 	}
+
+	
 
 }
 
