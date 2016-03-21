@@ -13,6 +13,7 @@ module.exports.performRequest = function(endpoint, method, data, success) {
   let path_team = '/services/apexrest/rescueteams/account'
   let path_affiliation = '/services/apexrest/rescueteams/affiliation'
 
+  // Set endpoint
   if( endpoint == 'user' ) {
     endpoint = path_user
     console.log("Endpoint is user!")
@@ -25,7 +26,8 @@ module.exports.performRequest = function(endpoint, method, data, success) {
     endpoint = path_affiliation
     console.log("Endpoint is affiliation!")
   }
- 
+
+  // Set method
   if( method == 'GET' ) {
     endpoint += '?id=' + data
   }
@@ -39,6 +41,18 @@ module.exports.performRequest = function(endpoint, method, data, success) {
   /** 
   * SF API Endpoint looks like
   * https://rtdev-libertyinnorthkorea.cs42.force.com/services/apexrest/rescueteams/...
+  * 
+  * Structure the SF API function calls like:
+  * path: 'user', 'team', etc...
+  * method: 'GET', 'POST', etc...
+  * headers: don't wory about right now
+  * 
+  * Example call from userController doing something with the SF API returned "data":
+  * SFAPI.performRequest('user', 'GET', user.salesforce_id, 
+        function(data) {
+          console.log("SF API response object: " + JSON.stringify(data))
+        }
+      )
   */
   let requestOptions = {
     host: salesforceURL,

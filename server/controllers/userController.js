@@ -30,13 +30,6 @@ module.exports.getUser = function(req, res, next) {
   Model.User.findById(req.params.user_id)
     .then(user => {
       
-      // Test getting user from Salesforce
-      SFAPI.performRequest('user', 'GET', user.salesforce_id, 
-        function(data) {
-          console.log("SF API response object: " + JSON.stringify(data))
-        }
-      )
-      
       // Respond with user data (just from our DB right now)
       res.status(200).json({user, 'type': 'success', message: 'success'});
     })
@@ -155,9 +148,9 @@ module.exports.putUser = function(req, res, next) {
       },
       function(data) {
         
-      console.log(data)
+      console.log("Updated user in SF: " + data)
       
-      // Fills in blank for any blank fields from form
+      // Default sequelize behavior is to fill the field as blank string if no data passed
       Model.User.update(
       {
         first_name: first_name,

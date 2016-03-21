@@ -139,32 +139,59 @@ module.exports.putTeam = function(req, res, next) {
   let team_name = req.body.team_name;
   let address1 = req.body.address1;
   let address2 = req.body.address2;
+  let team_city = req.body.team_city;
   let team_state = req.body.team_state;
   let zipcode = req.body.zipcode;
   let country = req.body.country;
   let about = req.body.about;
   let leader = req.body.leader;
-
-  // Assumes a blank sent from the user/form means user wants that field blank
-  Model.Team.update(
-  {
-    team_name: team_name,
-    address1: address1,
-    address2: address2,
-    team_state: team_state,
-    zipcode: zipcode,
-    country: country,
-    about: about,
-    leader: leader
-  },
-  {
-    where: { uuid: req.params.team_id }
-  })
-  .then(team => {
-    res.status(201).json({team, 'type': 'success', message: 'successfully updated team'});
+  
+  // Two nested callbacks here:
+  // 1) Sequelize finds team by team_id param
+  // 2) First callback - which then executes the
+  // Salesforce PUT based off the salesforce_id
+  // 3) Second callback - which then executes
+  // the actual RT team update
+  Model.Team.findById(req.params.team_id)
+    .then(team => {
+  
+    SFAPI.performRequest('team', 'PUT', 
+      {
+        id: team.salesforce_id,
+        Name: team_name,
+        ShippingCity: team_city,
+        ShippingState: team_state,
+        ShippingCountry: country
+      },
+      function(data) {
+        
+      console.log("Update team in SF: " + data)
+      
+      // Default sequelize behavior is to fill the field as blank string if no data passed
+      Model.Team.update(
+      {
+        team_name: team_name,
+        address1: address1,
+        address2: address2,
+        team_state: team_state,
+        zipcode: zipcode,
+        country: country,
+        about: about,
+        leader: leader
+      },
+      {
+        where: { uuid: req.params.team_id }
+      })
+      .then(team => {
+        res.status(201).json({team, 'type': 'success', message: 'successfully updated team'});
+      })
+      .catch(err => {
+        res.status(400).json({ 'type': 'error', message: err });
+      })      
+    })
   })
   .catch(err => {
-    res.status(400).json({ 'type': 'error', message: err });
+    res.status(400).json({ 'type': 'user lookup', message: err });
   })
 
 }
