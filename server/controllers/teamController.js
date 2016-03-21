@@ -128,7 +128,7 @@ module.exports.postTeams = function(req, res, next) {
 }
 
 /**
- * PUT /teams/:team_id
+ * PUT /teams/teamId/:team_id
  *
  * Update specific team based on team_id
  */
