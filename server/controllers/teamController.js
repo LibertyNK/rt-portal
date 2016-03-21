@@ -26,11 +26,10 @@ module.exports.getTeams = function(req, res, next) {
  */
 
 module.exports.getTeam = function(req, res, next) {
-   console.log("made it to the get team, also there is this: " + req.params.team_id);
+   console.log("getTeam Controller: " + req.params.team_id);
   Model.Team.findById(req.params.team_id)
   .then(team => {
-    console.log("got the team. see: " + team);
-    res.status(200).json({team, 'type': 'success', message: 'success'});
+    userController.getUsersByTeam(team, res, next);
   })
   .catch(err => {
     res.status(400).json({ 'type': 'team lookup', message: err });
@@ -133,19 +132,24 @@ module.exports.postTeams = function(req, res, next) {
  * Update specific team based on team_id
  */
 module.exports.putTeam = function(req, res, next) {
-
+  console.log("checking req params : " + req.body.uuid);
   // Assumes a blank sent from the user/form means user wants that field blank
   // I can add validation for a blank field to not change in the update
   let team_name = req.body.team_name;
+  let team_type = req.body.team_type;
+  let color = req.body.color;
+  let goal = req.body.goal;
+  let about = req.body.about;
+  let username = req.body.username;
   let address1 = req.body.address1;
   let address2 = req.body.address2;
   let team_city = req.body.team_city;
   let team_state = req.body.team_state;
   let zipcode = req.body.zipcode;
   let country = req.body.country;
-  let about = req.body.about;
-  let leader = req.body.leader;
   
+  let leader = req.body.leader;
+
   // Two nested callbacks here:
   // 1) Sequelize finds team by team_id param
   // 2) First callback - which then executes the
@@ -162,6 +166,8 @@ module.exports.putTeam = function(req, res, next) {
         ShippingCity: team_city,
         ShippingState: team_state,
         ShippingCountry: country
+        
+        
       },
       function(data) {
         
@@ -171,12 +177,17 @@ module.exports.putTeam = function(req, res, next) {
       Model.Team.update(
       {
         team_name: team_name,
+        team_type: team_type,
+        color: color,
+        goal: goal,
+        about: about,
+        username: username,
         address1: address1,
         address2: address2,
+        team_city: team_city,
         team_state: team_state,
         zipcode: zipcode,
-        country: country,
-        about: about,
+        country: country, 
         leader: leader
       },
       {
@@ -222,7 +233,6 @@ module.exports.deleteTeam = function(req, res, next) {
  * Returns team by name, if exists
  */
 module.exports.getTeamByName = function(req, res, next) {
-      console.log("made it to controller");
   Model.Team.find({ where: { username: req.params.team_name } })
       .then(team => {
 

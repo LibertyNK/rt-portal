@@ -23,7 +23,7 @@ export default AuthenticatedComponent (class Navigation extends React.Component 
 	}
 
 	_load() {
-
+		console.log(this.props.user);
 	 	ApiUtils.findUser(this.props.user.username)
 	 		.done((data) => {
 	 			console.log(data);

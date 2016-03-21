@@ -39,9 +39,15 @@ export default AuthenticatedComponent (class Navigation extends React.Component 
     return (
     <div>
       
-        {user && 
-          <UserNav /> 
-        }
+      {this.props.user ?
+
+        <span>
+          <UserNav user={this.props.user} /> 
+        </span>
+        :
+        null
+      }
+
       <Navbar inverse>
 
         <Navbar.Header>
@@ -55,10 +61,14 @@ export default AuthenticatedComponent (class Navigation extends React.Component 
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            {!user && 
+            {this.props.user ?
+              null
+              : 
               <li><Link to='/login'>Log In</Link></li>      
             }
-            {!user && 
+            {this.props.user ? 
+              null
+              : 
               <li><Link to='/signup'>Sign Up</Link></li>      
             }          
             <li><Link to='/all_teams'>Teams</Link></li> 

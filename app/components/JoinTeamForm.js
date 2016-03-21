@@ -91,7 +91,7 @@ export default AuthenticatedComponent (class JoinTeamForm extends React.Componen
 								<form onSubmit={this.handleSubmit.bind(this)}>	
 
 									<div className='form-group'>
-										<select class="form-control" ref="team_uuid" placeholder="Team Type"  onChange={JoinTeamFormActions.updateTeam}>
+										<select className="form-control" ref="team_uuid" placeholder="Team Type"  onChange={JoinTeamFormActions.updateTeam}>
 											<option value="">Select a Team</option>
 											{this.showTeamNames}
 										</select>
