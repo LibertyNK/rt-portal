@@ -1,35 +1,50 @@
 var Model = require('./server/models/models.js')
 
-// recreate user table with sample user
-Model.User.sync({ force: true })
-  .then(function() {
-    // create user with
-    // email: user@user.com
-    // password: user
-    Model.User.create({
-      uuid: '00356000003EbIO',
-      email: 'user@user.com',
-      username: 'username',
-      first_name: 'User',
-      last_name: 'McUser',
-      password: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O9D93HKwPKFNWBqiiuc/IoMtIurRCT36',
-      salt: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O'
-    })
-  .error(function(error) {
-  	console.log("Error cleaning DB: ", error)
-  })
-})
+var user1, team1;
 
-// recreate Team table
-Model.Team.sync({ force: true })
+// recreate Affiliation table
+Model.Affiliation.sync({ force: true })
 	.then(function() {
-	  Model.Team.create({
-	    uuid: '00156000003o1vJAAQ',
-	    team_name: 'Team Awesome'
-	  })
-  .error(function(error) {
-  	console.log("Error cleaning DB: ", error)
-  })
+		// recreate Team table
+		Model.Team.sync({ force: true })
+			.then(function() {
+			  team1 = Model.Team.build({
+			    uuid: '00156000003o1vJAAQ',
+			    team_name: 'Team Awesome'
+			  })
+			  team1.save()
+			  	.then(function() {
+			  		// recreate user table with sample user
+						Model.User.sync({ force: true })
+						  .then(function() {
+						    // create user with
+						    // email: user@user.com
+						    // password: user
+						    user1 = Model.User.build({
+						      uuid: '00356000003EbIO',
+						      email: 'user@user.com',
+						      username: 'username',
+						      first_name: 'User',
+						      last_name: 'McUser',
+						      password: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O9D93HKwPKFNWBqiiuc/IoMtIurRCT36',
+						      salt: '$2a$10$QaT1MdQ2DRWuvIxtNQ1i5O'
+						    })
+								user1.save()
+									.then(function() {
+										team1.addUser(user1)
+									})
+						  .error(function(error) {
+						  	console.log("Error setting up User model: ", error)
+						  })
+						})
+			  	})
+		  .error(function(error) {
+		  	console.log("Error setting up Team model: ", error)
+		  })
+		})		
+	})
+.error(function(error) {
+	console.log("Error setting up Team model: ", error)
 })
 
 // recreate Event table
@@ -39,7 +54,7 @@ Model.Event.sync({ force: true })
 	    event_name: 'First Event'
 	  })
   .error(function(error) {
-  	console.log("Error cleaning DB: ", error)
+  	console.log("Error setting up Event model: ", error)
   })  
 })
 
@@ -50,8 +65,7 @@ Model.Campaign.sync({ force: true })
 	    campaign_name: 'Do awesome shtuff'
 	  })
   .error(function(error) {
-  	console.log("Error cleaning DB: ", error)
+  	console.log("Error setting up Campaign model: ", error)
   })
 })
 	
-// process.exit()
