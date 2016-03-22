@@ -1,5 +1,6 @@
 var Model = require('../models/models.js');
 var userController = require('../controllers/userController.js')
+var SFAPI = require('../SFAPICalls.js')
 
 /**
  * GET /teams
@@ -19,7 +20,7 @@ module.exports.getTeams = function(req, res, next) {
 }
 
 /**
- * GET /teams/:team_id
+ * GET /teams/teamId/:team_id
  *
  * Returns team by id, if exists
  */
@@ -44,6 +45,8 @@ module.exports.getTeam = function(req, res, next) {
  */
 module.exports.postTeams = function(req, res, next) {
 
+  console.log(req.body)
+  
   let team_name = req.body.team_name,
       team_type = req.body.team_type,
       color = req.body.color,
@@ -60,7 +63,6 @@ module.exports.postTeams = function(req, res, next) {
 
   //validate team inputs here
 
-
   let newTeam = {
     team_name: team_name,
     team_type: team_type,
@@ -75,31 +77,57 @@ module.exports.postTeams = function(req, res, next) {
     zipcode: zipcode,
     country: country,
     username: username,
-    leader: leader
+    leader: leader,
+    salesforce_id: ""
 
   }
+  
+  let newSFTeam = {
+    Name: team_name,
+    Preferred_Name__c: "",
+    Date_Established__c: "3/15/2016",
+    Date_Inactive__c: "3/15/2026",
+    Rescue_Team_Status__c: "",
+    ShippingCity: team_city,
+    ShippingState: team_state,
+    ShippingCountry: country,
+    RT_Profile_URL__c: "",
+    Facebook__c: "",
+    Facebook_Group__c: "",
+    Twitter__c: "",
+    Instagram__c: "",
+    Website: "",
+    How_Started__c: about,
+    Type: "",
+    RT_Site_ID__c: ""
+  }
 
+  // Create SF new team, get SF team id, and create new RT team callback
+  SFAPI.performRequest('team', 'POST', newSFTeam,
+    function(data) {
+    
+    console.log(data)
+    newTeam.salesforce_id = data.id
+    
+    Model.Team.create(newTeam)
+      .then( team => {
+        userController.updateUserTeam(team, res, next);
+       })
+      .catch(err => {
 
-  Model.Team.create(newTeam)
+        // Add some more error handling for different team creation errors here.
 
-    .then( team => {
-      userController.updateUserTeam(team, res, next);
+        console.log(err);
 
-     }).catch(err => {
+        // Default error message - send everything
+        res.status(400).json({ 'type': 'error', message: err });
 
-      // Add some more error handling for different team creation errors here.
-
-      console.log(err);
-
-      // Default error message - send everything
-      res.status(400).json({ 'type': 'error', message: err });
-
-    });
-
+      });
+  })
 }
 
 /**
- * PUT /teams/:team_id
+ * PUT /teams/teamId/:team_id
  *
  * Update specific team based on team_id
  */
@@ -122,34 +150,59 @@ module.exports.putTeam = function(req, res, next) {
   
   let leader = req.body.leader;
 
-  // Assumes a blank sent from the user/form means user wants that field blank
-  Model.Team.update(
-  {
-    team_name: team_name,
-    team_type: team_type,
-    color: color,
-    goal: goal,
-    about: about,
-    username: username,
-    address1: address1,
-    address2: address2,
-    team_city: team_city,
-    team_state: team_state,
-    zipcode: zipcode,
-    country: country,
-    
-    leader: leader
-  },
-  {
-    where: { uuid: req.body.uuid }
-  })
-  .then(team => {
-    res.status(201).json({team, 'type': 'success', message: 'successfully updated team'});
+  // Two nested callbacks here:
+  // 1) Sequelize finds team by team_id param
+  // 2) First callback - which then executes the
+  // Salesforce PUT based off the salesforce_id
+  // 3) Second callback - which then executes
+  // the actual RT team update
+  Model.Team.findById(req.params.team_id)
+    .then(team => {
+  
+    SFAPI.performRequest('team', 'PUT', 
+      {
+        id: team.salesforce_id,
+        Name: team_name,
+        ShippingCity: team_city,
+        ShippingState: team_state,
+        ShippingCountry: country
+        
+        
+      },
+      function(data) {
+        
+      console.log("Update team in SF: " + data)
+      
+      // Default sequelize behavior is to fill the field as blank string if no data passed
+      Model.Team.update(
+      {
+        team_name: team_name,
+        team_type: team_type,
+        color: color,
+        goal: goal,
+        about: about,
+        username: username,
+        address1: address1,
+        address2: address2,
+        team_city: team_city,
+        team_state: team_state,
+        zipcode: zipcode,
+        country: country, 
+        leader: leader
+      },
+      {
+        where: { uuid: req.params.team_id }
+      })
+      .then(team => {
+        res.status(201).json({team, 'type': 'success', message: 'successfully updated team'});
+      })
+      .catch(err => {
+        res.status(400).json({ 'type': 'error', message: err });
+      })      
+    })
   })
   .catch(err => {
-
-    console.log("looks like we failed");  
-    res.status(400).json({ 'type': 'error', message: err });
+    res.status(400).json({ 'type': 'user lookup', message: err });
   })
 
 }
@@ -175,7 +228,7 @@ module.exports.deleteTeam = function(req, res, next) {
 
 
 /**
- * GET /teams/:team_name
+ * GET /teams/teamName/:team_name
  *
  * Returns team by name, if exists
  */

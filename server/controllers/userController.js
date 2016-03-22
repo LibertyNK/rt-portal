@@ -1,5 +1,6 @@
 var bcrypt = require('bcrypt');
 var Model = require('../models/models.js');
+var SFAPI = require('../SFAPICalls.js')
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 
@@ -20,7 +21,7 @@ module.exports.getUsers = function(req, res, next) {
 }
 
 /**
- * GET /users/:user_id
+ * GET /users/userId/:user_id
  *
  * Returns user by id, if exists
  */
@@ -28,6 +29,8 @@ module.exports.getUser = function(req, res, next) {
 
   Model.User.findById(req.params.user_id)
     .then(user => {
+      
+      // Respond with user data (just from our DB right now)
       res.status(200).json({user, 'type': 'success', message: 'success'});
     })
     .catch(err => {
@@ -69,24 +72,53 @@ module.exports.postUsers = function(req, res, next) {
     goal: req.body.goal,
     about: req.body.about,
     team_uuid: null,
-    admin_level: 3
+    admin_level: 3,
+    salesforce_id: ""
   }
-
-  Model.User.create(newUser)
-    .then(user => {
-      let token = jwt.sign({ username: user.username, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
-      res.status(201).json({token : token, 'type': 'success', message: 'success'});
+  
+  let newSFUser = {
+    Email: email,
+    FirstName: req.body.first_name,
+    LastName: req.body.last_name, 
+    Preferred_name__c: "",
+    Birthdate: "12/25/2000",
+    Ethnicity__c: "",
+    // RT_Site_Active__c: "",
+    RT_Site_ID__c: "",
+    // Graduation_Date__c: "",
+    Skype_ID__c: "",
+    Phone: "",
+    Facebook_URL__c: "",
+    MailingStreet: "",
+    MailingCity: "",
+    MailingState: "",
+    MailingPostalCode: "",
+    MailingCountry: ""
+  }
+  
+  // Create SF new user, get SF user id, and create new RT user callback
+  SFAPI.performRequest('user', 'POST', newSFUser,
+    function(data) {
+    
+    console.log(data.id)
+    newUser.salesforce_id = data.id
+    
+    Model.User.create(newUser)
+      .then(user => {
+        let token = jwt.sign({ username: user.username, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
+        res.status(201).json({token : token, 'type': 'success', message: 'success'});
+      })
+      .catch(err => {
+        // Add some more error handling for different user creation errors here.
+        // Default error message - send everything
+        console.log(err);
+        res.status(400).json({ 'type': 'error', message: err });
     })
-    .catch(err => {
-      // Add some more error handling for different user creation errors here.
-      // Default error message - send everything
-      console.log(err);
-      res.status(400).json({ 'type': 'error', message: err });
   })
 }
 
 /**
- * PUT /users/:user_id
+ * PUT /users/userId/:user_id
  *
  * Update specific user based on user_id
  */
@@ -99,36 +131,56 @@ module.exports.putUser = function(req, res, next) {
   let about = req.body.about
   let team_uuid = req.body.team_uuid
 
-
-  // Fills in blank for any blank fields from form
-  Model.User.update(
-  {
-    first_name: first_name,
-    last_name: last_name,
-    username: username,
-    goal: goal,
-    about: about,
-    team_uuid: team_uuid
-  },
-  {
-    where: { uuid: req.params.user_id }
-  })
-
-
-
-  .then(user => {
-   
-     let token = jwt.sign({ username: req.body.username, team_uuid: req.body.team_uuid }, 'secrettoken', { expiresIn: 86400});
-    res.status(201).json({token: token, user, 'type': 'success', message: 'successfully updated user'});
-   
+  // Two nested callbacks here:
+  // 1) Sequelize finds user by user_id
+  // 2) First callback - which then executes the
+  // Salesforce PUT based off the salesforce_id
+  // 3) Second callback - which then executes
+  // the actual RT user update
+  Model.User.findById(req.params.user_id)
+    .then(user => {
+  
+    SFAPI.performRequest('user', 'PUT', 
+      {
+        id: user.salesforce_id,
+        FirstName: first_name,
+        LastName: last_name
+      },
+      function(data) {
+        
+      console.log("Updated user in SF: " + data)
+      
+      // Default sequelize behavior is to fill the field as blank string if no data passed
+      Model.User.update(
+      {
+        first_name: first_name,
+        last_name: last_name,
+        username: username,
+        goal: goal,
+        about: about,
+        team_uuid: team_uuid
+      },
+      {
+        where: { uuid: req.params.user_id }
+      })
+      .then(user => {
+       
+        let token = jwt.sign({ username: req.body.username, team_uuid: req.body.team_uuid }, 'secrettoken', { expiresIn: 86400});
+        res.status(201).json({token: token, user, 'type': 'success', message: 'successfully updated user'});
+       
+      })
+      .catch(err => {
+        res.status(400).json({ 'type': 'error', message: err });
+      })      
+    })
   })
   .catch(err => {
-    res.status(400).json({ 'type': 'error', message: err });
+    res.status(400).json({ 'type': 'user lookup', message: err });
   })
 }
 
 /**
- * DELETE /users/:user_id
+ * DELETE /users/userId/:user_id
  *
  * Delete specific user based on user_id.
  * NOTE: This currently only deletes from our local psql DB, 
@@ -183,7 +235,7 @@ module.exports.updateUserTeam = function (req, res, next) {
 
 
   Model.User.find({ where: { username: req.leader } })
-  .then(updated_user => {
+  .then(user => {
     Model.User.update({
       team_uuid: req.uuid,
       admin_level: 2
@@ -191,7 +243,7 @@ module.exports.updateUserTeam = function (req, res, next) {
     {
       where: { username: req.leader }
     })
-    .then(user => {
+    .then(updated_user => {
       console.log(req.team_name);
       console.log(req.username);
 
@@ -221,7 +273,7 @@ module.exports.updateUserTeam = function (req, res, next) {
 }
 
 /**
- * GET /users/:username
+ * GET /users/username/:username
  *
  * Returns user by username, if exists
  */
@@ -259,7 +311,7 @@ module.exports.getUserByUsername = function (req, res, next) {
 }
  
 /**
- * GET /users/team/:team_id
+ * GET /users/team/teamId/:team_id
  *
  * Returns users on a specific team by team_id
  */

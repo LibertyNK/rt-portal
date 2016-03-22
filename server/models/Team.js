@@ -10,14 +10,14 @@ var attributes = {
     type: Sequelize.STRING,
     allowNull: false,
     unique: {
-              msg: "Team name must be unique!"
+      msg: "Team name must be unique!"
     },
     validate: {
-                len: {
-                    args: [3, 50],
-                    msg: "Team Name must be between 3 and 50 characters!"
-                }
-            }
+      len: {
+        args: [3, 50],
+        msg: "Team Name must be between 3 and 50 characters!"
+      }
+    }
   },
   team_type: {
     type: Sequelize.STRING,
@@ -66,6 +66,9 @@ var attributes = {
     // references: 'users',
     // referencesKey: 'id'
 
+  },
+  salesforce_id: {
+    type: Sequelize.STRING
   }
 }
 

@@ -10,7 +10,7 @@ var attributes = {
     type: Sequelize.STRING,
     allowNull: false,
     unique: {
-              msg: "Email address must be unique"
+      msg: "Email address must be unique"
     },
     validate: {
       isEmail: {
@@ -23,11 +23,11 @@ var attributes = {
     allowNull: false,
     unique: true,
     validate: {
-                len: {
-                    args: 3,
-                    msg: "Username must be at least 3 characters in length"
-                }
-            }
+      len: {
+        args: 3,
+        msg: "Username must be at least 3 characters in length"
+      }
+    }
   },
   first_name: {
     type: Sequelize.STRING,
@@ -38,11 +38,11 @@ var attributes = {
   password: {
     type: Sequelize.STRING,
      validate: {
-                len: {
-                    args: 6,
-                    msg: "Password must be at least 6 characters in length"
-                }
-            }
+      len: {
+        args: 6,
+        msg: "Password must be at least 6 characters in length"
+      }
+    }
   },
   salt: {
     type: Sequelize.STRING
@@ -71,6 +71,9 @@ var attributes = {
   },
   team_uuid: {
     type: Sequelize.UUID,
+  },
+  salesforce_id: {
+    type: Sequelize.STRING
   }
 }
 
