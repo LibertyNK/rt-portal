@@ -31,7 +31,7 @@ Model.Affiliation.sync({ force: true })
 						    })
 								user1.save()
 									.then(function() {
-										team1.addUser(user1)
+										team1.addUser(user1, {id: 'a0C56000000WH3KEAW'})
 									})
 						  .error(function(error) {
 						  	console.log("Error setting up User model: ", error)
