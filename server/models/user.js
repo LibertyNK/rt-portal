@@ -69,9 +69,6 @@ var attributes = {
     validate: {
           len: [0,340]
       }
-  },
-  team_uuid: {
-    type: Sequelize.UUID,
   }
 }
 

@@ -62,6 +62,7 @@ module.exports.postUsers = function(req, res, next) {
   let hashedPassword = bcrypt.hashSync(password, salt)
 
   let newUser = {
+    uuid: "", // we will use Salesforce ID
     email: email,
     salt: salt,
     password: hashedPassword,
@@ -72,8 +73,7 @@ module.exports.postUsers = function(req, res, next) {
     goal: req.body.goal,
     about: req.body.about,
     team_uuid: null,
-    admin_level: 3,
-    salesforce_id: ""
+    admin_level: 3
   }
   
   let newSFUser = {
