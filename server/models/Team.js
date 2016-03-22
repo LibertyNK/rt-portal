@@ -1,10 +1,11 @@
 var Sequelize = require('sequelize')
 
 var attributes = {
-	uuid: { // Unique universal ID, if we choose to use this, won't have duplicate IDs for user vs team vs event, etc...
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
-    primaryKey: true
+	uuid: {  
+    type: Sequelize.STRING,
+    primaryKey: true,
+    allowNull: true,
+    unique: true
   },
   team_name: {
     type: Sequelize.STRING,
@@ -66,9 +67,6 @@ var attributes = {
     // references: 'users',
     // referencesKey: 'id'
 
-  },
-  salesforce_id: {
-    type: Sequelize.STRING
   }
 }
 

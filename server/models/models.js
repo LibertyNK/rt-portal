@@ -17,8 +17,18 @@ var Campaign = sequelize.define('campaigns', CampaignMeta.attributes, CampaignMe
 /**
  * Relationships defined here
  */
-User.belongsTo(Team) // User has foreign key team_id
-
+ 
+// Both of the following declarations are needed to establish the many:many relationship between users and teams
+User.belongsToMany( Team, {
+	as: 'user',
+	through: 'Affiliation',
+	foreignKey: 'User_id'
+})
+Team.belongsToMany( User, {
+	as: 'team',
+	through: 'Affiliation',
+	foreignKey: 'Team_id'
+})
 
 module.exports.Campaign = Campaign
 module.exports.Event = Event
