@@ -49,20 +49,11 @@ module.exports.postUsers = function(req, res, next) {
   let email = req.body.email;
   let password = req.body.password;
   let password2 = req.body.password_conf;
-
-  if (!email || !password || !password2) {
-    res.status(400).json({ 'type': 'missing information', message: 'All required fields not filled out.' });
-  }
-
-  if (password !== password2) {
-    res.status(400).json({ 'type': 'validation error', message: 'Passwords dont match!' });
-  }
-
-  let salt = bcrypt.genSaltSync(10)
-  let hashedPassword = bcrypt.hashSync(password, salt)
+  let salt = bcrypt.genSaltSync(10);
+  let hashedPassword = bcrypt.hashSync(password, salt);
 
   let newUser = {
-    uuid: "", // we will use Salesforce ID
+    uuid: "", // get this from Salesforce ID
     email: email,
     salt: salt,
     password: hashedPassword,
@@ -96,25 +87,52 @@ module.exports.postUsers = function(req, res, next) {
     MailingCountry: ""
   }
   
-  // Create SF new user, get SF user id, and create new RT user callback
-  SFAPI.performRequest('user', 'POST', newSFUser,
-    function(data) {
-    
-    console.log(data.id)
-    newUser.salesforce_id = data.id
-    
-    Model.User.create(newUser)
-      .then(user => {
-        let token = jwt.sign({ username: user.username, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
-        res.status(201).json({token : token, 'type': 'success', message: 'success'});
-      })
-      .catch(err => {
-        // Add some more error handling for different user creation errors here.
-        // Default error message - send everything
-        console.log(err);
-        res.status(400).json({ 'type': 'error', message: err });
-    })
+  // Email and Password Validations
+  if (!email || !password || !password2) {
+    res.status(400).json({ 'type': 'missing information', message: 'All required fields not filled out.' });
+  }
+
+  if (password !== password2) {
+    res.status(400).json({ 'type': 'validation error', message: 'Passwords dont match!' });
+  }
+  
+  // Check if user email or username already exist in RT DB
+  Model.User.count({
+    where: {
+      $or: [{ email: email }, { username: req.body.username }]
+    }
   })
+  .then(function(results) {
+    
+    console.log("Duplicate results: " + results)
+    if(results > 0)
+    {
+      res.status(400).json({ 'type': 'Dupe error', message: 'Username or email already exists in RT DB' });
+    }
+    else 
+    {
+      // Create SF new user, get SF user id, and create new RT user callback
+      SFAPI.performRequest('user', 'POST', newSFUser,
+        function(data) {
+        
+        console.log("Creating new user with uuid: " + data.id)
+        newUser.uuid = data.id
+        
+        Model.User.create(newUser)
+          .then(user => {
+            let token = jwt.sign({ username: user.username }, 'secrettoken', { expiresIn: 86400});
+            res.status(201).json({token : token, 'type': 'success', message: 'success'});
+          })
+          .catch(err => {
+            // Default error message - send everything
+            console.log(err);
+            res.status(400).json({ 'type': 'error', message: err });
+          })
+      })
+    }
+  })
+  
+    
 }
 
 /**
@@ -124,58 +142,37 @@ module.exports.postUsers = function(req, res, next) {
  */
 module.exports.putUser = function(req, res, next) {
 
-  let first_name = req.body.first_name
-  let last_name = req.body.last_name
-  let username = req.body.username
-  let goal = req.body.goal
-  let about = req.body.about
-  let team_uuid = req.body.team_uuid
+  // Update RT user table first, then
+  // update Salesforce, catches for both
 
-  // Two nested callbacks here:
-  // 1) Sequelize finds user by user_id
-  // 2) First callback - which then executes the
-  // Salesforce PUT based off the salesforce_id
-  // 3) Second callback - which then executes
-  // the actual RT user update
-  Model.User.findById(req.params.user_id)
-    .then(user => {
-  
+  // Default sequelize behavior is to fill the field as blank string if no data passed
+  Model.User.update(
+  {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    username: req.body.username,
+    goal: req.body.goal,
+    about: req.body.about
+  },
+  {
+    where: { uuid: req.params.user_id }
+  })
+  .then(user => {
+    console.log("RT DB result: " + user.rows)
     SFAPI.performRequest('user', 'PUT', 
-      {
-        id: user.salesforce_id,
-        FirstName: first_name,
-        LastName: last_name
-      },
-      function(data) {
-        
-      console.log("Updated user in SF: " + data)
-      
-      // Default sequelize behavior is to fill the field as blank string if no data passed
-      Model.User.update(
-      {
-        first_name: first_name,
-        last_name: last_name,
-        username: username,
-        goal: goal,
-        about: about,
-        team_uuid: team_uuid
-      },
-      {
-        where: { uuid: req.params.user_id }
-      })
-      .then(user => {
-       
-        let token = jwt.sign({ username: req.body.username, team_uuid: req.body.team_uuid }, 'secrettoken', { expiresIn: 86400});
-        res.status(201).json({token: token, user, 'type': 'success', message: 'successfully updated user'});
-       
-      })
-      .catch(err => {
-        res.status(400).json({ 'type': 'error', message: err });
-      })      
+    {
+      id: req.params.user_id,
+      FirstName: req.body.first_name,
+      LastName: req.body.last_name
+    },
+    function(data) {
+      let token = jwt.sign({ username: req.body.username }, 'secrettoken', { expiresIn: 86400});
+      console.log("Token signed!")
+      res.status(201).json({token: token, 'type': 'success', message: 'successfully updated user'});
     })
   })
   .catch(err => {
-    res.status(400).json({ 'type': 'user lookup', message: err });
+    res.status(400).json({ 'type': 'RT DB error', message: err });
   })
 }
 
@@ -193,6 +190,8 @@ module.exports.deleteUser = function(req, res, next) {
     where: { uuid: req.params.user_id }
   })
   .then( uuid => {
+    
+    // Update Salesforce DB here?
     res.status(201).json({uuid, 'type': 'success', message: 'successfully deleted user from RTP-DB' });
   })
   .catch( err => {
@@ -204,7 +203,7 @@ module.exports.deleteUser = function(req, res, next) {
 /**
  * POST /users/:username/:team_id
  *
- * Adds team foreign key to user based on username
+ * Creates association betwen user and team (adds to Affiliation table)
  */
 module.exports.updateUserTeamKey = function(req, res, next) {
 

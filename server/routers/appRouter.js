@@ -79,7 +79,7 @@ module.exports = function(express) {
       }
       else {
         //user has authenticated correctly thus we create a JWT token
-        let token = jwt.sign({ username: user.username, team_uuid: user.team_uuid }, 'secrettoken', { expiresIn: 86400});
+        let token = jwt.sign({ username: user.username }, 'secrettoken', { expiresIn: 86400});
         res.status(200).json({ token : token });
 
       }

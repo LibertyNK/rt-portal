@@ -54,6 +54,7 @@ module.exports.performRequest = function(endpoint, method, data, success) {
         }
       )
   */
+  
   let requestOptions = {
     host: salesforceURL,
     path: endpoint,
@@ -75,6 +76,10 @@ module.exports.performRequest = function(endpoint, method, data, success) {
       let responseObject = JSON.parse(responseString)
       success(responseObject)
     })
+  })
+  
+  req.on('error', function(err) {
+    console.log("!!!Salesforce API Error!!! " + err)
   })
   
   req.write(JSON.stringify(data))
