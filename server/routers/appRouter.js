@@ -3,6 +3,7 @@ var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var userController = require('../controllers/userController.js')
 var teamController = require('../controllers/teamController.js')
+var affiliationController = require('../controllers/affiliationController.js')
 
 module.exports = function(express) {
   var router = express.Router()
@@ -69,7 +70,10 @@ module.exports = function(express) {
   // Endpoint handlers for getting team by teamname
   router.route('/team/teamName/:team_name')
     .get(teamController.getTeamByName);
-
+    
+  // Endpoint handlers for getting affiliations
+  router.route('/affiliations')
+    .get(affiliationController.getAffiliations);
 
   router.post('/login', function(req, res, next ) {
     passport.authenticate('local', function( err, user, info) {

@@ -24,7 +24,6 @@ module.exports.getTeams = function(req, res, next) {
  *
  * Returns team by id, if exists
  */
-
 module.exports.getTeam = function(req, res, next) {
    console.log("getTeam Controller: " + req.params.team_id);
   Model.Team.findById(req.params.team_id)

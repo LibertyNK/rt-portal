@@ -209,18 +209,46 @@ module.exports.updateUserTeamKey = function(req, res, next) {
 
   let team_id = req.params.team_id
   
-  // Find user based on username and add team_id as fk
-  Model.User.update(
-  {
-    team_uuid: team_id
-  },
-  {
-    where: { username: req.params.username }
+  // JSON Object to insert new affiliation into SF
+  let newSFAffiliation = {  
+    // Id: a0C56000000WH3KEAW,
+    // npe5__StartDate__c: 2016-01-14,
+    // npe5__Status__c: 'Current',
+    // Rescue_Team_Role__c: 'President',
+    npe5__Contact__c: "",
+    npe5__Organization__c: team_id
+    // npe5__EndDate__c: '2016-02-01',
+    // Title__c: 'Supreme Leader',
+    // RT_Site_ID__c: 1
+  }
+  
+  // Find team by given param ID, then
+  // find user by given username, then
+  // create affiliation with team.addUser
+  Model.Team.findById(team_id)
+  .then(team => {
+    Model.User.find(
+      {
+        where: { username: req.params.username }
+      })
+    .then(user => {
+        
+      // Create new SF affiliation
+      newSFAffiliation.npe5__Contact__c = user.uuid
+      SFAPI.performRequest('affiliation', 'POST', newSFAffiliation,
+        function(data) {
+          console.log(data)
+          
+          team.addUser(user, {id: data.id})
+        })
+      
+      res.status(201).json({'type': 'success', message: 'successfully added user to team' });
+    })
+    .catch(err => {
+      res.status(400).json({ 'type': 'error', message: err });
+    })
   })
-  .then( users_affected => {
-    res.status(201).json({users_affected, 'type': 'success', message: 'successfully updated user'});
-  })
-  .catch( err => {
+  .catch(err => {
     res.status(400).json({ 'type': 'error', message: err });
   })
 }
