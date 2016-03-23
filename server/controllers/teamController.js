@@ -1,6 +1,7 @@
 var Model = require('../models/models.js');
 var userController = require('../controllers/userController.js')
 var SFAPI = require('../SFAPICalls.js')
+var jwt = require('jsonwebtoken')
 
 /**
  * GET /teams
@@ -40,7 +41,12 @@ module.exports.getTeam = function(req, res, next) {
 /**
  * POST /teams
  *
- * Create a new team in Teams table.
+ * Create a new team and create the association between the user
+ * that created it and the team. This will make 4 DB writes:
+ * 1) SF Team table
+ * 2) RT Team table
+ * 3) Update/insert SF affiliation table
+ * 4) Update/insert RT affiliation table
  */
 module.exports.postTeams = function(req, res, next) {
 
@@ -63,6 +69,7 @@ module.exports.postTeams = function(req, res, next) {
   //validate team inputs here
 
   let newTeam = {
+    uuid: "", // get this from Salesforce ID
     team_name: team_name,
     team_type: team_type,
     color: color,
@@ -76,16 +83,14 @@ module.exports.postTeams = function(req, res, next) {
     zipcode: zipcode,
     country: country,
     username: username,
-    leader: leader,
-    salesforce_id: ""
-
+    leader: leader
   }
   
   let newSFTeam = {
     Name: team_name,
     Preferred_Name__c: "",
-    Date_Established__c: "3/15/2016",
-    Date_Inactive__c: "3/15/2026",
+    // Date_Established__c: "3/15/2016",
+    // Date_Inactive__c: "3/15/2026",
     Rescue_Team_Status__c: "",
     ShippingCity: team_city,
     ShippingState: team_state,
@@ -100,28 +105,157 @@ module.exports.postTeams = function(req, res, next) {
     Type: "",
     RT_Site_ID__c: ""
   }
+  
+  let updateSFAffiliation = {  
+    id: "",
+    // npe5__StartDate__c: "2016-01-14",
+    // npe5__Status__c: "Current",
+    // Rescue_Team_Role__c: "President",
+    npe5__Contact__c: "",
+    npe5__Organization__c: ""
+    // npe5__EndDate__c: "2016-02-01",
+    // Title__c: "Supreme Leader",
+    // RT_Site_ID__c: 1
+  }
 
-  // Create SF new team, get SF team id, and create new RT team callback
-  SFAPI.performRequest('team', 'POST', newSFTeam,
-    function(data) {
+
+
+  // Buckle your seatbelt, because we have nested callbacks inside
+  // of nested callbacks here. See the comment above the function
+  // header for more details.
+  
+  // Check if team_name is unique in RT DB
+  Model.Team.count({
+    where: { team_name: req.body.team_name }
+  })
+  .then(function(results) {
     
-    console.log(data)
-    newTeam.salesforce_id = data.id
-    
-    Model.Team.create(newTeam)
-      .then( team => {
-        userController.updateUserTeam(team, res, next);
-       })
-      .catch(err => {
+    if(results > 0)
+    {
+      res.status(400).json({ 'type': 'Dupe error', message: 'Team name already exists in RT DB' });
+    }
+    else
+    {
+      SFAPI.performRequest('team', 'POST', newSFTeam,
+        function(data) {
+        
+        newTeam.uuid = data.id
+        
+        Model.Team.create(newTeam)
+        .then( team => {
+          
+          Model.User.find({ where: { username: req.body.leader } })
+          .then( user => {
+            
+            console.log("User is: " + user.uuid)
+            
+            // Have to check whether user has existing affiliation
+            // If so, use the affiliation ID to UPDATE SF
+            // Otherwise, write to both SF and RT
+            Model.Affiliation.find({ where: { user_id: user.uuid }})
+            .then( affiliation => {
+              console.log(affiliation)
+              
+              // THIS DOESN'T UPDATE SF YET, NEED TO WRITE THAT IN - ASK JASON HOW PUT WORKS
+              if( affiliation ) // update SF
+              { 
+                Model.Affiliation.upsert({
+                  id: affiliation.id,
+                  team_id: newTeam.uuid
+                },
+                {
+                  where: { user_id: user.uuid }
+                })
+                .then(aff => {
+                  // console.log(req.team_name);
+                  // console.log(req.username);
 
-        // Add some more error handling for different team creation errors here.
+                  let token = jwt.sign({ 
+                    username: user.username, 
+                    first_name: user.first_name, 
+                    last_name: user.last_name,
+                    admin_level: 2, 
+                    team_uuid: newTeam.uuid,
+                    team_username: newTeam.username  
+                  }, 
+                    'secrettoken', { expiresIn: 86400});
 
-        console.log(err);
+                    res.status(201).json({token: token, 'type': 'success', message: "successfully updated user's team"});
+                  })
+                .catch(error => {
+                  console.log(error);
+                  res.status(400).json({ 'type': 'error', message: error });
+                })
+              }
+              else // write new affiliation to both SF and RT
+              {
+                updateSFAffiliation.npe5__Contact__c = user.uuid
+                updateSFAffiliation.npe5__Organization__c = newTeam.uuid
+                
+                SFAPI.performRequest('affiliation', 'POST', updateSFAffiliation, 
+                  
+                  function(data) {
+                    console.log("SF data is: " + data.id)
+                    
+                    // Model.Affiliation.upsert({
+                    //   team_id: newTeam.uuid
+                    // },
+                    // {
+                    //   where: { 
+                    //     $and: [{ user_id: user.uuid }, { id: data.id }]
+                    //   }
+                    // })
+                    Model.Affiliation.create({
+                      id: data.id,
+                      team_id: newTeam.uuid,
+                      user_id: user.uuid
+                    })
+                    .then(aff => {
+                      // console.log(req.team_name);
+                      // console.log(req.username);
 
-        // Default error message - send everything
-        res.status(400).json({ 'type': 'error', message: err });
+                      let token = jwt.sign({ 
+                        username: user.username, 
+                        first_name: user.first_name, 
+                        last_name: user.last_name,
+                        admin_level: 2, 
+                        team_uuid: newTeam.uuid,
+                        team_username: newTeam.username  
+                      }, 
+                        'secrettoken', { expiresIn: 86400});
 
-      });
+                        res.status(201).json({token: token, 'type': 'success', message: "successfully updated user's team"});
+                      })
+                    .catch(error => {
+                      console.log(error);
+                      res.status(400).json({ 'type': 'error', message: error });
+                    })
+                  })
+              }
+              
+            })
+            .catch(error => {
+              res.status(400).json({ 'type': 'RT DB error', message: error });
+            })
+            
+            
+          })
+          .catch(error => {
+            console.log(error);
+            res.status(400).json({ 'type': 'error', message: error });
+          })
+         })
+        .catch(err => {
+
+          console.log(err);
+          res.status(400).json({ 'type': 'error', message: err });
+
+        })
+      })
+    } // end else
+  })
+  .catch(err => {
+    res.status(400).json({ 'type': 'error', message: 'Error getting DB count' });
   })
 }
 

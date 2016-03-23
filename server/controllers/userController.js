@@ -253,52 +253,6 @@ module.exports.updateUserTeamKey = function(req, res, next) {
 }
 
 /**
- * POST /teams (called from postTeams method to update user/team ID)
- * 
- * Updates User's Team and Admin Level
- */
-module.exports.updateUserTeam = function (req, res, next) {
-
-
-  Model.User.find({ where: { username: req.leader } })
-  .then(user => {
-    Model.User.update({
-      team_uuid: req.uuid,
-      admin_level: 2
-    },
-    {
-      where: { username: req.leader }
-    })
-    .then(updated_user => {
-      console.log(req.team_name);
-      console.log(req.username);
-
-      let token = jwt.sign({ 
-        username: updated_user.username, 
-        first_name: updated_user.first_name, 
-        last_name: updated_user.last_name,
-        admin_level: 2, 
-        team_uuid: req.uuid,
-        team_username: req.username  
-      }, 
-        'secrettoken', { expiresIn: 86400});
-
-
-        res.status(201).json({token: token, 'type': 'success', message: "successfully updated user's team"});
-      }).catch(error => {
-      console.log(error);
-      res.status(400).json({ 'type': 'error', message: error });
-    });
-  })
-  .catch(error => {
-    console.log(error);
-    res.status(400).json({ 'type': 'error', message: error });
-  });
-
-
-}
-
-/**
  * GET /users/username/:username
  *
  * Returns user by username, if exists
