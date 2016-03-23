@@ -296,13 +296,21 @@ module.exports.getUserByUsername = function (req, res, next) {
  * Returns users on a specific team by team_id
  */
 module.exports.getUsersByTeam = function(req, res, next) {
-   console.log("checkin team id: " + req.uuid);
+
+  console.log("checkin team id: " + req.uuid);
   let team_id = req.uuid
 
-  Model.User.findAll({ 
-    where: {
-      team_uuid: team_id
-    }
+  Model.User.findAll({
+    include: [
+    { model: Model.Team, as: 'UserTeams' },
+    { where: { 'Team.uuid': team_id }}
+    ]
+    // where: { 'UserTeams.uuid': req.params.team_id },
+    // include: [
+    // {
+    //   model: Model.Team, as: 'UserTeams'
+    // },
+    // ]
   })
   .then( users => {
     res.status(201).json({   
@@ -313,6 +321,5 @@ module.exports.getUsersByTeam = function(req, res, next) {
   })
   .catch( err => {
     res.status(400).json({ 'type': 'error', message: "Users or Team ID Not Valid" });
-  });
-  
+  })
 }
