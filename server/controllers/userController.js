@@ -211,14 +211,14 @@ module.exports.updateUserTeamKey = function(req, res, next) {
   
   // JSON Object to insert new affiliation into SF
   let newSFAffiliation = {  
-    // Id: a0C56000000WH3KEAW,
-    // npe5__StartDate__c: 2016-01-14,
-    // npe5__Status__c: 'Current',
-    // Rescue_Team_Role__c: 'President',
+    // Id: "a0C56000000WH3KEAW",
+    // npe5__StartDate__c: "2016-01-14",
+    // npe5__Status__c: "Current",
+    // Rescue_Team_Role__c: "President",
     npe5__Contact__c: "",
     npe5__Organization__c: team_id
-    // npe5__EndDate__c: '2016-02-01',
-    // Title__c: 'Supreme Leader',
+    // npe5__EndDate__c: "2016-02-01",
+    // Title__c: "Supreme Leader",
     // RT_Site_ID__c: 1
   }
   
@@ -238,7 +238,6 @@ module.exports.updateUserTeamKey = function(req, res, next) {
       SFAPI.performRequest('affiliation', 'POST', newSFAffiliation,
         function(data) {
           console.log(data)
-          
           team.addUser(user, {id: data.id})
         })
       
